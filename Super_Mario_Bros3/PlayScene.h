@@ -4,7 +4,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Brick.h"
-#include "Mario.h"
+#include "Flaster.h"
 #include "Goomba.h"
 #include "Koopas.h"
 #include "Map.h"

@@ -16,7 +16,7 @@
 
 #define GOOMBA_ANI_WALKING 0
 #define GOOMBA_ANI_DIE 1
-#define MARIO_GRAVITY			0.002f
+#define FLASTER_GRAVITY			0.002f
 
 class CGoomba : public CGameObject
 {

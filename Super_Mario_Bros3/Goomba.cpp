@@ -30,21 +30,37 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	x += dx;
 	y += dy;
 
+
 	if (vx < 0 && x <= 0) {
 		x = 0; vx = 0; vy = -GOOMBA_WALKING_SPEED;
 	}
 
-	if (vx > 0 && x >= 360-32) {
-		x = 360-32; vy = GOOMBA_WALKING_SPEED; vx = 0;
+	if (vx > 0 && x >= 360 - 32) {
+		x = 360 - 32; vy = GOOMBA_WALKING_SPEED; vx = 0;
 	}
 
 	if (vy < 0 && y <= 0) {
 		y = 0; vy = 0; vx = GOOMBA_WALKING_SPEED;
 	}
 
-	if (vy > 0 && y >= 240-33) {
-		y = 240-33; vy = 0; vx = -GOOMBA_WALKING_SPEED;
+	if (vy > 0 && y >= 240 - 33) {
+		y = 240 - 33; vy = 0; vx = -GOOMBA_WALKING_SPEED;
 	}
+	/*if (vx < 0 && x <= 0) {
+		x = 0; vx = GOOMBA_WALKING_SPEED + GOOMBA_WALKING_SPEED; vy = -GOOMBA_WALKING_SPEED;
+	}
+
+	if (vx > 0 && x >= 360-32) {
+		x = 360-32; vy = GOOMBA_WALKING_SPEED; vx = -GOOMBA_WALKING_SPEED;
+	}
+
+	if (vy < 0 && y <= 0) {
+		y = 0; vy = GOOMBA_WALKING_SPEED; vx = GOOMBA_WALKING_SPEED;
+	}
+
+	if (vy > 0 && y >= 240-33) {
+		y = 240-33; vy = -GOOMBA_WALKING_SPEED; vx = -GOOMBA_WALKING_SPEED - GOOMBA_WALKING_SPEED;
+	}*/
 }
 
 void CGoomba::Render()
@@ -71,5 +87,6 @@ void CGoomba::SetState(int state)
 		break;
 	case GOOMBA_STATE_WALKING:
 		vx = GOOMBA_WALKING_SPEED;
+		//vy = GOOMBA_WALKING_SPEED;
 	}
 }
