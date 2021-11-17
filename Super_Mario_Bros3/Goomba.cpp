@@ -1,7 +1,8 @@
 #include "Goomba.h"
 CGoomba::CGoomba()
 {
-	SetState(GOOMBA_STATE_WALKING);
+	SetState(GOOMBA_STATE_WALKING_RIGHT);
+	SetState(GOOMBA_STATE_WALKING_DOWN);
 }
 
 void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -22,53 +23,37 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	//
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// #define SCREEN_WIDTH  360
-	//#define SCREEN_HEIGHT 240
-
-
+	// 
 
 	x += dx;
 	y += dy;
 
-
-	if (vx < 0 && x <= 0) {
-		x = 0; vx = 0; vy = -GOOMBA_WALKING_SPEED;
+	if (x < LEFT_LIMIT) {
+		SetState(GOOMBA_STATE_WALKING_RIGHT);
 	}
+	else
+		if (x > RIGHT_LIMIT) {
+			SetState(GOOMBA_STATE_WALKING_LEFT);
+		}
 
-	if (vx > 0 && x >= 360 - 32) {
-		x = 360 - 32; vy = GOOMBA_WALKING_SPEED; vx = 0;
+	if (y < TOP_LIMIT) {
+		SetState(GOOMBA_STATE_WALKING_DOWN);
 	}
-
-	if (vy < 0 && y <= 0) {
-		y = 0; vy = 0; vx = GOOMBA_WALKING_SPEED;
-	}
-
-	if (vy > 0 && y >= 240 - 33) {
-		y = 240 - 33; vy = 0; vx = -GOOMBA_WALKING_SPEED;
-	}
-	/*if (vx < 0 && x <= 0) {
-		x = 0; vx = GOOMBA_WALKING_SPEED + GOOMBA_WALKING_SPEED; vy = -GOOMBA_WALKING_SPEED;
-	}
-
-	if (vx > 0 && x >= 360-32) {
-		x = 360-32; vy = GOOMBA_WALKING_SPEED; vx = -GOOMBA_WALKING_SPEED;
-	}
-
-	if (vy < 0 && y <= 0) {
-		y = 0; vy = GOOMBA_WALKING_SPEED; vx = GOOMBA_WALKING_SPEED;
-	}
-
-	if (vy > 0 && y >= 240-33) {
-		y = 240-33; vy = -GOOMBA_WALKING_SPEED; vx = -GOOMBA_WALKING_SPEED - GOOMBA_WALKING_SPEED;
-	}*/
+	else
+		if (y > BOTTOM_LIMIT) {
+			SetState(GOOMBA_STATE_WALKING_UP);
+		}
 }
 
 void CGoomba::Render()
 {
 	int ani = GOOMBA_ANI_WALKING;
-	if (state == GOOMBA_STATE_DIE) {
-		ani = GOOMBA_ANI_DIE;
-	}
+	/*if (state == EYE_STATE_DIE) {
+		ani = EYE_ANI_DIE;
+	}*/
+	if (vx > 0)
+		ani = GOOMBA_ANI_WALKING;
+	else ani = GOOMBA_ANI_DIE;
 
 	animation_set->at(ani)->Render(x, y);
 
@@ -85,8 +70,16 @@ void CGoomba::SetState(int state)
 		vx = 0;
 		vy = 0;
 		break;
-	case GOOMBA_STATE_WALKING:
+	case GOOMBA_STATE_WALKING_RIGHT:
 		vx = GOOMBA_WALKING_SPEED;
-		//vy = GOOMBA_WALKING_SPEED;
+		break;
+	case GOOMBA_STATE_WALKING_LEFT:
+		vx = -GOOMBA_WALKING_SPEED;
+		break;
+	case GOOMBA_STATE_WALKING_UP:
+		vy = -GOOMBA_WALKING_SPEED;
+		break;
+	case GOOMBA_STATE_WALKING_DOWN:
+		vy = GOOMBA_WALKING_SPEED;
 	}
 }
