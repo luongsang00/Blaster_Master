@@ -72,14 +72,18 @@ void CGoomba::SetState(int state)
 		break;
 	case GOOMBA_STATE_WALKING_RIGHT:
 		vx = GOOMBA_WALKING_SPEED;
+
 		break;
 	case GOOMBA_STATE_WALKING_LEFT:
 		vx = -GOOMBA_WALKING_SPEED;
+
 		break;
 	case GOOMBA_STATE_WALKING_UP:
 		vy = -GOOMBA_WALKING_SPEED;
+
 		break;
 	case GOOMBA_STATE_WALKING_DOWN:
+
 		vy = GOOMBA_WALKING_SPEED;
 	}
 }

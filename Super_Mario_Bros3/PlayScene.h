@@ -4,16 +4,19 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Brick.h"
-#include "Flaster.h"
+#include "Tank_Body.h"
 #include "Goomba.h"
 #include "Koopas.h"
 #include "Map.h"
 #include "Tank.h"
 
+
+
+
 class CPlayScene : public CScene
 {
 protected:
-	CMario* player;					// A play scene has to have player, right? 
+	CTank_Body* player;					// A play scene has to have player, right? 
 
 	vector<LPGAMEOBJECT> objects;
 
@@ -33,7 +36,7 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
-	CMario* GetPlayer() { return player; }
+	CTank_Body* GetPlayer() { return player; }
 
 	//friend class CPlayScenceKeyHandler;
 };

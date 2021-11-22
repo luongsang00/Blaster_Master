@@ -31,24 +31,24 @@ void Tank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state != TANK_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
-	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CTank_Body* tank_body = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	switch (part)
 	{
 	case TANK_LEFT_WHEEL:
-		x = mario->x - TANK_WHEEL_DISTANT_X;
+		x = tank_body->x - TANK_WHEEL_DISTANT_X;
 		break;
 	case TANK_RIGHT_WHEEL:
-		x = mario->x + TANK_WHEEL_DISTANT_X;
+		x = tank_body->x + TANK_WHEEL_DISTANT_X;
 		break;
 	case TANK_TURRET:
-		x = mario->x - TANK_TURRET_DISTANT_X;
+		x = tank_body->x - TANK_TURRET_DISTANT_X;
 		break;
 	}
 	if (part == TANK_TURRET)
-		y = mario->y - TANK_TURRET_DISTANT_Y;
+		y = tank_body->y - TANK_TURRET_DISTANT_Y;
 	else
-		y = mario->y + TANK_WHEEL_DISTANT_Y;
+		y = tank_body->y + TANK_WHEEL_DISTANT_Y;
 
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
@@ -97,7 +97,7 @@ void Tank::CalcPotentialCollisions(
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
-		if (dynamic_cast<CMario*>(e->obj))
+		if (dynamic_cast<CTank_Body*>(e->obj))
 		{
 			continue;
 		}
@@ -111,9 +111,9 @@ void Tank::CalcPotentialCollisions(
 
 void Tank::Render()
 {
-	CMario* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CTank_Body* tank_body = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	int ani = 0;
-	if (mario->vx > 0)
+	if (tank_body->vx > 0)
 	{
 		switch (part)
 		{
@@ -129,7 +129,7 @@ void Tank::Render()
 			break;
 		}
 	}
-	else if (mario->vx < 0)
+	else if (tank_body->vx < 0)
 	{
 		switch (part)
 		{
@@ -145,7 +145,7 @@ void Tank::Render()
 			break;
 		}
 	}
-	else if (mario->vx == 0)
+	else if (tank_body->vx == 0)
 	{
 		if (part != TANK_TURRET)
 			ani = WHEELING_ANI_IDLE;

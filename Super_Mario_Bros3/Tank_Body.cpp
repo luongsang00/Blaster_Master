@@ -2,17 +2,17 @@
 #include <assert.h>
 #include "Utils.h"
 
-#include "Flaster.h"
+#include "Tank_Body.h"
 #include "Game.h"
 
 #include "Goomba.h"
 #include "Portal.h"
 
-CMario::CMario(float x, float y) : CGameObject()
+CTank_Body::CTank_Body(float x, float y) : CGameObject()
 {
 	level = FLASTER_LEVEL_BIG;
 	untouchable = 0;
-	SetState(FLASTER_STATE_IDLE);
+	SetState(TANK_BODY_STATE_IDLE);
 
 	start_x = x;
 	start_y = y;
@@ -20,7 +20,7 @@ CMario::CMario(float x, float y) : CGameObject()
 	this->y = y;
 }
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CTank_Body::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
@@ -34,7 +34,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	coEvents.clear();
 
 	// turn off collision when die 
-	if (state != FLASTER_STATE_DIE)
+	if (state != TANK_BODY_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
@@ -77,7 +77,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 
-			if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
+			/*if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba 
 			{
 				CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
@@ -87,7 +87,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (goomba->GetState() != GOOMBA_STATE_DIE)
 					{
 						goomba->SetState(GOOMBA_STATE_DIE);
-						vy = -FLASTER_JUMP_DEFLECT_SPEED;
+						vy = -TANK_BODY_JUMP_DEFLECT_SPEED;
 					}
 				}
 				else if (e->nx != 0)
@@ -102,7 +102,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 								StartUntouchable();
 							}
 							else
-								SetState(FLASTER_STATE_DIE);
+								SetState(TANK_BODY_STATE_DIE);
 						}
 					}
 				}
@@ -111,7 +111,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(p->GetSceneId());
-			}
+			}*/
 		}
 	}
 
@@ -119,10 +119,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CMario::Render()
+void CTank_Body::Render()
 {
 	int ani = -1;
-	if (state == FLASTER_STATE_DIE)
+	if (state == TANK_BODY_STATE_DIE)
 		ani = FLASTER_ANI_DIE;
 	else
 		if (level == FLASTER_LEVEL_BIG)
@@ -147,26 +147,26 @@ void CMario::Render()
 			switch (nx)
 			{
 			case 1:
-				ani = FLASTER_ANI_BIG_IDLE_RIGHT;
+				ani = TANK_BODY_ANI_BIG_IDLE_RIGHT;
 				break;
 			case -1:
-				ani = FLASTER_ANI_BIG_IDLE_LEFT;
+				ani = TANK_BODY_ANI_BIG_IDLE_LEFT;
 				break;
 			case 0:
-				ani = FLASTER_ANI_BIG_IDLE_BUTTOM;
+				ani = TANK_BODY_ANI_BIG_IDLE_DOW;
 				break;
 			case 2:
-				ani = FLASTER_ANI_BIG_IDLE_TOP;
+				ani = TANK_BODY_ANI_BIG_IDLE_UP;
 				break;
 			}
 			if (vx > 0)
-				ani = FLASTER_ANI_BIG_WALKING_RIGHT;
+				ani = TANK_BODY_ANI_BIG_WALKING_RIGHT;
 			else if (vx < 0) 
-				ani = FLASTER_ANI_BIG_WALKING_LEFT;
+				ani = TANK_BODY_ANI_BIG_WALKING_LEFT;
 			else if (vy > 0)
-				ani = FLASTER_ANI_BIG_WALKING_BUTTOM;
+				ani = TANK_BODY_ANI_BIG_WALKING_DOW;
 			else if (vy < 0)
-				ani = FLASTER_ANI_BIG_WALKING_TOP;
+				ani = TANK_BODY_ANI_BIG_WALKING_UP;
 			
 		}
 		else if (level == FLASTER_LEVEL_SMALL)
@@ -189,43 +189,43 @@ void CMario::Render()
 	RenderBoundingBox();
 }
 
-void CMario::SetState(int state)
+void CTank_Body::SetState(int state)
 {
 	CGameObject::SetState(state);
 
 	switch (state)
 	{
-	case FLASTER_STATE_WALKING_DOWN:
-		vy = FLASTER_WALKING_SPEED;
+	case TANK_BODY_STATE_WALKING_DOWN:
+		vy = TANK_BODY_WALKING_SPEED;
 		nx = 0;
 		break;
-	case FLASTER_STATE_WALKING_UP:
-		vy = -FLASTER_WALKING_SPEED;
+	case TANK_BODY_STATE_WALKING_UP:
+		vy = -TANK_BODY_WALKING_SPEED;
 		nx = 2;
 		break;
-	case FLASTER_STATE_WALKING_RIGHT:
-		vx = FLASTER_WALKING_SPEED;
+	case TANK_BODY_STATE_WALKING_RIGHT:
+		vx = TANK_BODY_WALKING_SPEED;
 		nx = 1;
 		break;
-	case FLASTER_STATE_WALKING_LEFT:
-		vx = -FLASTER_WALKING_SPEED;
+	case TANK_BODY_STATE_WALKING_LEFT:
+		vx = -TANK_BODY_WALKING_SPEED;
 		nx = -1;
 		break;
-	case FLASTER_STATE_JUMP:
+	case TANK_BODY_STATE_JUMP:
 		// TODO: need to check if Mario is *current* on a platform before allowing to jump again
-		vy = -FLASTER_JUMP_SPEED_Y;
+		vy = -TANK_BODY_JUMP_SPEED_Y;
 		break;
-	case FLASTER_STATE_IDLE:
+	case TANK_BODY_STATE_IDLE:
 		vx = 0;
 		vy = 0;
 		break;
-	case FLASTER_STATE_DIE:
-		vy = -FLASTER_DIE_DEFLECT_SPEED;
+	case TANK_BODY_STATE_DIE:
+		vy = -TANK_BODY_DIE_DEFLECT_SPEED;
 		break;
 	}
 }
 
-void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CTank_Body::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -245,9 +245,9 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 /*
 	Reset Mario status to the beginning state of a scene
 */
-void CMario::Reset()
+void CTank_Body::Reset()
 {
-	SetState(FLASTER_STATE_IDLE);
+	SetState(TANK_BODY_STATE_IDLE);
 	SetLevel(FLASTER_LEVEL_BIG);
 	SetPosition(start_x, start_y);
 	SetSpeed(0, 0);

@@ -150,8 +150,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
-		obj = new CMario(x, y);
-		player = (CMario*)obj;
+		obj = new CTank_Body(x, y);
+		player = (CTank_Body*)obj;
 
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
@@ -318,7 +318,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CTank_Body* mario = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
 	/*case DIK_A:
@@ -333,18 +333,18 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
-	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	CTank_Body* mario = ((CPlayScene*)scence)->GetPlayer();
 
 	// disable control key when Mario die 
-	if (mario->GetState() == FLASTER_STATE_DIE) return;
+	if (mario->GetState() == TANK_BODY_STATE_DIE) return;
 	if (game->IsKeyDown(DIK_RIGHT))
-		mario->SetState(FLASTER_STATE_WALKING_RIGHT);
+		mario->SetState(TANK_BODY_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
-		mario->SetState(FLASTER_STATE_WALKING_LEFT);
+		mario->SetState(TANK_BODY_STATE_WALKING_LEFT);
 	else if (game->IsKeyDown(DIK_DOWN))
-		mario->SetState(FLASTER_STATE_WALKING_DOWN);
+		mario->SetState(TANK_BODY_STATE_WALKING_DOWN);
 	else if (game->IsKeyDown(DIK_UP))
-		mario->SetState(FLASTER_STATE_WALKING_UP);
+		mario->SetState(TANK_BODY_STATE_WALKING_UP);
 	else
-		mario->SetState(FLASTER_STATE_IDLE);
+		mario->SetState(TANK_BODY_STATE_IDLE);
 }
