@@ -31,24 +31,24 @@ void Tank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (state != TANK_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
-	CTank_Body* tank_body = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CTank_Body* TANK_BODY = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	switch (part)
 	{
 	case TANK_LEFT_WHEEL:
-		x = tank_body->x - TANK_WHEEL_DISTANT_X;
+		x = TANK_BODY->x - TANK_WHEEL_DISTANT_X;
 		break;
 	case TANK_RIGHT_WHEEL:
-		x = tank_body->x + TANK_WHEEL_DISTANT_X;
+		x = TANK_BODY->x + TANK_WHEEL_DISTANT_X;
 		break;
 	case TANK_TURRET:
-		x = tank_body->x - TANK_TURRET_DISTANT_X;
+		x = TANK_BODY->x - TANK_TURRET_DISTANT_X;
 		break;
 	}
 	if (part == TANK_TURRET)
-		y = tank_body->y - TANK_TURRET_DISTANT_Y;
+		y = TANK_BODY->y - TANK_TURRET_DISTANT_Y;
 	else
-		y = tank_body->y + TANK_WHEEL_DISTANT_Y;
+		y = TANK_BODY->y + TANK_WHEEL_DISTANT_Y;
 
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
@@ -65,29 +65,28 @@ void Tank::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
+		// how to push back TANK_BODY if collides with a moving objects, what if TANK_BODY is pushed this way into another object?
 		//if (rdx != 0 && rdx!=dx)
 		//	x += nx*abs(rdx); 
 
 		// block every object first!
-		//x += min_tx * dx + nx * 0.4f;
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
 
-		//if(nx != 0 && ny != 0)
-		//y += min_ty * dy + ny * 0.4f;
-
-		//if (ny != 0) vy = 0;
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
 
 		//
 		// Collision logic with other objects
 		//
-
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
-
+			LPCOLLISIONEVENT e = coEventsResult[i];
 		}
-		// clean up collision events
-		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
+
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void Tank::CalcPotentialCollisions(
@@ -97,10 +96,6 @@ void Tank::CalcPotentialCollisions(
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
-		if (dynamic_cast<CTank_Body*>(e->obj))
-		{
-			continue;
-		}
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
 		else
@@ -111,9 +106,9 @@ void Tank::CalcPotentialCollisions(
 
 void Tank::Render()
 {
-	CTank_Body* tank_body = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CTank_Body* TANK_BODY = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	int ani = 0;
-	if (tank_body->vx > 0)
+	if (TANK_BODY->vx > 0)
 	{
 		switch (part)
 		{
@@ -129,7 +124,7 @@ void Tank::Render()
 			break;
 		}
 	}
-	else if (tank_body->vx < 0)
+	else if (TANK_BODY->vx < 0)
 	{
 		switch (part)
 		{
@@ -145,7 +140,7 @@ void Tank::Render()
 			break;
 		}
 	}
-	else if (tank_body->vx == 0)
+	else if (TANK_BODY->vx == 0)
 	{
 		if (part != TANK_TURRET)
 			ani = WHEELING_ANI_IDLE;
