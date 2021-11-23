@@ -5,7 +5,7 @@
 #include "GameObject.h"
 #include "Brick.h"
 #include "Tank_Body.h"
-#include "Goomba.h"
+#include "Eyelet.h"
 #include "Koopas.h"
 #include "Map.h"
 #include "Tank.h"

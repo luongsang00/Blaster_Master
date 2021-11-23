@@ -5,7 +5,7 @@
 #include "TANK_BODY.h"
 #include "Game.h"
 
-#include "Goomba.h"
+#include "Eyelet.h"
 #include "Portal.h"
 
 CTank_Body::CTank_Body(float x, float y) : CGameObject()
