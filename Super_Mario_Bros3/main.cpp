@@ -22,7 +22,7 @@
 
 #include "Tank_Body.h"
 #include "Brick.h"
-#include "Goomba.h"
+#include "Stuka.h"
 
 #include "PlayScene.h"
 
