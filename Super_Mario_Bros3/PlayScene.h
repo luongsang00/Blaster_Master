@@ -6,9 +6,15 @@
 #include "Brick.h"
 #include "Tank_Body.h"
 #include "Eyelet.h"
-#include "Koopas.h"
+#include "Stuka.h"
 #include "Map.h"
 #include "Tank.h"
+#include "Ball_Carry.h"
+#include "Ballbot.h"
+#include "GX_680.h"
+#include "GX_680S.h"
+#include "Drap.h"
+#include "LaserGuard.h"
 
 
 #include "Utils.h"

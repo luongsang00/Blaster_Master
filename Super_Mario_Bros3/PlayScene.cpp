@@ -32,8 +32,14 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 #define OBJECT_TYPE_TANK_BODY	0
 #define OBJECT_TYPE_TANK_PART	100
 #define OBJECT_TYPE_BRICK	1
-#define OBJECT_TYPE_GOOMBA	2
-#define OBJECT_TYPE_KOOPAS	3
+#define OBJECT_TYPE_EYELET	2
+#define OBJECT_TYPE_STUKA	3
+#define OBJECT_TYPE_BALLCARRY	4
+#define OBJECT_TYPE_BALLBOT	5
+#define OBJECT_TYPE_GX680	6
+#define OBJECT_TYPE_GX680S	7
+#define OBJECT_TYPE_DRAP	8
+#define OBJECT_TYPE_LASERGUARD	9
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -224,9 +230,15 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
+	case OBJECT_TYPE_EYELET: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(); break;
+	case OBJECT_TYPE_STUKA: obj = new CStuka(); break;
+	case OBJECT_TYPE_BALLCARRY: obj = new CBall_Carry(); break;
+	case OBJECT_TYPE_BALLBOT: obj = new CBallbot(); break;
+	case OBJECT_TYPE_GX680: obj = new CGX_680(); break;
+	case OBJECT_TYPE_GX680S: obj = new CGX_680S(); break;
+	case OBJECT_TYPE_DRAP: obj = new CDrap(); break;
+	case OBJECT_TYPE_LASERGUARD: obj = new CLaserGuard(); break;
 	case OBJECT_TYPE_TANK_PART:
 	{
 		float part = atof(tokens[4].c_str());
