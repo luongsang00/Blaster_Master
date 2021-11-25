@@ -154,6 +154,7 @@
     <ClInclude Include="Drap.h" />
     <ClInclude Include="GX_680.h" />
     <ClInclude Include="GX_680S.h" />
+    <ClInclude Include="Interrupt.h" />
     <ClInclude Include="LaserGuard.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Tank.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Eyelet.cpp" />
     <ClCompile Include="GX_680.cpp" />
     <ClCompile Include="GX_680S.cpp" />
+    <ClCompile Include="Interrupt.cpp" />
     <ClCompile Include="LaserGuard.cpp" />
     <ClCompile Include="Stuka.cpp" />
     <ClCompile Include="Map.cpp" />

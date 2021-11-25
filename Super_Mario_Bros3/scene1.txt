@@ -10,7 +10,7 @@
 
 [MAP]
 #400	57	7	62	56	399	textures\BM\map_4.txt
-#700	67	6	75	109	402	textures\BM\map_3.txt
+700	67	6	75	109	402	textures\BM\map_3.txt
 # id	left	top	right	bottom	texture_id
 [SPRITES]
 #TURRET_RIGHT
@@ -294,6 +294,8 @@
 36	3011	3011
 #LASERGUARD
 37	3012	3012
+#INTERRUP
+38	3013	3014	3013
 
 ###########################################
 
@@ -303,7 +305,8 @@
 # MARIO
 0	50.0	132	5
 
-
+5	936	506	33
+5	0	0	33
 100	180	135	304	1
 100	180	135	305	0
 100	180	135	306	2
@@ -315,5 +318,5 @@
 Grid\Grid1-1.txt
 # --- SCENE PORTAL ----
 # type	l	t	ani_set_id	r	b	scene_id
-#50	300	98	0	316	150	1
+50	300	98	0	316	150	1
 

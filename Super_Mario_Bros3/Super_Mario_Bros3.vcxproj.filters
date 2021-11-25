@@ -81,6 +81,9 @@
     <ClInclude Include="LaserGuard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Interrupt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -150,6 +153,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LaserGuard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Interrupt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

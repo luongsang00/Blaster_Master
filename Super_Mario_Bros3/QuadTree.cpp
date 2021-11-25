@@ -8,6 +8,7 @@
 #define OBJECT_TYPE_GX680S	7
 #define OBJECT_TYPE_DRAP	8
 #define OBJECT_TYPE_LASERGUARD	9
+#define OBJECT_TYPE_INTERRUPT	10
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -114,6 +115,7 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_GX680S: obj = new CGX_680S(); break;
 	case OBJECT_TYPE_DRAP: obj = new CDrap(); break;
 	case OBJECT_TYPE_LASERGUARD: obj = new CLaserGuard(); break;
+	case OBJECT_TYPE_INTERRUPT: obj = new CInterrupt(); break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
