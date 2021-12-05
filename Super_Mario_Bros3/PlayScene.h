@@ -16,6 +16,8 @@
 #include "Drap.h"
 #include "LaserGuard.h"
 #include "Interrupt.h"
+#include "Tank_Bullet.h"
+#include "MapObj.h"
 
 
 #include "Utils.h"
@@ -24,9 +26,9 @@
 #include <fstream>
 
 
-#define GRID_SECTION_SETTINGS	1
-#define GRID_SECTION_OBJECTS	2
-#define MAX_GRID_LINE 1024
+#define QUADTREE_SECTION_SETTINGS	1
+#define QUADTREE_SECTION_OBJECTS	2
+#define MAX_QUADTREE_LINE 1024
 
 class CQuadTree
 {
@@ -39,10 +41,12 @@ class CQuadTree
 	CQuadTree* BrachTR = NULL;
 	CQuadTree* BrachBL = NULL;
 	CQuadTree* BrachBR = NULL;
+	MapObj* obj;
 	vector<LPGAMEOBJECT> listObjects;
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_OBJECTS(string line);
+	void _ParseSection_MapObj(string line);
 public:
 	CQuadTree(float cellWidth, float cellHeight, float x, float y);
 	CQuadTree(LPCWSTR filePath);
@@ -68,9 +72,8 @@ class CPlayScene : public CScene
 {
 protected:
 	CTank_Body* player;					// A play scene has to have player, right? 
-
 	vector<LPGAMEOBJECT> objects;
-
+	int mapHeight;
 	Map* map;
 	CQuadTree* quadtree;
 
@@ -80,7 +83,8 @@ protected:
 	void _ParseSection_ANIMATION_SETS(string line);
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSection_MAP(string line);
-	void _ParseSection_GRID(string line);
+	void _ParseSection_QUADTREE(string line);
+	void _ParseSection_SETTING(string line);
 public:
 	CPlayScene(int id, LPCWSTR filePath);
 
@@ -93,14 +97,24 @@ public:
 
 	CTank_Body* GetPlayer() { return player; }
 
+	void setMapheight(int height)
+	{
+		mapHeight = height;
+	}
+
+	int getMapheight()
+	{
+		return mapHeight;
+	}
+
 	//friend class CPlayScenceKeyHandler;
 };
+
 class CPlayScenceKeyHandler : public CScenceKeyHandler
 {
 public:
 	virtual void KeyState(BYTE* states);
 	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode) {};
+	virtual void OnKeyUp(int KeyCode);
 	CPlayScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
 };
-

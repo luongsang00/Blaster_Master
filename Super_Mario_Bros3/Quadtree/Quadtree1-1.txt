@@ -1,0 +1,23 @@
+[SETTINGS]
+#map_size(width)	map_size(height)
+1524	780
+# type :0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
+#Obj_type	x	y	ani_set
+
+[MapObj]
+#widht height path
+26	94	QuadTree\map.txt
+[OBJECTS]
+# GOOMBA
+# GOOMBA
+2	200	135	30
+2	180	135	30
+3	182	120	31
+4	140	135	32
+5	150	135	33
+5	933	506	33
+6	165	135	34
+7	200	135	35
+8	96	135	36
+9	48	135	37
+10	130	110	38

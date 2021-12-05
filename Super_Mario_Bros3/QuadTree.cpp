@@ -14,6 +14,8 @@
 
 #define MAX_SCENE_LINE 1024
 
+#define SCENE_SECTION_MapObj	7
+
 CQuadTree::CQuadTree(LPCWSTR filePath)
 {
 	Load(filePath);
@@ -120,7 +122,6 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
 	}
-
 	// General object setup
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 	if (obj != NULL)
@@ -132,7 +133,6 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 		/*obj->SetrenderLayer(renderLayer);*/
 		Add(obj);
 	}
-
 }
 
 void CQuadTree::Load(LPCWSTR filePath)
@@ -145,32 +145,50 @@ void CQuadTree::Load(LPCWSTR filePath)
 	// current resource section flag
 	int section = 0;
 
-	char str[MAX_GRID_LINE];
-	while (f.getline(str, MAX_GRID_LINE))
+	char str[MAX_QUADTREE_LINE];
+	while (f.getline(str, MAX_QUADTREE_LINE))
 	{
 		string line(str);
 
 		if (line[0] == '#') continue;	// skip comment lines	
 
+		if (line == "[MapObj]") { section = SCENE_SECTION_MapObj; continue; }
+
 		if (line == "[SETTINGS]") {
-			section = GRID_SECTION_SETTINGS; continue;
+			section = QUADTREE_SECTION_SETTINGS; continue;
 		}
 		if (line == "[OBJECTS]") {
-			section = GRID_SECTION_OBJECTS; continue;
+			section = QUADTREE_SECTION_OBJECTS; continue;
 		}
 		//
 		// data section
 		//
 		switch (section)
 		{
-		case GRID_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
-		case GRID_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+		case SCENE_SECTION_MapObj: _ParseSection_MapObj(line); break;
+		case QUADTREE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
+		case QUADTREE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		}
 	}
 
 	f.close();
 	Plit();
 	DebugOut(L"[INFO] Done loading scene resources %s\n", filePath);
+}
+
+void CQuadTree::_ParseSection_MapObj(string line)
+{
+	vector<string> tokens = split(line);
+
+	if (tokens.size() < 3) return; // skip invalid lines
+
+	int totalRowsMap = atoi(tokens[0].c_str());
+	int totalColumnsMap = atoi(tokens[1].c_str());
+	wstring file_path = ToWSTR(tokens[2]);
+
+	obj = new MapObj(totalRowsMap, totalColumnsMap);
+	obj->LoadMapObj(file_path.c_str());
+	obj->Render(listObjects);
 }
 
 void CQuadTree::Render()
