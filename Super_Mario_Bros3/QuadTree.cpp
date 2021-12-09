@@ -1,4 +1,5 @@
 #include "PlayScene.h"
+#include "Portal.h"
 #define OBJECT_TYPE_BRICK	1
 #define OBJECT_TYPE_EYELET	2
 #define OBJECT_TYPE_STUKA	3
@@ -9,6 +10,7 @@
 #define OBJECT_TYPE_DRAP	8
 #define OBJECT_TYPE_LASERGUARD	9
 #define OBJECT_TYPE_INTERRUPT	10
+
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -108,7 +110,7 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_EYELET: obj = new CGoomba(); break;
+	case OBJECT_TYPE_EYELET: obj = new CEyelet(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	case OBJECT_TYPE_STUKA: obj = new CStuka(); break;
 	case OBJECT_TYPE_BALLCARRY: obj = new CBall_Carry(); break;
@@ -118,6 +120,13 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_DRAP: obj = new CDrap(); break;
 	case OBJECT_TYPE_LASERGUARD: obj = new CLaserGuard(); break;
 	case OBJECT_TYPE_INTERRUPT: obj = new CInterrupt(); break;
+	case OBJECT_TYPE_PORTAL:
+	{
+		float r = atof(tokens[4].c_str());
+		float b = atof(tokens[5].c_str());
+		int scene_id = atoi(tokens[6].c_str());
+		obj = new CPortal(x, y, r, b, scene_id);
+	}
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;

@@ -6,7 +6,7 @@
 300	textures\BM\30000.png	255	255	255
 500	textures\BM\map4_bank.png	255	255	255
 700	textures\BM\map3_bank.png	255	255	255
-401	textures\BM\40500.jpg	0	0	0
+401	textures\BM\40000(1).png	255	255	255
 400	textures\BM\40000.png	255	255	255
 
 [SETTING]
@@ -296,7 +296,7 @@
 #STUKA
 31	3015	3015
 #BALLCARRY
-32	3006	3007	3005	3008
+32	3006	3007	3005	3008	601
 ##BALLBOT
 33	3001	3002	3002	3001
 ###GX680
@@ -308,7 +308,7 @@
 #LASERGUARD
 37	3012	3012
 #INTERRUP
-38	3013	3014	3013
+38	3013	3014	3014
 
 ###########################################
 #MISC
@@ -320,7 +320,7 @@
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba
 # TANK
-0	0	0	1
+0	1338	660	1
 100	180	2296	304	1
 100	180	2296	305	0
 100	180	2296	306	2
@@ -329,13 +329,14 @@
 2	10000	10000	406
 2	10000	10000	406
 2	10000	10000	406
-
+# --- SCENE PORTAL ----
+# type	l	t	ani_set_id	r	b	scene_id
+50	1454	115	0	1493	95	1
+#50	1399	170	0	1433	204	1
 
 ###########################################
 
 [QUADTREE]
 Quadtree\Quadtree1-1.txt
-# --- SCENE PORTAL ----
-# type	l	t	ani_set_id	r	b	scene_id
-#50	300	98	0	316	150	1
+
 

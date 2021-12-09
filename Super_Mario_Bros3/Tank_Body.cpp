@@ -6,6 +6,7 @@
 #include "Game.h"
 
 #include "Eyelet.h"
+#include "Interrupt.h"
 #include "Portal.h"
 
 CTank_Body::CTank_Body(float x, float y) : CGameObject()
@@ -26,7 +27,7 @@ void CTank_Body::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	//vy += TANK_BODY_GRAVITY * dt;
+	vy += TANK_BODY_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -76,6 +77,26 @@ void CTank_Body::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<CInterrupt*>(e->obj)) // if e->obj is Goomba 
+			{
+				CInterrupt* goomba = dynamic_cast<CInterrupt*>(e->obj);
+
+				// jump on top >> kill Goomba and deflect a bit 
+				if (e->nx != 0)
+				{
+					if (goomba->GetState() != INTERRUPT_STATE_DIE)
+					{
+						goomba->SetState(INTERRUPT_STATE_DIE);
+						//goomba->x = 999999;
+						//vy = -MARIO_JUMP_DEFLECT_SPEED;
+					}
+				}
+			}
+			if (dynamic_cast<CPortal*>(e->obj))
+			{
+				CPortal* p = dynamic_cast<CPortal*>(e->obj);
+				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+			}
 		}
 	}
 
@@ -106,7 +127,7 @@ void CTank_Body::Render()
 
 	animation_set->at(ani)->Render(x, y, alpha);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CTank_Body::SetState(int state)
@@ -135,7 +156,7 @@ void CTank_Body::SetState(int state)
 		break;
 	case TANK_BODY_STATE_IDLE:
 		vx = 0;
-		vy = 0;
+		//vy = 0;
 		break;
 	case TANK_BODY_STATE_DIE:
 		vy = TANK_BODY_DIE_DEFLECT_SPEED;
@@ -145,8 +166,8 @@ void CTank_Body::SetState(int state)
 
 void CTank_Body::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x - 10;
-	top = y - 9;
+	left = x-10 ;
+	top = y -9;
 
 	right = x + TANK_BODY_BIG_BBOX_WIDTH + 9;
 	bottom = y + TANK_BODY_BIG_BBOX_HEIGHT;

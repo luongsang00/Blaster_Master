@@ -25,14 +25,14 @@ void CBall_Carry::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// TO-DO: make sure Koopas can interact with the world and to each of them too!
 	// 
 
-	x += dx;
+	/*x += dx;
 
 	if (x <= LEFT_LIMIT && vx < 0) {
 		SetState(BALLCARRY_STATE_WALKING_RIGHT);
 	}
 	else if (x >= RIGHT_LIMIT && vx > 0) {
 		SetState(BALLCARRY_STATE_WALKING_LEFT);
-	}
+	}*/
 
 
 

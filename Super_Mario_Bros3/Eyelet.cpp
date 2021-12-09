@@ -1,11 +1,11 @@
 #include "Eyelet.h"
-CGoomba::CGoomba()
+CEyelet::CEyelet()
 {
 	SetState(EYELET_STATE_WALKING_RIGHT);
 	SetState(EYELET_STATE_WALKING_DOWN);
 }
 
-void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CEyelet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -17,7 +17,7 @@ void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& botto
 		bottom = y + EYELET_BBOX_HEIGHT;
 }
 
-void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CEyelet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 
@@ -25,7 +25,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
 	// 
 
-	x += dx;
+	/*x += dx;
 	y += dy;
 
 	if (x <= LEFT_LIMIT && vx < 0) {
@@ -40,10 +40,10 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else if (y >= BOTTOM_LIMIT && vy > 0) {
 		SetState(EYELET_STATE_WALKING_UP);
-	}
+	}*/
 }
 
-void CGoomba::Render()
+void CEyelet::Render()
 {
 	int ani;
 	if (vx > 0)
@@ -57,7 +57,7 @@ void CGoomba::Render()
 	//RenderBoundingBox();
 }
 
-void CGoomba::SetState(int state)
+void CEyelet::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)
