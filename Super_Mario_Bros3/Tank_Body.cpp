@@ -82,7 +82,7 @@ void CTank_Body::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				CInterrupt* goomba = dynamic_cast<CInterrupt*>(e->obj);
 
 				// jump on top >> kill Goomba and deflect a bit 
-				if (e->nx != 0)
+				if (e->nx != 0|| e->ny != 0)
 				{
 					if (goomba->GetState() != INTERRUPT_STATE_DIE)
 					{
@@ -127,7 +127,7 @@ void CTank_Body::Render()
 
 	animation_set->at(ani)->Render(x, y, alpha);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CTank_Body::SetState(int state)
@@ -166,10 +166,10 @@ void CTank_Body::SetState(int state)
 
 void CTank_Body::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x-10 ;
-	top = y -9;
+	left = x-10;
+	top = y-3;
 
-	right = x + TANK_BODY_BIG_BBOX_WIDTH + 9;
+	right = x + TANK_BODY_BIG_BBOX_WIDTH ;
 	bottom = y + TANK_BODY_BIG_BBOX_HEIGHT;
 
 	DebugOut(L"L T R B %f %f %f %f  \n", left, top, right, bottom);
