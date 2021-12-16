@@ -1,24 +1,23 @@
 #pragma once
 #include "GameObject.h"
-#define CTANKBULLET_SPEED 0.15f;
-#define CTANKBULLET_STATE_DIE_SPEED 0;
+#define CINTERRUPT_BULLET_SPEED 0.075f;
+#define CINTERRUPT_BULLET_STATE_DIE_SPEED 0;
 
-#define CTANKBULLET_BBOX_WIDTH	7
-#define CTANKBULLET_BBOX_HEIGHT 9
+#define CINTERRUPT_BULLET_BBOX_WIDTH	7
+#define CINTERRUPT_BULLET_BBOX_HEIGHT 9
 
-#define	CTANKBULLET_STATE_DIE	90
-#define CTANKBULLET_STATE_FLYING 100
+#define	CINTERRUPT_BULLET_STATE_DIE	90
+#define CINTERRUPT_BULLET_STATE_IDLE 100
 
-#define CTANKBULLET_ANI_FLYING_RIGHT 0
-#define CTANKBULLET_ANI_FLYING_LEFT 1
+#define CINTERRUPT_BULLET_ANI_IDLE 0
 
-#define CTANKBULLET_GRAVITY	0.0008f
-#define CTANKBULLET_RESET_TIME 5000
+#define CINTERRUPT_BULLET_GRAVITY	0.0008f
+#define CINTERRUPT_BULLET_RESET_TIME 5000
 
 #define STORING_LOCATION 5000
 
 
-class CTANKBULLET : public CGameObject
+class CINTERRUPT_BULLET : public CGameObject
 {
 	DWORD reset_start;
 	bool isUsed = false;
@@ -29,7 +28,7 @@ class CTANKBULLET : public CGameObject
 	void StartReset() { reset_start = (DWORD)GetTickCount64(); }
 
 public:
-	CTANKBULLET();
+	CINTERRUPT_BULLET();
 	void SetisUsed(bool value) { isUsed = value; }
 	bool GetisUsed() { return isUsed; }
 	virtual void SetState(int state);
