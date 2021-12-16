@@ -8,12 +8,12 @@ void CStuka::GetBoundingBox(float& left, float& top, float& right, float& bottom
 {
 	left = x;
 	top = y;
-	right = x + CSTUKA_BBOX_WIDTH;
+	right = x + STUKA_BBOX_WIDTH;
 
-	if (state == CSTUKA_STATE_DIE)
-		bottom = y + CSTUKA_BBOX_HEIGHT_DIE;
+	if (state == STUKA_STATE_DIE)
+		bottom = y + STUKA_BBOX_HEIGHT_DIE;
 	else
-		bottom = y + CSTUKA_BBOX_HEIGHT;
+		bottom = y + STUKA_BBOX_HEIGHT;
 }
 
 void CStuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -32,7 +32,7 @@ void CStuka::Render()
 {
 	if (state != STATE_DIE)
 	{
-		int ani = CSTUKA_ANI;
+		int ani = STUKA_ANI;
 
 		animation_set->at(ani)->Render(x, y);
 

@@ -17,7 +17,7 @@
 #define STORING_LOCATION 5000
 
 
-class CINTERRUPT_BULLET : public CGameObject
+class CInterrup_Bullet : public CGameObject
 {
 	DWORD reset_start;
 	bool isUsed = false;
@@ -28,7 +28,7 @@ class CINTERRUPT_BULLET : public CGameObject
 	void StartReset() { reset_start = (DWORD)GetTickCount64(); }
 
 public:
-	CINTERRUPT_BULLET();
+	CInterrup_Bullet();
 	void SetisUsed(bool value) { isUsed = value; }
 	bool GetisUsed() { return isUsed; }
 	virtual void SetState(int state);

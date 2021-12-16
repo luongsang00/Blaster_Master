@@ -10,7 +10,7 @@ void CInterrupt::GetBoundingBox(float& left, float& top, float& right, float& bo
 	top = y;
 	right = x + CINTERRUPT_BBOX_WIDTH;
 
-	if (state == CINTERRUPT_STATE_DIE)
+	if (state == STATE_DIE)
 		bottom = y + CINTERRUPT_BBOX_HEIGHT_DIE;
 	else
 		bottom = y + CINTERRUPT_BBOX_HEIGHT;

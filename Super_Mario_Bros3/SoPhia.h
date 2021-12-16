@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "DefinePlayer.h"
 
-class CSOPHIA : public CGameObject
+class CSoPhia : public CGameObject
 {
 	int level;
 	int untouchable;
@@ -16,7 +16,7 @@ class CSOPHIA : public CGameObject
 	bool isAlreadyFired = 0;
 
 public:
-	CSOPHIA(float x = 0.0f, float y = 0.0f);
+	CSoPhia(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);

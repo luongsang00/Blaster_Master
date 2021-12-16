@@ -4,20 +4,20 @@
 #include "DefinePlayer.h"
 
 
-TANKTURRET::TANKTURRET()
+Tank_Turret::Tank_Turret()
 {
 }
 
-void TANKTURRET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Tank_Turret::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 }
 
-void TANKTURRET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Tank_Turret::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	CGameObject::Update(dt, coObjects);
 
-	CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CSoPhia* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	x = SOPHIA->x + TURRET_DISTANT_X;
 
@@ -29,9 +29,9 @@ void TANKTURRET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 
-void TANKTURRET::Render()
+void Tank_Turret::Render()
 {
-	CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CSoPhia* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	int ani = pre_ani;
 
@@ -52,7 +52,7 @@ void TANKTURRET::Render()
 	//RenderBoundingBox();
 }
 
-void TANKTURRET::SetState(int state)
+void Tank_Turret::SetState(int state)
 {
 	CGameObject::SetState(state);
 	//switch (state)

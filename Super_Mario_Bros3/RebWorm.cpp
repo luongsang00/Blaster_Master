@@ -5,7 +5,7 @@
 
 CReDWorm::CReDWorm()
 {
-	SetState(CREDWORM_STATE_DIE);
+	SetState(REDWORM_STATE_DIE);
 	nx = 0;
 }
 
@@ -13,11 +13,11 @@ void CReDWorm::GetBoundingBox(float& left, float& top, float& right, float& bott
 {
 	left = x;
 	top = y;
-	right = x + CREDWORM_BBOX_WIDTH;
+	right = x + REDWORM_BBOX_WIDTH;
 
-	if (state == CREDWORM_STATE_DIE)
-		y = y + CREDWORM_BBOX_HEIGHT;
-	else bottom = y + CREDWORM_BBOX_HEIGHT;
+	if (state == REDWORM_STATE_DIE)
+		y = y + REDWORM_BBOX_HEIGHT;
+	else bottom = y + REDWORM_BBOX_HEIGHT;
 }
 
 void CReDWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -29,26 +29,26 @@ void CReDWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	// Simple fall down
-	if (state != CREDWORM_STATE_DIE)
+	if (state != REDWORM_STATE_DIE)
 		vy += SOPHIA_GRAVITY * dt;
 
 	coEvents.clear();
 
 	// turn off collision when die 
-	if (state != CREDWORM_STATE_DIE)
+	if (state != REDWORM_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 	else
 	{
 		isUsed = false;
 		x = STORING_LOCATION;
 		y = STORING_LOCATION;
-		SetState(CREDWORM_STATE_DIE);
+		SetState(REDWORM_STATE_DIE);
 	}
 	if (isUsed == false)
 	{
 		if (((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->CheckWormSpamMng())
 		{
-			SetState(CREDWORM_STATE_WALKING);
+			SetState(REDWORM_STATE_WALKING);
 			this->SetPosition(playscene->GetWormSpamMng()->getInterrupt_FiringPoisitionX(), playscene->GetWormSpamMng()->getInterrupt_FiringPoisitionY());
 			playscene->DeleteWormSpamMng();
 			isUsed = true;
@@ -58,12 +58,12 @@ void CReDWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (playscene->GetPlayer()->GetPositionX() > this->x)
 	{
-		vx = CREDWORM_SPEED;
+		vx = REDWORM_SPEED;
 		nx = 1;
 	}
 	else
 	{
-		vx = -CREDWORM_SPEED;
+		vx = -REDWORM_SPEED;
 		nx = -1;
 	}
 
@@ -137,10 +137,10 @@ void CReDWorm::Render()
 	switch (nx)
 	{
 	case 1:
-		ani = CREDWORM_ANI_WALKING_RIGHT;
+		ani = REDWORM_ANI_WALKING_RIGHT;
 		break;
 	case -1:
-		ani = CREDWORM_ANI_WALKING_LEFT;
+		ani = REDWORM_ANI_WALKING_LEFT;
 		break;
 	}
 

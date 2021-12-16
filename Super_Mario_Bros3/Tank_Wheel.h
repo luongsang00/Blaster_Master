@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "DefinePlayer.h"
 
-class TANKWHEEL : public CGameObject
+class Tank_Wheel : public CGameObject
 {
 	int part = 0;
 	int pre_ani = 0;
@@ -13,7 +13,7 @@ class TANKWHEEL : public CGameObject
 
 public:
 	float upBoudary;
-	TANKWHEEL(int part);
+	Tank_Wheel(int part);
 	virtual void SetState(int state);
 };
 

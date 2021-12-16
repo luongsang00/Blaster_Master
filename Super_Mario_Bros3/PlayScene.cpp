@@ -241,31 +241,31 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] SOPHIA object was created before!\n");
 			return;
 		}
-		obj = new CSOPHIA(x, getMapheight() - y);
+		obj = new CSoPhia(x, getMapheight() - y);
 
-		player = (CSOPHIA*)obj;
+		player = (CSoPhia*)obj;
 
 		DebugOut(L"[INFO] Player object created!\n");
 
 		break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_CTANKBULLET: obj = new CTANKBULLET(); break;
+	case OBJECT_TYPE_CTANKBULLET: obj = new CTank_Bullet(); break;
 
 	case OBJECT_TYPE_TANK_WHEEL:
 	{
 		float part = atof(tokens[4].c_str());
-		obj = new TANKWHEEL(part);
+		obj = new Tank_Wheel(part);
 
 	}
 	break;
 	case OBJECT_TYPE_TANK_BODY:
 	{
-		obj = new TANKBODY();
+		obj = new Tank_Body();
 	}
 	break;
 	case OBJECT_TYPE_TANK_TURRET:
 	{
-		obj = new TANKTURRET();
+		obj = new Tank_Turret();
 	}
 	break;
 
@@ -276,7 +276,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int scene_id = atoi(tokens[6].c_str());
 		obj = new CPortal(x, y, r, b, scene_id);
 	}
-	case OBJECT_TYPE_CINTERCRUPT_BULLET: obj = new CINTERRUPT_BULLET(); break;
+	case OBJECT_TYPE_CINTERCRUPT_BULLET: obj = new CInterrup_Bullet(); break;
 	case OBJECT_TYPE_RED_WORM: obj = new CReDWorm(); break;
 
 		break;
@@ -425,7 +425,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	CSOPHIA* mario = ((CPlayScene*)scence)->GetPlayer();
+	CSoPhia* mario = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
@@ -442,7 +442,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 {
-	CSOPHIA* mario = ((CPlayScene*)scence)->GetPlayer();
+	CSoPhia* mario = ((CPlayScene*)scence)->GetPlayer();
 	switch (KeyCode)
 	{
 	case DIK_A:
@@ -454,7 +454,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
-	CSOPHIA* mario = ((CPlayScene*)scence)->GetPlayer();
+	CSoPhia* mario = ((CPlayScene*)scence)->GetPlayer();
 
 	// disable control key when SOPHIA die 
 	if (mario->GetState() == SOPHIA_STATE_DIE) return;

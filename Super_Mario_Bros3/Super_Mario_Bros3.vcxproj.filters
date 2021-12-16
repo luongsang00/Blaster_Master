@@ -114,14 +114,14 @@
     <ClInclude Include="Tank_Turret.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Iterrupt_Firing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Interrupt_Bullet.h">
       <Filter>Obj</Filter>
     </ClInclude>
     <ClInclude Include="RebWorm.h">
       <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Iterrupt_Firing.h">
+      <Filter>Obj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

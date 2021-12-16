@@ -7,7 +7,7 @@
 
 #include "Portal.h"
 
-CSOPHIA::CSOPHIA(float x, float y) : CGameObject()
+CSoPhia::CSoPhia(float x, float y) : CGameObject()
 {
 	untouchable = 0;
 	SetState(SOPHIA_STATE_IDLE);
@@ -19,7 +19,7 @@ CSOPHIA::CSOPHIA(float x, float y) : CGameObject()
 
 }
 
-void CSOPHIA::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CSoPhia::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
@@ -88,7 +88,7 @@ void CSOPHIA::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CSOPHIA::Render()
+void CSoPhia::Render()
 {
 	//
 	//int ani = -1;
@@ -111,20 +111,20 @@ void CSOPHIA::Render()
 
 	//animation_set->at(ani)->Render(x, y, alpha);
 
-	////RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
-void CSOPHIA::SetState(int state)
+void CSoPhia::SetState(int state)
 {
 	CGameObject::SetState(state);
 
 	switch (state)
 	{
 	case SOPHIA_STATE_WALKING_DOWN:
-		vy = SOPHIA_WALKING_SPEED;
+		//vy = SOPHIA_WALKING_SPEED;
 		break;
 	case SOPHIA_STATE_WALKING_UP:
-		vy = -SOPHIA_WALKING_SPEED;
+		//vy = -SOPHIA_WALKING_SPEED;
 		break;
 	case SOPHIA_STATE_WALKING_RIGHT:
 		vx = SOPHIA_WALKING_SPEED;
@@ -147,7 +147,7 @@ void CSOPHIA::SetState(int state)
 	}
 }
 
-void CSOPHIA::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CSoPhia::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -161,22 +161,22 @@ void CSOPHIA::GetBoundingBox(float& left, float& top, float& right, float& botto
 /*
 	Reset SOPHIA status to the beginning state of a scene
 */
-void CSOPHIA::Reset()
+void CSoPhia::Reset()
 {
 	SetState(SOPHIA_STATE_IDLE);
 }
 
-void CSOPHIA::CalcPotentialCollisions(
+void CSoPhia::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
 	vector <LPCOLLISIONEVENT> collisionEvents;
-	CSOPHIA* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CSoPhia* mario = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (dynamic_cast<CTANKBULLET*>(e->obj) || dynamic_cast<CReDWorm*>(e->obj))
+		if (dynamic_cast<CTank_Bullet*>(e->obj) || dynamic_cast<CReDWorm*>(e->obj))
 		{
 			continue;
 		}

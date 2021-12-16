@@ -4,13 +4,13 @@
 #include "SOPHIA.h"
 #include "Brick.h"
 
-CTANKBULLET::CTANKBULLET()
+CTank_Bullet::CTank_Bullet()
 {
 	SetState(CTANKBULLET_STATE_FLYING);
 	nx = 0;
 }
 
-void CTANKBULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CTank_Bullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -21,7 +21,7 @@ void CTANKBULLET::GetBoundingBox(float& left, float& top, float& right, float& b
 	else bottom = y + CTANKBULLET_BBOX_HEIGHT;
 }
 
-void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CTank_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if ((DWORD)GetTickCount64() - reset_start > CTANKBULLET_RESET_TIME)
 	{
@@ -46,7 +46,7 @@ void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (isUsed == false)
 	{
-		CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		CSoPhia* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 		if (SOPHIA->GetisFiring() == true)
 		{
 			if (SOPHIA->GetisAlreadyFired() == false)
@@ -97,14 +97,14 @@ void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CTANKBULLET::CalcPotentialCollisions(
+void CTank_Bullet::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
-		if (dynamic_cast<CSOPHIA*>(e->obj))
+		if (dynamic_cast<CSoPhia*>(e->obj))
 		{
 			continue;
 		}
@@ -116,7 +116,7 @@ void CTANKBULLET::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CTANKBULLET::Render()
+void CTank_Bullet::Render()
 {
 	if (state == CTANKBULLET_STATE_DIE)
 		return;
@@ -136,7 +136,7 @@ void CTANKBULLET::Render()
 	//RenderBoundingBox();
 }
 
-void CTANKBULLET::SetState(int state)
+void CTank_Bullet::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

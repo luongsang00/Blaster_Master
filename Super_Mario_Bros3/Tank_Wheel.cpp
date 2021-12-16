@@ -3,21 +3,21 @@
 #include "PlayScene.h"
 
 
-TANKWHEEL::TANKWHEEL(int part)
+Tank_Wheel::Tank_Wheel(int part)
 {
 	this->part = part;
 }
 
-void TANKWHEEL::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Tank_Wheel::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 }
 
-void TANKWHEEL::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Tank_Wheel::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	CGameObject::Update(dt, coObjects);
 
-	CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CSoPhia* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	switch (part)
 	{
@@ -36,9 +36,9 @@ void TANKWHEEL::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 
-void TANKWHEEL::Render()
+void Tank_Wheel::Render()
 {
-	CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CSoPhia* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	int ani = 0;
 
@@ -89,7 +89,7 @@ void TANKWHEEL::Render()
 	//RenderBoundingBox();
 }
 
-void TANKWHEEL::SetState(int state)
+void Tank_Wheel::SetState(int state)
 {
 	CGameObject::SetState(state);
 	//switch (state)

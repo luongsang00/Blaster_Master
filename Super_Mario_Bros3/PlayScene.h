@@ -80,7 +80,7 @@ public:
 class CPlayScene : public CScene
 {
 protected:
-	CSOPHIA* player;					// A play scene has to have player, right? 
+	CSoPhia* player;					// A play scene has to have player, right? 
 	vector<LPGAMEOBJECT> objects;
 	int mapHeight;
 	Map* map;
@@ -106,7 +106,7 @@ public:
 
 	bool IsInUseArea(float Ox, float Oy);
 
-	CSOPHIA* GetPlayer() { return player; }
+	CSoPhia* GetPlayer() { return player; }
 
 	void setMapheight(int height)
 	{

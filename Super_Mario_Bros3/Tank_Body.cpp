@@ -4,20 +4,20 @@
 #include "DefinePlayer.h"
 
 
-TANKBODY::TANKBODY()
+Tank_Body::Tank_Body()
 {
 }
 
-void TANKBODY::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Tank_Body::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 }
 
-void TANKBODY::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Tank_Body::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	CGameObject::Update(dt, coObjects);
 
-	CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CSoPhia* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	x = SOPHIA->x + BODY_DISTANT_X;
 
@@ -29,9 +29,9 @@ void TANKBODY::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 
-void TANKBODY::Render()
+void Tank_Body::Render()
 {
-	CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CSoPhia* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	int ani = 0;
 
@@ -42,7 +42,7 @@ void TANKBODY::Render()
 	//RenderBoundingBox();
 }
 
-void TANKBODY::SetState(int state)
+void Tank_Body::SetState(int state)
 {
 	CGameObject::SetState(state);
 	//switch (state)

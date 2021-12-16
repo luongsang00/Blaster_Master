@@ -8,12 +8,12 @@ void CLaserGuard::GetBoundingBox(float& left, float& top, float& right, float& b
 {
 	left = x;
 	top = y;
-	right = x + CLASERGUARD_BBOX_WIDTH;
+	right = x + LASERGUARD_BBOX_WIDTH;
 
-	if (state == CLASERGUARD_STATE_DIE)
-		bottom = y + CLASERGUARD_BBOX_HEIGHT_DIE;
+	if (state == LASERGUARD_STATE_DIE)
+		bottom = y + LASERGUARD_BBOX_HEIGHT_DIE;
 	else
-		bottom = y + CLASERGUARD_BBOX_HEIGHT;
+		bottom = y + LASERGUARD_BBOX_HEIGHT;
 }
 
 void CLaserGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -32,7 +32,7 @@ void CLaserGuard::Render()
 {
 	if (state != STATE_DIE)
 	{
-		int ani = CLASERGUARD_ANI;
+		int ani = LASERGUARD_ANI;
 
 		animation_set->at(ani)->Render(x, y);
 
