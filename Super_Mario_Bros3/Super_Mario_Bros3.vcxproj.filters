@@ -117,11 +117,14 @@
     <ClInclude Include="Interrupt_Bullet.h">
       <Filter>Obj</Filter>
     </ClInclude>
-    <ClInclude Include="RebWorm.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Iterrupt_Firing.h">
+    <ClInclude Include="EffEct.h">
       <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="EvenType.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="RedWorm.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +218,10 @@
     <ClCompile Include="Interrupt_Bullet.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
-    <ClCompile Include="RebWorm.cpp">
+    <ClCompile Include="EffEct.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="RedWorm.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
   </ItemGroup>

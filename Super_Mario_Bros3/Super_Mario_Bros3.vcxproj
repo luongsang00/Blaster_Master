@@ -154,15 +154,16 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DefinePlayer.h" />
     <ClInclude Include="Drap.h" />
+    <ClInclude Include="EffEct.h" />
     <ClInclude Include="GX_680.h" />
     <ClInclude Include="GX_680S.h" />
     <ClInclude Include="Interrupt.h" />
     <ClInclude Include="Interrupt_Bullet.h" />
-    <ClInclude Include="Iterrupt_Firing.h" />
+    <ClInclude Include="EvenType.h" />
     <ClInclude Include="LaserGuard.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObj.h" />
-    <ClInclude Include="RebWorm.h" />
+    <ClInclude Include="RedWorm.h" />
     <ClInclude Include="SoPhia.h" />
     <ClInclude Include="Tank_Bullet.h" />
     <ClInclude Include="Tank_Turret.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Drap.cpp" />
+    <ClCompile Include="EffEct.cpp" />
     <ClCompile Include="Eyelet.cpp" />
     <ClCompile Include="GX_680.cpp" />
     <ClCompile Include="GX_680S.cpp" />
@@ -193,7 +195,7 @@
     <ClCompile Include="Interrupt_Bullet.cpp" />
     <ClCompile Include="LaserGuard.cpp" />
     <ClCompile Include="MapObj.cpp" />
-    <ClCompile Include="RebWorm.cpp" />
+    <ClCompile Include="RedWorm.cpp" />
     <ClCompile Include="SoPhia.cpp" />
     <ClCompile Include="Stuka.cpp" />
     <ClCompile Include="Map.cpp" />

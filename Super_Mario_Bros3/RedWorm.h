@@ -17,7 +17,7 @@
 #define STORING_LOCATION 5000
 
 
-class CReDWorm : public CGameObject
+class CRedWorm : public CGameObject
 {
 	DWORD reset_start;
 	bool isUsed = false;
@@ -28,7 +28,7 @@ class CReDWorm : public CGameObject
 	void StartReset() { reset_start = (DWORD)GetTickCount64(); }
 
 public:
-	CReDWorm();
+	CRedWorm();
 	void SetisUsed(bool value) { isUsed = value; }
 	bool GetisUsed() { return isUsed; }
 	virtual void SetState(int state);

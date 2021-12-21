@@ -176,7 +176,7 @@ void CSoPhia::CalcPotentialCollisions(
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (dynamic_cast<CTank_Bullet*>(e->obj) || dynamic_cast<CReDWorm*>(e->obj))
+		if (dynamic_cast<CTank_Bullet*>(e->obj) || dynamic_cast<CRedWorm*>(e->obj))
 		{
 			continue;
 		}

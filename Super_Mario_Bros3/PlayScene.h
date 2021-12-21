@@ -15,14 +15,17 @@
 #include "Drap.h"
 #include "LaserGuard.h"
 #include "Interrupt.h"
-#include "RebWorm.h"
+#include "RedWorm.h"
 #include "Tank_Turret.h"
 #include "Tank_Bullet.h"
 #include "Tank_Body.h"
 #include "SoPhia.h"
 #include "Tank_Wheel.h"
-#include "Iterrupt_Firing.h"
+#include "EvenType.h"
 #include "Interrupt_Bullet.h"
+#include "EffEct.h"
+
+
 
 
 #include "Utils.h"
@@ -85,8 +88,9 @@ protected:
 	int mapHeight;
 	Map* map;
 	CQuadTree* quadtree;
-	vector<CInterrupt_Firing*> CInterrupt_FiringList;
-	vector<CInterrupt_Firing*> WormSpamMng;
+	vector<CEvenType*> InterruptBulletMng;
+	vector<CEvenType*> WormSpamMng;
+	vector<CEvenType*> KaboomMng;
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -105,6 +109,7 @@ public:
 	virtual void Unload();
 
 	bool IsInUseArea(float Ox, float Oy);
+	bool IsInside(float Ox, float Oy, float xRange, float yRange, float tx, float ty);
 
 	CSoPhia* GetPlayer() { return player; }
 
@@ -117,33 +122,53 @@ public:
 	{
 		return mapHeight;
 	}
-	/////////////////CInterrupt_FiringList
-	void AddCInterrupt_FiringList(float x, float y)
+	/////////////////KaboomMng
+	void AddKaboomMng(float x, float y)
 	{
-		CInterrupt_Firing* obj = new CInterrupt_Firing(x, y);
-		this->CInterrupt_FiringList.push_back(obj);
+		CEvenType* obj = new CEvenType(x, y);
+		this->KaboomMng.push_back(obj);
 	}
-	CInterrupt_Firing* GetCInterrupt_FiringList()
+	CEvenType* GetKaboomMng()
 	{
-		return CInterrupt_FiringList.at(0);
+		return KaboomMng.at(0);
 	}
-	bool CheckCInterrupt_FiringList()
+	bool CheckKaboomMng()
 	{
-		if (CInterrupt_FiringList.size() != 0)
+		if (KaboomMng.size() != 0)
 			return true;
 		return false;
 	}
-	void DeleteCInterrupt_FiringList()
+	void DeleteKaboomMng()
 	{
-		this->CInterrupt_FiringList.erase(CInterrupt_FiringList.begin());
+		this->KaboomMng.erase(KaboomMng.begin());
+	}
+	/////////////////InterruptBulletMng
+	void AddInterruptBulletMng(float x, float y)
+	{
+		CEvenType* obj = new CEvenType(x, y);
+		this->InterruptBulletMng.push_back(obj);
+	}
+	CEvenType* GetInterruptBulletMng()
+	{
+		return InterruptBulletMng.at(0);
+	}
+	bool CheckInterruptBulletMng()
+	{
+		if (InterruptBulletMng.size() != 0)
+			return true;
+		return false;
+	}
+	void DeleteInterruptBulletMng()
+	{
+		this->InterruptBulletMng.erase(InterruptBulletMng.begin());
 	}
 	//////////////////////////WormSpamMng
 	void AddWormSpamMng(float x, float y)
 	{
-		CInterrupt_Firing* obj = new CInterrupt_Firing(x, y);
+		CEvenType* obj = new CEvenType(x, y);
 		this->WormSpamMng.push_back(obj);
 	}
-	CInterrupt_Firing* GetWormSpamMng()
+	CEvenType* GetWormSpamMng()
 	{
 		return WormSpamMng.at(0);
 	}

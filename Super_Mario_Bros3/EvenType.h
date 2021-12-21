@@ -1,9 +1,8 @@
 #pragma once
-#pragma once
 #include "GameObject.h"
 #include "algorithm"
 
-class CInterrupt_Firing : public CGameObject
+class CEvenType : public CGameObject
 {
 	float x, y;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) {};
@@ -13,7 +12,7 @@ class CInterrupt_Firing : public CGameObject
 	virtual void Render() {};
 public:
 
-	CInterrupt_Firing(float x, float y)
+	CEvenType(float x, float y)
 	{
 		this->x = x;
 		this->y = y;

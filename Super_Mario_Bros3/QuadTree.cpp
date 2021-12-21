@@ -118,7 +118,12 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_CGX680: obj = new CGX_680(); break;
 	case OBJECT_TYPE_CGX680S: obj = new CGX_680S(); break;
 	case OBJECT_TYPE_CSTUKA: obj = new CStuka(); break;
-	case OBJECT_TYPE_EYELET: obj = new CEyelet(); break;
+	case OBJECT_TYPE_EYELET:
+	{
+		float kill_point = atoi(tokens[4].c_str());
+		obj = new CEyelet(kill_point);
+	}
+	break;
 	case OBJECT_TYPE_CINTERCRUPT: obj = new CInterrupt(); break;
 
 
@@ -239,13 +244,13 @@ void CQuadTree::Pop(vector<LPGAMEOBJECT>& listObject, int CamX, int CamY)
 	{
 		for (int i = 0; i < listObjects.size(); i++)
 		{
-			if (inRange(x + cellWidth, y + cellHeight, CamX, CamY, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()))
+			if (inRange(x + cellWidth, y + cellHeight, CamX, CamY, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight() + 100))
 				if (!listObjects[i]->GetActive())
 				{
 					float Ox, Oy;
 					listObjects[i]->GetOriginLocation(Ox, Oy);
-					if (!inRange(Ox, Oy, CamX, CamY, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()))
-						listObjects[i]->reset();
+					/*if (!inRange(Ox, Oy, CamX, CamY, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()))
+						listObjects[i]->reset();*/
 					listObject.push_back(listObjects[i]);
 					listObjects[i]->SetActive(true);
 				}

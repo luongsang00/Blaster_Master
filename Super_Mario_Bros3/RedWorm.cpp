@@ -1,15 +1,15 @@
-#include "RebWorm.h"
+#include "RedWorm.h"
 #include <algorithm>
 #include "PlayScene.h"
 #include "Brick.h"
 
-CReDWorm::CReDWorm()
+CRedWorm::CRedWorm()
 {
 	SetState(REDWORM_STATE_DIE);
 	nx = 0;
 }
 
-void CReDWorm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CRedWorm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -20,7 +20,7 @@ void CReDWorm::GetBoundingBox(float& left, float& top, float& right, float& bott
 	else bottom = y + REDWORM_BBOX_HEIGHT;
 }
 
-void CReDWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CRedWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -111,7 +111,7 @@ void CReDWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CReDWorm::CalcPotentialCollisions(
+void CRedWorm::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -130,7 +130,7 @@ void CReDWorm::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CReDWorm::Render()
+void CRedWorm::Render()
 {
 	int ani = 0;
 
@@ -149,7 +149,7 @@ void CReDWorm::Render()
 	//RenderBoundingBox();
 }
 
-void CReDWorm::SetState(int state)
+void CRedWorm::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)
