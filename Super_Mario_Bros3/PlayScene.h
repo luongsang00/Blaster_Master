@@ -43,7 +43,6 @@
 #define QUADTREE_SECTION_OBJECTS	2
 #define MAX_QUADTREE_LINE 1024
 
-
 class CQuadTree
 {
 	bool isLeaf = false;

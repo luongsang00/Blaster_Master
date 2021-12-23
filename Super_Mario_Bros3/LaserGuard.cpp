@@ -1,7 +1,7 @@
 #include "LaserGuard.h"
 CLaserGuard::CLaserGuard()
 {
-	SetState(STATE_IDLE);
+	SetState(LASERGUARD_STATE_WALKING_RIGHT);
 }
 
 void CLaserGuard::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -26,6 +26,15 @@ void CLaserGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	x += dx;
 	y += dy;
+	if (x <= 288)
+	{
+		x = 288;
+		vx = LASERGUARD_WALKING_SPEED;
+	}
+	else if (x >= 480) {
+		x = 480;
+		vx = -LASERGUARD_WALKING_SPEED;
+	}
 }
 
 void CLaserGuard::Render()
@@ -51,6 +60,12 @@ void CLaserGuard::SetState(int state)
 		break;
 	case STATE_DIE:
 		vy = DIE_PULL;
+		break;
+	case LASERGUARD_STATE_WALKING_RIGHT:
+		vx = LASERGUARD_WALKING_SPEED;
+		break;
+	case LASERGUARD_STATE_WALKING_LEFT:
+		vx = -LASERGUARD_WALKING_SPEED;
 		break;
 	}
 }

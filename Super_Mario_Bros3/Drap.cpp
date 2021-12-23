@@ -1,7 +1,7 @@
 #include "Drap.h"
 CDrap::CDrap()
 {
-	SetState(STATE_IDLE);
+	SetState(DRAP_STATE_WALKING_LEFT);
 }
 
 void CDrap::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -26,6 +26,15 @@ void CDrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	x += dx;
 	y += dy;
+	if (x <= 288)
+	{
+		x = 288;
+		vx = DRAP_WALKING_SPEED;
+	}
+	else if (x >= 480) {
+		x = 480;
+		vx = -DRAP_WALKING_SPEED;
+	}
 }
 
 void CDrap::Render()
@@ -52,6 +61,12 @@ void CDrap::SetState(int state)
 		break;
 	case STATE_DIE:
 		vy = DIE_PULL;
+		break;
+	case DRAP_STATE_WALKING_LEFT:
+		vx = -DRAP_WALKING_SPEED;
+		break;
+	case DRAP_STATE_WALKING_RIGHT:
+		vx = DRAP_WALKING_SPEED;
 		break;
 	}
 }
