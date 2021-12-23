@@ -150,6 +150,7 @@
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Ballbot.h" />
     <ClInclude Include="Ball_Carry.h" />
+    <ClInclude Include="Boom_Ball_Carry.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DefinePlayer.h" />
@@ -184,6 +185,7 @@
   <ItemGroup>
     <ClCompile Include="Ballbot.cpp" />
     <ClCompile Include="Ball_Carry.cpp" />
+    <ClCompile Include="Boom_Ball_Carry.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Drap.cpp" />

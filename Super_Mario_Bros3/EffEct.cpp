@@ -29,7 +29,7 @@ void EFFECT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->CheckKaboomMng())
 		{
-			this->SetPosition(playscene->GetKaboomMng()->getInterrupt_FiringPoisitionX(), playscene->GetKaboomMng()->getInterrupt_FiringPoisitionY());
+			this->SetPosition(playscene->GetKaboomMng()->getCEventPoisitionX(), playscene->GetKaboomMng()->getCEventPoisitionY());
 			playscene->DeleteKaboomMng();
 			active = true;
 			StartSwitch_state();
@@ -44,4 +44,3 @@ void EFFECT::Render()
 
 	//RenderBoundingBox();
 }
-#include "EffEct.h"

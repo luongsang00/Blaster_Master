@@ -126,6 +126,9 @@
     <ClInclude Include="RedWorm.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Boom_Ball_Carry.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stuka.cpp">
@@ -223,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="RedWorm.cpp">
       <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Boom_Ball_Carry.cpp">
+      <Filter>Obj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

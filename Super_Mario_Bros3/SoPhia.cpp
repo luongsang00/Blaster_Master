@@ -21,11 +21,13 @@ CSoPhia::CSoPhia(float x, float y) : CGameObject()
 
 void CSoPhia::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	int id = CGame::GetInstance()->GetCurrentScene()->GetId();
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += SOPHIA_GRAVITY * dt;
+	if (id == 1)
+		vy += SOPHIA_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -116,34 +118,68 @@ void CSoPhia::Render()
 
 void CSoPhia::SetState(int state)
 {
+	int id = CGame::GetInstance()->GetCurrentScene()->GetId();
 	CGameObject::SetState(state);
 
-	switch (state)
-	{
-	case SOPHIA_STATE_WALKING_DOWN:
-		//vy = SOPHIA_WALKING_SPEED;
-		break;
-	case SOPHIA_STATE_WALKING_UP:
-		//vy = -SOPHIA_WALKING_SPEED;
-		break;
-	case SOPHIA_STATE_WALKING_RIGHT:
-		vx = SOPHIA_WALKING_SPEED;
-		nx = 1;
-		break;
-	case SOPHIA_STATE_WALKING_LEFT:
-		vx = -SOPHIA_WALKING_SPEED;
-		nx = -1;
-		break;
-	case SOPHIA_STATE_JUMP:
-		// TODO: need to check if SOPHIA is *current* on a platform before allowing to jump again
-		vy = -SOPHIA_JUMP_SPEED_Y;
-		break;
-	case SOPHIA_STATE_IDLE:
-		vx = 0;
-		break;
-	case SOPHIA_STATE_DIE:
-		vy = SOPHIA_DIE_DEFLECT_SPEED;
-		break;
+	if (id == 1) {
+		switch (state)
+		{
+		case SOPHIA_STATE_WALKING_DOWN:
+			vy = SOPHIA_WALKING_SPEED;
+			break;
+		case SOPHIA_STATE_WALKING_UP:
+			vy = -SOPHIA_WALKING_SPEED;
+			break;
+		case SOPHIA_STATE_WALKING_RIGHT:
+			vx = SOPHIA_WALKING_SPEED;
+			nx = 1;
+			break;
+		case SOPHIA_STATE_WALKING_LEFT:
+			vx = -SOPHIA_WALKING_SPEED;
+			nx = -1;
+			break;
+		case SOPHIA_STATE_JUMP:
+			// TODO: need to check if SOPHIA is *current* on a platform before allowing to jump again
+			vy = -SOPHIA_JUMP_SPEED_Y;
+			break;
+		case SOPHIA_STATE_IDLE:
+			vx = 0;
+			break;
+		case SOPHIA_STATE_DIE:
+			vy = SOPHIA_DIE_DEFLECT_SPEED;
+			break;
+		}
+	}
+	else {
+		switch (state)
+		{
+		case SOPHIA_STATE_WALKING_DOWN:
+			vy = SOPHIA_WALKING_SPEED;
+			break;
+		case SOPHIA_STATE_WALKING_UP:
+			vy = -SOPHIA_WALKING_SPEED;
+			break;
+		case SOPHIA_STATE_WALKING_RIGHT:
+			vx = SOPHIA_WALKING_SPEED;
+			nx = 1;
+			break;
+		case SOPHIA_STATE_WALKING_LEFT:
+			vx = -SOPHIA_WALKING_SPEED;
+			nx = -1;
+			break;
+		case SOPHIA_STATE_JUMP:
+			// TODO: need to check if SOPHIA is *current* on a platform before allowing to jump again
+			vy = -SOPHIA_JUMP_SPEED_Y;
+			break;
+		case SOPHIA_STATE_IDLE:
+			vx = 0;
+			vy = 0;
+			break;
+		case SOPHIA_STATE_DIE:
+			vy = SOPHIA_DIE_DEFLECT_SPEED;
+			break;
+		}
+
 	}
 }
 

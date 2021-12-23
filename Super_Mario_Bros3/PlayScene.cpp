@@ -2,10 +2,7 @@
 #include <fstream>
 
 #include "PlayScene.h"
-#include "Utils.h"
-#include "Textures.h"
-#include "Sprites.h"
-#include "Portal.h"
+
 
 using namespace std;
 
@@ -39,6 +36,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 #define OBJECT_TYPE_CINTERCRUPT_BULLET	12
 #define OBJECT_TYPE_RED_WORM	13
 #define OBJECT_TYPE_EFFECT	14
+#define OBJECT_TYPE_CBOOM	15
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -250,6 +248,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
+	case OBJECT_TYPE_CBOOM: obj = new CBOOM(); break;
 	case OBJECT_TYPE_CTANKBULLET: obj = new CTank_Bullet(); break;
 
 	case OBJECT_TYPE_TANK_WHEEL:
@@ -340,7 +339,7 @@ bool CPlayScene::IsInUseArea(float Ox, float Oy)
 
 	CamY = (float)CGame::GetInstance()->GetCam().GetCamY();
 
-	if (((CamX - CAM_X_BONUS < Ox) && (Ox < CamX + IN_USE_WIDTH)) && ((CamY < Oy) && (Oy < CamY + IN_USE_HEIGHT)))
+	if (((CamX < Ox) && (Ox < CamX + IN_USE_WIDTH + CAM_X_BONUS)) && ((CamY < Oy) && (Oy < CamY + IN_USE_HEIGHT)))
 		return true;
 	return false;
 }
@@ -460,6 +459,9 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	{
 	case DIK_A:
 		mario->SetisFiring(false);
+		break;
+	case DIK_R:
+		CGame::GetInstance()->SwitchScene(2);
 		break;
 	}
 }
