@@ -129,6 +129,12 @@
     <ClInclude Include="Boom_Ball_Carry.h">
       <Filter>Obj</Filter>
     </ClInclude>
+    <ClInclude Include="JaSon.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stuka.cpp">
@@ -228,6 +234,12 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Boom_Ball_Carry.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="JaSon.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
   </ItemGroup>

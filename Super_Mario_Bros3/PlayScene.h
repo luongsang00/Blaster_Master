@@ -25,6 +25,8 @@
 #include "Interrupt_Bullet.h"
 #include "EffEct.h"
 #include "Boom_Ball_Carry.h"
+#include "JaSon.h"
+#include "Draw.h"
 
 
 
@@ -38,6 +40,10 @@
 #include "Sprites.h"
 #include "Portal.h"
 
+
+#define QUADTREE_SECTION_SETTINGS	1
+#define QUADTREE_SECTION_OBJECTS	2
+#define MAX_QUADTREE_LINE 1024
 
 #define QUADTREE_SECTION_SETTINGS	1
 #define QUADTREE_SECTION_OBJECTS	2
@@ -84,7 +90,8 @@ public:
 class CPlayScene : public CScene
 {
 protected:
-	CSoPhia* player;					// A play scene has to have player, right? 
+	CSoPhia* player;				// A play scene has to have player, right? 
+	JaSon* player2;
 	vector<LPGAMEOBJECT> objects;
 	int mapHeight;
 	Map* map;
@@ -114,6 +121,7 @@ public:
 	bool IsInside(float Ox, float Oy, float xRange, float yRange, float tx, float ty);
 
 	CSoPhia* GetPlayer() { return player; }
+	JaSon* GetPlayer2() { return player2; }
 
 	void setMapheight(int height)
 	{
