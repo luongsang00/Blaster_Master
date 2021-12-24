@@ -1,6 +1,5 @@
 #include "Ball_Carry.h"
 
-
 CBall_Carry::CBall_Carry()
 {
 	SetState(STATE_IDLE);
@@ -158,4 +157,3 @@ void CBall_Carry::SetState(int state)
 		break;
 	}
 }
-

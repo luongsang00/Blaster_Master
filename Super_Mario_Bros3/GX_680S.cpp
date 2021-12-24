@@ -8,12 +8,12 @@ void CGX_680S::GetBoundingBox(float& left, float& top, float& right, float& bott
 {
 	left = x;
 	top = y;
-	right = x + GX680S_BBOX_WIDTH;
+	right = x + CGX680S_BBOX_WIDTH;
 
-	if (state == GX680S_STATE_DIE)
-		bottom = y + GX680S_BBOX_HEIGHT_DIE;
+	if (state == CGX680S_STATE_DIE)
+		bottom = y + CGX680S_BBOX_HEIGHT_DIE;
 	else
-		bottom = y + GX680S_BBOX_HEIGHT;
+		bottom = y + CGX680S_BBOX_HEIGHT;
 }
 
 void CGX_680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -32,7 +32,7 @@ void CGX_680S::Render()
 {
 	if (state != STATE_DIE)
 	{
-		int ani = GX680S_ANI;
+		int ani = CGX680S_ANI;
 
 		animation_set->at(ani)->Render(x, y);
 

@@ -1,19 +1,20 @@
 #include "Drap.h"
+
 CDrap::CDrap()
 {
-	SetState(DRAP_STATE_WALKING_LEFT);
+	SetState(STATE_IDLE);
 }
 
 void CDrap::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
-	right = x + DRAP_BBOX_WIDTH;
+	right = x + CDRAP_BBOX_WIDTH;
 
-	if (state == DRAP_STATE_DIE)
-		bottom = y + DRAP_BBOX_HEIGHT_DIE;
+	if (state == CDRAP_STATE_DIE)
+		bottom = y + CDRAP_BBOX_HEIGHT_DIE;
 	else
-		bottom = y + DRAP_BBOX_HEIGHT;
+		bottom = y + CDRAP_BBOX_HEIGHT;
 }
 
 void CDrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -26,22 +27,13 @@ void CDrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	x += dx;
 	y += dy;
-	if (x <= 288)
-	{
-		x = 288;
-		vx = DRAP_WALKING_SPEED;
-	}
-	else if (x >= 480) {
-		x = 480;
-		vx = -DRAP_WALKING_SPEED;
-	}
 }
 
 void CDrap::Render()
 {
 	if (state != STATE_DIE)
 	{
-		int ani = DRAP_ANI;
+		int ani = CDRAP_ANI;
 
 		animation_set->at(ani)->Render(x, y);
 
@@ -61,12 +53,6 @@ void CDrap::SetState(int state)
 		break;
 	case STATE_DIE:
 		vy = DIE_PULL;
-		break;
-	case DRAP_STATE_WALKING_LEFT:
-		vx = -DRAP_WALKING_SPEED;
-		break;
-	case DRAP_STATE_WALKING_RIGHT:
-		vx = DRAP_WALKING_SPEED;
 		break;
 	}
 }

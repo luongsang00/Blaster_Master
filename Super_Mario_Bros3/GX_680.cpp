@@ -1,4 +1,5 @@
 #include "GX_680.h"
+
 CGX_680::CGX_680()
 {
 	SetState(STATE_IDLE);
@@ -8,12 +9,12 @@ void CGX_680::GetBoundingBox(float& left, float& top, float& right, float& botto
 {
 	left = x;
 	top = y;
-	right = x + GX680_BBOX_WIDTH;
+	right = x + CGX680_BBOX_WIDTH;
 
-	if (state == GX680_STATE_DIE)
-		bottom = y + GX680_BBOX_HEIGHT_DIE;
+	if (state == CGX680_STATE_DIE)
+		bottom = y + CGX680_BBOX_HEIGHT_DIE;
 	else
-		bottom = y + GX680_BBOX_HEIGHT;
+		bottom = y + CGX680_BBOX_HEIGHT;
 }
 
 void CGX_680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -32,7 +33,7 @@ void CGX_680::Render()
 {
 	if (state != STATE_DIE)
 	{
-		int ani = GX680_ANI;
+		int ani = CGX680_ANI;
 
 		animation_set->at(ani)->Render(x, y);
 

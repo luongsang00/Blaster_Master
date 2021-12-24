@@ -1,5 +1,5 @@
 #pragma once
-//CBall_Carry
+#pragma once
 #include "GameObject.h"
 #include "algorithm"
 #include "PlayScene.h"
