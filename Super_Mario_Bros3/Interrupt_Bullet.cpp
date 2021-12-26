@@ -1,4 +1,4 @@
-#include "Interrupt_Bullet.h"
+#include "Interrupt.h"
 #include <algorithm>
 #include "PlayScene.h"
 #include "Brick.h"
@@ -125,7 +125,7 @@ void CInterrup_Bullet::SetState(int state)
 	switch (state)
 	{
 	case CINTERRUPT_BULLET_STATE_IDLE:
-		vy = CINTERRUPT_BULLET_SPEED;
+		vy = -CINTERRUPT_BULLET_SPEED;
 		break;
 
 	}

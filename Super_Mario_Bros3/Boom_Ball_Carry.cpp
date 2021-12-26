@@ -16,11 +16,11 @@ void CBOOM::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
-	right = x + REDWORM_BBOX_WIDTH;
+	right = x + CREDWORM_BBOX_WIDTH;
 
-	if (state == REDWORM_STATE_DIE)
-		y = y + REDWORM_BBOX_HEIGHT;
-	else bottom = y + REDWORM_BBOX_HEIGHT;
+	if (state == CREDWORM_STATE_DIE)
+		y = y + CREDWORM_BBOX_HEIGHT;
+	else bottom = y + CREDWORM_BBOX_HEIGHT;
 }
 
 void CBOOM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -33,13 +33,13 @@ void CBOOM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (isUsed)
 		if ((DWORD)GetTickCount64() - timing_start >= EXPLOSING_TIMING && timing_start != 0)
 		{
-			playscene->AddKaboomMng(x, y - REDWORM_BBOX_HEIGHT / 2);
+			playscene->AddKaboomMng(x, y - CREDWORM_BBOX_HEIGHT / 2);
 			isUsed = false;
 			SetPosition(STORING_LOCATION_X, STORING_LOCATION_X);
 			timing_start = 0;
 		}
 
-	vy += CBOOM_GRAVITY * dt;
+	vy -= CBOOM_GRAVITY * dt;
 
 
 
@@ -51,6 +51,7 @@ void CBOOM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			playscene->CheckStackBoomCarryMng();
 			isUsed = true;
 			StartTiming();
+			DebugOut(L"KABOM %d \n", GetState());
 		}
 
 	if (isUsed)
@@ -116,20 +117,20 @@ void CBOOM::SetState(int state)
 		vy = 0;
 		break;
 	case CBOOM_STATE_TOP_RIGHT:
-		vx = CBOOM_VX;
-		vy = -CBOOM_VY;
+		vx = 0;
+		vy = 2 * CBOOM_VY;
 		break;
 	case CBOOM_STATE_TOP_LEFT:
 		vx = -CBOOM_VX;
-		vy = -CBOOM_VY;
+		vy = 2 * CBOOM_VY;
 		break;
 	case CBOOM_STATE_BOTTOM_RIGHT:
 		vx = -2 * CBOOM_VX;
-		vy = -CBOOM_VY;
+		vy = CBOOM_VY;
 		break;
 	case CBOOM_STATE_BOTTOM_LEFT:
-		vx = 2 * CBOOM_VX;
-		vy = -CBOOM_VY;
+		vx = CBOOM_VX;
+		vy = CBOOM_VY;
 		break;
 	}
 }

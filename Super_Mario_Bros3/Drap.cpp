@@ -1,5 +1,4 @@
 #include "Drap.h"
-
 CDrap::CDrap()
 {
 	SetState(STATE_IDLE);
@@ -52,7 +51,7 @@ void CDrap::SetState(int state)
 		vy = 0;
 		break;
 	case STATE_DIE:
-		vy = DIE_PULL;
+		vy = -DIE_PULL;
 		break;
 	}
 }

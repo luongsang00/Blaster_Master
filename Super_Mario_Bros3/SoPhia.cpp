@@ -1,4 +1,3 @@
-#include "SoPhia.h"
 #include <algorithm>
 #include <assert.h>
 #include "Utils.h"
@@ -29,7 +28,7 @@ void CSoPhia::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	// Simple fall down
 	if (id == 1)
-		vy += SOPHIA_GRAVITY * dt;
+		vy -= SOPHIA_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -125,10 +124,10 @@ void CSoPhia::SetState(int state)
 	switch (state)
 	{
 	case SOPHIA_STATE_WALKING_DOWN:
-		vy = SOPHIA_WALKING_SPEED;
+		vy = -SOPHIA_WALKING_SPEED;
 		break;
 	case SOPHIA_STATE_WALKING_UP:
-		vy = -SOPHIA_WALKING_SPEED;
+		vy = SOPHIA_WALKING_SPEED;
 		break;
 	case SOPHIA_STATE_WALKING_RIGHT:
 		vx = SOPHIA_WALKING_SPEED;
@@ -140,13 +139,13 @@ void CSoPhia::SetState(int state)
 		break;
 	case SOPHIA_STATE_JUMP:
 		// TODO: need to check if SOPHIA is *current* on a platform before allowing to jump again
-		vy = -SOPHIA_JUMP_SPEED_Y;
+		vy = SOPHIA_JUMP_SPEED_Y;
 		break;
 	case SOPHIA_STATE_IDLE:
 		vx = 0;
 		break;
 	case SOPHIA_STATE_DIE:
-		vy = SOPHIA_DIE_DEFLECT_SPEED;
+		vy = -SOPHIA_DIE_DEFLECT_SPEED;
 		break;
 	}
 }
@@ -211,5 +210,4 @@ void CSoPhia::CalcPotentialCollisions(
 			delete e;
 	}
 }
-
 

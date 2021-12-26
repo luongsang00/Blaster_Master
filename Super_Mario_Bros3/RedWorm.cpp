@@ -5,7 +5,7 @@
 
 CRedWorm::CRedWorm()
 {
-	SetState(REDWORM_STATE_DIE);
+	SetState(CREDWORM_STATE_DIE);
 	nx = 0;
 }
 
@@ -13,11 +13,11 @@ void CRedWorm::GetBoundingBox(float& left, float& top, float& right, float& bott
 {
 	left = x;
 	top = y;
-	right = x + REDWORM_BBOX_WIDTH;
+	right = x + CREDWORM_BBOX_WIDTH;
 
-	if (state == REDWORM_STATE_DIE)
-		y = y + REDWORM_BBOX_HEIGHT;
-	else bottom = y + REDWORM_BBOX_HEIGHT;
+	if (state == CREDWORM_STATE_DIE)
+		y = y + CREDWORM_BBOX_HEIGHT;
+	else bottom = y + CREDWORM_BBOX_HEIGHT;
 }
 
 void CRedWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -29,26 +29,26 @@ void CRedWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	// Simple fall down
-	if (state != REDWORM_STATE_DIE)
-		vy += SOPHIA_GRAVITY * dt;
+	if (state != CREDWORM_STATE_DIE)
+		vy -= SOPHIA_GRAVITY * dt;
 
 	coEvents.clear();
 
 	// turn off collision when die 
-	if (state != REDWORM_STATE_DIE)
+	if (state != CREDWORM_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 	else
 	{
 		isUsed = false;
 		x = STORING_LOCATION;
 		y = STORING_LOCATION;
-		SetState(REDWORM_STATE_DIE);
+		SetState(CREDWORM_STATE_DIE);
 	}
 	if (isUsed == false)
 	{
 		if (((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->CheckWormSpamMng())
 		{
-			SetState(REDWORM_STATE_WALKING);
+			SetState(CREDWORM_STATE_WALKING);
 			this->SetPosition(playscene->GetWormSpamMng()->getCEventPoisitionX(), playscene->GetWormSpamMng()->getCEventPoisitionY());
 			playscene->DeleteWormSpamMng();
 			isUsed = true;
@@ -58,12 +58,12 @@ void CRedWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (playscene->GetPlayer()->GetPositionX() > this->x)
 	{
-		vx = REDWORM_SPEED;
+		vx = CREDWORM_SPEED;
 		nx = 1;
 	}
 	else
 	{
-		vx = -REDWORM_SPEED;
+		vx = -CREDWORM_SPEED;
 		nx = -1;
 	}
 
@@ -118,10 +118,10 @@ void CRedWorm::CalcPotentialCollisions(
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
-		//if (!dynamic_cast<CBrick*>(e->obj))
-		//{
-		//	continue;
-		//}
+		if (!dynamic_cast<CBrick*>(e->obj))
+		{
+			continue;
+		}
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
 		else
@@ -137,10 +137,10 @@ void CRedWorm::Render()
 	switch (nx)
 	{
 	case 1:
-		ani = REDWORM_ANI_WALKING_RIGHT;
+		ani = CREDWORM_ANI_WALKING_RIGHT;
 		break;
 	case -1:
-		ani = REDWORM_ANI_WALKING_LEFT;
+		ani = CREDWORM_ANI_WALKING_LEFT;
 		break;
 	}
 

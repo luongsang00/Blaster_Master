@@ -1,8 +1,8 @@
-#include "JaSon.h"
 #include <algorithm>
 #include <assert.h>
 #include "Utils.h"
 
+#include "JASON.h"
 #include "Game.h"
 
 #include "PlayScene.h"
@@ -132,10 +132,10 @@ void JaSon::SetState(int state)
 	switch (state)
 	{
 	case JASON_STATE_WALKING_DOWN:
-		vy = JASON_WALKING_SPEED;
+		vy = -JASON_WALKING_SPEED;
 		break;
 	case JASON_STATE_WALKING_UP:
-		vy = -JASON_WALKING_SPEED;
+		vy = JASON_WALKING_SPEED;
 		break;
 	case JASON_STATE_WALKING_RIGHT:
 		vx = JASON_WALKING_SPEED;
