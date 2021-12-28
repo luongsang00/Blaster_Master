@@ -6,6 +6,8 @@ CGX_680::CGX_680()
 
 void CGX_680::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+	if (state == STATE_DIE)
+		return;
 	left = x;
 	top = y;
 	right = x + CGX680_BBOX_WIDTH;
@@ -24,19 +26,39 @@ void CGX_680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	if (playscene->IsInside(x - 100, y - 100, x + 100, y + 100, playscene->GetPlayer2()->GetPositionX(), playscene->GetPlayer2()->GetPositionY()))
+	if (state != STATE_DIE)
 	{
-		StartSwitch_state();
-	}
+		if (playscene->IsInside(x - 100, y - 100, x + 100, y + 100, playscene->GetPlayer2()->GetPositionX(), playscene->GetPlayer2()->GetPositionY()))
+		{
+			StartSwitch_state();
+			StartAttack();
+		}
 
-	if ((DWORD)GetTickCount64() - switch_state && switch_state >= CGX680_WALKING_TIME)
-	{
-		switch_state = (DWORD)GetTickCount64();
-		StartSwitch_state();
-		vx = (playscene->GetPlayer2()->GetPositionX() - x) / abs(playscene->GetPlayer2()->GetPositionX() - x) * CGX680_WALKING_SPEED;
-		vy = -(playscene->GetPlayer2()->GetPositionY() - y) / abs(playscene->GetPlayer2()->GetPositionY() - y) * CGX680_WALKING_SPEED;
-	}
+		if ((DWORD)GetTickCount64() - switch_state >= CGX680_WALKING_TIME && switch_state != 0)
+		{
+			switch_state = 0;
 
+			StartSwitch_state();
+
+			vx = (playscene->GetPlayer2()->GetPositionX() - x) / abs(playscene->GetPlayer2()->GetPositionX() - x) * CGX680_WALKING_SPEED;
+			vy = -(playscene->GetPlayer2()->GetPositionY() - y) / abs(playscene->GetPlayer2()->GetPositionY() - y) * CGX680_WALKING_SPEED;
+		}
+
+		if ((DWORD)GetTickCount64() - attacking >= CGX680_ATTACKING_TIME && attacking != 0)
+		{
+			attacking = 0;
+
+			StartAttack();
+
+			float distant = (abs(playscene->GetPlayer2()->GetPositionX()) - abs(x)) / sqrt(pow(playscene->GetPlayer2()->GetPositionX(), 2) + pow(x, 2));
+			float distant2 = (abs(playscene->GetPlayer2()->GetPositionY()) - JASON_SMALL_BBOX_HEIGHT / 2 - abs(y)) / sqrt(pow(playscene->GetPlayer2()->GetPositionY(), 2) + pow(y, 2));
+
+			float bx = distant / 6;
+			float by = -distant2 / 6;
+
+			playscene->AddCGXMng(x, y, bx, by);
+		}
+	}
 	if (state != STATE_IDLE)
 		CalcPotentialCollisions(coObjects, coEvents);
 

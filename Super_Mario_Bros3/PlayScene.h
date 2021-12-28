@@ -30,7 +30,6 @@
 
 
 
-
 #include "Utils.h"
 #include "Game.h"
 #include <iostream>
@@ -39,11 +38,11 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
-
-
-#define QUADTREE_SECTION_SETTINGS	1
-#define QUADTREE_SECTION_OBJECTS	2
-#define MAX_QUADTREE_LINE 1024
+#include "DefinePlayer.h"
+#include "JaSon_Bullet.h"
+#include "Grenade.h"
+#include "GX_Bullet.h"
+#include "LaserGuard_Bullet.h"
 
 #define QUADTREE_SECTION_SETTINGS	1
 #define QUADTREE_SECTION_OBJECTS	2
@@ -100,6 +99,7 @@ protected:
 	vector<CEvenType*> WormSpamMng;
 	vector<CEvenType*> KaboomMng;
 	vector<CEvenType*> BoomCarryMng;
+	vector<CEvenType*> CGXMng;
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -131,6 +131,26 @@ public:
 	int getMapheight()
 	{
 		return mapHeight;
+	}
+	/////////////////CGXMng
+	void AddCGXMng(float x, float y, float vx, float vy)
+	{
+		CEvenType* obj = new CEvenType(x, y, 0, vx, vy);
+		this->CGXMng.push_back(obj);
+	}
+	CEvenType* GetCGXMng()
+	{
+		return CGXMng.at(0);
+	}
+	bool CheckCGXMng()
+	{
+		if (CGXMng.size() != 0)
+			return true;
+		return false;
+	}
+	void DeleteCGXMng()
+	{
+		this->CGXMng.erase(CGXMng.begin());
 	}
 	/////////////////BoomCarryMng
 	void AddBoomCarryMng(float x, float y)
@@ -235,3 +255,4 @@ public:
 	virtual void OnKeyUp(int KeyCode);
 	CPlayScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
 };
+

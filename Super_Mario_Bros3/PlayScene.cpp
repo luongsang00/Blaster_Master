@@ -17,32 +17,6 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath) :
 	See scene1.txt, scene2.txt for detail format specification
 */
 
-#define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_TEXTURES 2
-#define SCENE_SECTION_SPRITES 3
-#define SCENE_SECTION_ANIMATIONS 4
-#define SCENE_SECTION_ANIMATION_SETS	5
-#define SCENE_SECTION_OBJECTS	6
-#define SCENE_SECTION_MAP	7
-#define SCENE_SECTION_QUADTREE	8
-#define SCENE_SECTION_SETTING	9
-
-#define OBJECT_TYPE_SOPHIA	0
-#define OBJECT_TYPE_TANK_WHEEL	100
-#define OBJECT_TYPE_TANK_BODY	101
-#define OBJECT_TYPE_TANK_TURRET	102
-#define OBJECT_TYPE_BRICK	1
-#define OBJECT_TYPE_CTANKBULLET	2
-#define OBJECT_TYPE_CINTERCRUPT_BULLET	12
-#define OBJECT_TYPE_RED_WORM	13
-#define OBJECT_TYPE_EFFECT	14
-#define OBJECT_TYPE_CBOOM	15
-#define OBJECT_TYPE_JASON	16
-#define OBJECT_TYPE_NoCollisionObject	17
-
-#define OBJECT_TYPE_PORTAL	50
-
-#define MAX_SCENE_LINE 1024
 
 void CPlayScene::Load()
 {
@@ -273,10 +247,19 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new Tank_Wheel(part);
 	}
 	break;
-
+	case OBJECT_TYPE_CLASER_BULLET:
+	{
+		obj = new CLASER_BULLET();
+	}
+	break;
 	case OBJECT_TYPE_TANK_BODY:
 	{
 		obj = new Tank_Body();
+	}
+	break;
+	case OBJECT_TYPE_JASON_BULLET_1:
+	{
+		obj = new CWAVE_BULLET();
 	}
 	break;
 
@@ -292,7 +275,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new EFFECT(time);
 	}
 	break;
-
+	case OBJECT_TYPE_JASON_GRENADE:
+	{
+		obj = new CGRENADE();
+	}
+	break;
+	case OBJECT_TYPE_CGX_BULLET:
+	{
+		obj = new CGX_BULLET();
+	}
+	break;
 	case OBJECT_TYPE_PORTAL:
 	{
 		float r = atof(tokens[4].c_str());
@@ -573,6 +565,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 			player->SetState(SOPHIA_STATE_WALKING_DOWN);
 		else if (game->IsKeyDown(DIK_UP))
 			player->SetState(SOPHIA_STATE_WALKING_UP);
+		else if (game->IsKeyDown(DIK_Q))
+			player->SwitchWeapon();
 		else
 			player->SetState(SOPHIA_STATE_IDLE);
 	}

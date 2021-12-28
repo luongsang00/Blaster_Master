@@ -135,6 +135,18 @@
     <ClInclude Include="Draw.h">
       <Filter>Obj</Filter>
     </ClInclude>
+    <ClInclude Include="JaSon_Bullet.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="GX_Bullet.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Grenade.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserGuard_Bullet.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stuka.cpp">
@@ -240,6 +252,18 @@
       <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="Draw.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="JaSon_Bullet.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="GX_Bullet.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Grenade.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserGuard_Bullet.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
   </ItemGroup>
