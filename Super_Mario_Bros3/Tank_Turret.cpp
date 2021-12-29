@@ -1,7 +1,7 @@
 #include "Tank_Turret.h"
 #include <algorithm>
 #include "PlayScene.h"
-#include "DefinePlayer.h"
+
 
 
 Tank_Turret::Tank_Turret()
@@ -22,6 +22,14 @@ void Tank_Turret::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	x = SOPHIA->x + TURRET_DISTANT_X;
 
 	y = SOPHIA->y + TURRET_DISTANT_Y;
+
+	if (SOPHIA->GetisAimingUp())
+		y = y - 16;
+
+	if (SOPHIA->GetNx() < 0 && SOPHIA->GetisAimingUp())
+	{
+		x = x + 4;
+	}
 
 	x += dx;
 	y += dy;
@@ -44,8 +52,10 @@ void Tank_Turret::Render()
 		ani = TURRET_ANI_IDLE_LEFT;
 		pre_ani = ani;
 	}
-
 	else ani = pre_ani;
+
+	if (SOPHIA->GetisAimingUp())
+		ani = ani + 2;
 
 	animation_set->at(ani)->Render(x, y);
 

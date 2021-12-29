@@ -1,7 +1,7 @@
 #include "Tank_Body.h"
 #include <algorithm>
 #include "PlayScene.h"
-#include "DefinePlayer.h"
+
 
 
 Tank_Body::Tank_Body()
@@ -22,6 +22,11 @@ void Tank_Body::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	x = SOPHIA->x + BODY_DISTANT_X;
 
 	y = SOPHIA->y + BODY_DISTANT_Y;
+
+	if (SOPHIA->GetisAimingUp())
+	{
+		y = y - 4;
+	}
 
 	x += dx;
 	y += dy;

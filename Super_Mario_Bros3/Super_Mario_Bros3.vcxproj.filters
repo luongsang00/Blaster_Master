@@ -147,6 +147,12 @@
     <ClInclude Include="LaserGuard_Bullet.h">
       <Filter>Obj</Filter>
     </ClInclude>
+    <ClInclude Include="HP.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Cam.h">
+      <Filter>System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stuka.cpp">
@@ -265,6 +271,12 @@
     </ClCompile>
     <ClCompile Include="LaserGuard_Bullet.cpp">
       <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="HP.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Cam.cpp">
+      <Filter>System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

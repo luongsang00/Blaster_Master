@@ -152,6 +152,7 @@
     <ClInclude Include="Ball_Carry.h" />
     <ClInclude Include="Boom_Ball_Carry.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="Cam.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DefinePlayer.h" />
     <ClInclude Include="Drap.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="GX_680.h" />
     <ClInclude Include="GX_680S.h" />
     <ClInclude Include="GX_Bullet.h" />
+    <ClInclude Include="HP.h" />
     <ClInclude Include="Interrupt.h" />
     <ClInclude Include="Interrupt_Bullet.h" />
     <ClInclude Include="EvenType.h" />
@@ -193,6 +195,7 @@
     <ClCompile Include="Ball_Carry.cpp" />
     <ClCompile Include="Boom_Ball_Carry.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Cam.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Drap.cpp" />
     <ClCompile Include="Draw.cpp" />
@@ -202,6 +205,7 @@
     <ClCompile Include="GX_680.cpp" />
     <ClCompile Include="GX_680S.cpp" />
     <ClCompile Include="GX_Bullet.cpp" />
+    <ClCompile Include="HP.cpp" />
     <ClCompile Include="Interrupt.cpp" />
     <ClCompile Include="Interrupt_Bullet.cpp" />
     <ClCompile Include="JaSon.cpp" />

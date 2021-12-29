@@ -23,12 +23,13 @@ CSoPhia::CSoPhia(float x, float y) : CGameObject()
 void CSoPhia::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	int id = CGame::GetInstance()->GetCurrentScene()->GetId();
+	CGame* game = CGame::GetInstance();
 	// Calculate dx, dy 
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	if (id == 1)
-		vy -= SOPHIA_GRAVITY * dt;
+	//if(!game->GetFilming())
+	vy -= SOPHIA_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -84,6 +85,10 @@ void CSoPhia::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (ny < 0)
+			{
+				SetIsJumping(false);
+			}
 		}
 	}
 
@@ -123,19 +128,15 @@ void CSoPhia::SetState(int state)
 
 	switch (state)
 	{
-	case SOPHIA_STATE_WALKING_DOWN:
-		vy = -SOPHIA_WALKING_SPEED;
-		break;
-	case SOPHIA_STATE_WALKING_UP:
-		vy = SOPHIA_WALKING_SPEED;
-		break;
 	case SOPHIA_STATE_WALKING_RIGHT:
 		vx = SOPHIA_WALKING_SPEED;
 		nx = 1;
+		dir = 1;
 		break;
 	case SOPHIA_STATE_WALKING_LEFT:
 		vx = -SOPHIA_WALKING_SPEED;
 		nx = -1;
+		dir = -1;
 		break;
 	case SOPHIA_STATE_JUMP:
 		// TODO: need to check if SOPHIA is *current* on a platform before allowing to jump again
@@ -173,6 +174,9 @@ void CSoPhia::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
+	CGame* game = CGame::GetInstance();
+	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
+
 	vector <LPCOLLISIONEVENT> collisionEvents;
 
 	for (UINT i = 0; i < coObjects->size(); i++)
@@ -191,8 +195,24 @@ void CSoPhia::CalcPotentialCollisions(
 		{
 			continue;
 		}
+
 		if (e->t > 0 && e->t <= 1.0f)
-			collisionEvents.push_back(e);
+		{
+			if (dynamic_cast<CPortal*>(e->obj))
+			{
+				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
+				if (portal->GetSceneId() != -1)
+					game->SwitchScene(portal->GetSceneId());
+				playscene->StartFilming();
+				game->setFilming(true);
+				playscene->setCamState(portal->GetCamState());
+				continue;
+			}
+			else
+			{
+				collisionEvents.push_back(e);
+			}
+		}
 		else
 			delete e;
 	}
