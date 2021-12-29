@@ -25,6 +25,9 @@
     <Filter Include="Obj">
       <UniqueIdentifier>{71139611-cf6d-43f2-b55e-8f60d993e3b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Bullet">
+      <UniqueIdentifier>{231cdbd0-303f-465f-a2d1-736770705bb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball_Carry.h">
@@ -90,16 +93,10 @@
     <ClInclude Include="Utils.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Tank_Body.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>Obj</Filter>
     </ClInclude>
     <ClInclude Include="Portal.h">
-      <Filter>Obj</Filter>
-    </ClInclude>
-    <ClInclude Include="Tank_Bullet.h">
       <Filter>Obj</Filter>
     </ClInclude>
     <ClInclude Include="SoPhia.h">
@@ -107,15 +104,6 @@
     </ClInclude>
     <ClInclude Include="DefinePlayer.h">
       <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Tank_Wheel.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Tank_Turret.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Interrupt_Bullet.h">
-      <Filter>Obj</Filter>
     </ClInclude>
     <ClInclude Include="EffEct.h">
       <Filter>Obj</Filter>
@@ -126,25 +114,10 @@
     <ClInclude Include="RedWorm.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Boom_Ball_Carry.h">
-      <Filter>Obj</Filter>
-    </ClInclude>
     <ClInclude Include="JaSon.h">
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="Draw.h">
-      <Filter>Obj</Filter>
-    </ClInclude>
-    <ClInclude Include="JaSon_Bullet.h">
-      <Filter>Obj</Filter>
-    </ClInclude>
-    <ClInclude Include="GX_Bullet.h">
-      <Filter>Obj</Filter>
-    </ClInclude>
-    <ClInclude Include="Grenade.h">
-      <Filter>Obj</Filter>
-    </ClInclude>
-    <ClInclude Include="LaserGuard_Bullet.h">
       <Filter>Obj</Filter>
     </ClInclude>
     <ClInclude Include="HP.h">
@@ -152,6 +125,42 @@
     </ClInclude>
     <ClInclude Include="Cam.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank_Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserGuard_Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="JaSon_Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Interrupt_Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="GX_Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Boom_Ball_Carry.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Grenade.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Small_JaSon.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Body.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Wheel.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,16 +227,10 @@
     <ClCompile Include="Utils.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Tank_Body.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
     <ClCompile Include="Portal.cpp">
-      <Filter>Obj</Filter>
-    </ClCompile>
-    <ClCompile Include="Tank_Bullet.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
     <ClCompile Include="SoPhia.cpp">
@@ -236,23 +239,11 @@
     <ClCompile Include="PlayScene.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Tank_Wheel.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Tank_Turret.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Interrupt_Bullet.cpp">
-      <Filter>Obj</Filter>
-    </ClCompile>
     <ClCompile Include="EffEct.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
     <ClCompile Include="RedWorm.cpp">
       <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Boom_Ball_Carry.cpp">
-      <Filter>Obj</Filter>
     </ClCompile>
     <ClCompile Include="JaSon.cpp">
       <Filter>Player</Filter>
@@ -260,23 +251,47 @@
     <ClCompile Include="Draw.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
-    <ClCompile Include="JaSon_Bullet.cpp">
-      <Filter>Obj</Filter>
-    </ClCompile>
-    <ClCompile Include="GX_Bullet.cpp">
-      <Filter>Obj</Filter>
-    </ClCompile>
-    <ClCompile Include="Grenade.cpp">
-      <Filter>Obj</Filter>
-    </ClCompile>
-    <ClCompile Include="LaserGuard_Bullet.cpp">
-      <Filter>Obj</Filter>
-    </ClCompile>
     <ClCompile Include="HP.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
     <ClCompile Include="Cam.cpp">
       <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Tank_Bullet.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserGuard_Bullet.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="JaSon_Bullet.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Interrupt_Bullet.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="GX_Bullet.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Boom_Ball_Carry.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Grenade.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Small_JaSon.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Body.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Wheel.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

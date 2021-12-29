@@ -16,11 +16,12 @@
 #include "LaserGuard.h"
 #include "Interrupt.h"
 #include "RedWorm.h"
-#include "Tank_Turret.h"
+#include "Turret.h"
 #include "Tank_Bullet.h"
-#include "Tank_Body.h"
+#include "Body.h"
 #include "SoPhia.h"
-#include "Tank_Wheel.h"
+#include "Wheel.h"
+#include "Door.h"
 #include "EvenType.h"
 #include "Interrupt_Bullet.h"
 #include "EffEct.h"
@@ -45,6 +46,7 @@
 #include "LaserGuard_Bullet.h"
 #include "HP.h"
 #include "Cam.h"
+#include "Small_JaSon.h"
 
 #define QUADTREE_SECTION_SETTINGS	1
 #define QUADTREE_SECTION_OBJECTS	2
@@ -94,6 +96,7 @@ class CPlayScene : public CScene
 protected:
 	CSoPhia* player;				// A play scene has to have player, right? 
 	JaSon* player2;
+	MINI_JASON* player3;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> secondLayer;
 	int mapHeight;
@@ -110,6 +113,8 @@ protected:
 	DWORD filming_start = 0;
 
 	int camState = 0;
+
+	bool piloting = true;
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -133,7 +138,17 @@ public:
 
 	CSoPhia* GetPlayer() { return player; }
 	JaSon* GetPlayer2() { return player2; }
+	MINI_JASON* GetPlayer3() { return player3; }
 
+	void setpiloting(int value)
+	{
+		piloting = value;
+	}
+
+	int getpiloting()
+	{
+		return piloting;
+	}
 	void StartFilming()
 	{
 		if (filming_start == 0)
@@ -280,5 +295,4 @@ public:
 	virtual void OnKeyUp(int KeyCode);
 	CPlayScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
 };
-
 

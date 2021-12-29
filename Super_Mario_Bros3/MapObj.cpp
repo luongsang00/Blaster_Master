@@ -1,7 +1,6 @@
-#include "MapObj.h"
-
 #include <fstream>
 #include <iostream>
+#include"MapObj.h"
 #include "Textures.h"
 
 MapObj::MapObj(int _totalRowsMap, int _totalColumnsMap)

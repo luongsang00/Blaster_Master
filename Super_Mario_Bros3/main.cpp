@@ -20,17 +20,17 @@
 #include "GameObject.h"
 #include "Textures.h"
 
-#include "Tank_Body.h"
+#include "SOPHIA.h"
 #include "Brick.h"
-#include "Stuka.h"
+
 
 #include "PlayScene.h"
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"SAMPLE 05 - SCENCE MANAGER"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
-#define SCREEN_WIDTH  320
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
+#define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
 #define MAX_FRAME_RATE 120
