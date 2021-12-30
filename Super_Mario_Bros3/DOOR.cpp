@@ -1,7 +1,7 @@
-#include "CTANKDOOR.h"
+#include "DOOR.h"
 #include <algorithm>
 #include "PlayScene.h"
-#include "DF.h"
+
 
 
 CTANKDOOR::CTANKDOOR()

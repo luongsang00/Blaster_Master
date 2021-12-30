@@ -2,7 +2,7 @@
 #include <assert.h>
 #include "Utils.h"
 
-#include "MINI_JASON.h"
+#include "SMALL_JASON.h"
 #include "Game.h"
 
 #include "PlayScene.h"

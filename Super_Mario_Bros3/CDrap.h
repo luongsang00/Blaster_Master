@@ -5,7 +5,7 @@
 #include "PlayScene.h"
 #include "algorithm"
 
-#define CDRAP_WALKING_SPEED 0.2f;
+#define CDRAP_WALKING_SPEED 0.09f;
 
 #define CDRAP_BBOX_WIDTH 17
 #define CDRAP_BBOX_HEIGHT 18

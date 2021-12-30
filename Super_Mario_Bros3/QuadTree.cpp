@@ -92,7 +92,7 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
+	
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	case OBJECT_TYPE_LASERGUARD: obj = new CLASERGUARD(); break;
 	case OBJECT_TYPE_BALLCARRY: obj = new CBALLCARRY(); break;
@@ -101,7 +101,7 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_CGX680: obj = new CGX680(); break;
 	case OBJECT_TYPE_CGX680S: obj = new CGX680S(); break;
 	case OBJECT_TYPE_CSTUKA: obj = new CSTUKA(); break;
-	case OBJECT_TYPE_NoCollisionObject: obj = new CNoCollisionObject(); break;
+	case OBJECT_TYPE_NoCollisionObject: obj = new Draw(); break;
 	case OBJECT_TYPE_EYELET: 
 	{
 		float kill_point = atoi(tokens[4].c_str());

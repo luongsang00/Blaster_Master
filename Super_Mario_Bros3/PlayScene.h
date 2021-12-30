@@ -8,7 +8,7 @@
 #include "Eye.h"
 #include "Koopas.h"
 #include "Map.h"
-#include "CTANKWHEELS.h"
+#include "WHEELS.h"
 #include "MapObj.h"
 #include "CLaserGuard.h"
 #include "CBallCarry.h"
@@ -23,12 +23,12 @@
 #include "CEvenType1.h"
 #include "CINTERRUPT_BULLET.h"
 #include "CREDWORM.h"
-#include "TANKBODY.h"
-#include "TANKTURRET.h"
+#include "BODY.h"
+#include "TURRET.h"
 #include "EFFECT.h"
 #include "JASON.h"
-#include "CBOOM.h"
-#include "NoCollisionObject.h"
+#include "CBOOM_BALL_CARRY.h"
+#include "DRAW.h"
 
 #include "Utils.h"
 #include "Game.h"
@@ -38,15 +38,15 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
-#include "DF.h"
+#include "DefinePlayer.h"
 #include "CWAVE_BULLET.h"
 #include "CGRENADE.h"
 #include "CGX_BULLET.h"
 #include "CLASER_BULLET.h"
 #include "MapCamera.h"
 #include "CSTATBAR.h"
-#include "MINI_JASON.h"
-#include "CTANKDOOR.h"
+#include "SMALL_JASON.h"
+#include "DOOR.h"
 #include "Items.h"
 
 #define QUADTREE_SECTION_SETTINGS	1
@@ -103,12 +103,12 @@ protected:
 	int mapHeight;
 	Map* map;
 	CQuadTree* quadtree;
-	vector<CEvenType1*> InterruptBulletMng ;
-	vector<CEvenType1*> WormSpamMng;
-	vector<CEvenType1*> KaboomMng;
-	vector<CEvenType1*> BoomCarryMng;
-	vector<CEvenType1*> CGXMng;
-	vector<CEvenType1*> ItemsMng;
+	vector<CEvenType*> InterruptBulletMng ;
+	vector<CEvenType*> WormSpamMng;
+	vector<CEvenType*> KaboomMng;
+	vector<CEvenType*> BoomCarryMng;
+	vector<CEvenType*> CGXMng;
+	vector<CEvenType*> ItemsMng;
 	vector<MapCamera*> MapCam;
 	
 	int filming_duration = 1000;
@@ -178,10 +178,10 @@ public:
 	/////////////////ItemsMng
 	void AddItemsMng(float x, float y, int num)
 	{
-		CEvenType1* obj = new CEvenType1(x, y, num);
+		CEvenType* obj = new CEvenType(x, y, num);
 		this->ItemsMng.push_back(obj);
 	}
-	CEvenType1* GetItemsMng()
+	CEvenType* GetItemsMng()
 	{
 		return ItemsMng.at(0);
 	}
@@ -198,10 +198,10 @@ public:
 	/////////////////CGXMng
 	void AddCGXMng(float x, float y, float vx, float vy)
 	{
-		CEvenType1* obj = new CEvenType1(x, y, 0, vx, vy);
+		CEvenType* obj = new CEvenType(x, y, 0, vx, vy);
 		this->CGXMng.push_back(obj);
 	}
-	CEvenType1* GetCGXMng()
+	CEvenType* GetCGXMng()
 	{
 		return CGXMng.at(0);
 	}
@@ -218,7 +218,7 @@ public:
 	/////////////////BoomCarryMng
 	void AddBoomCarryMng(float x, float y)
 	{
-		CEvenType1* obj = new CEvenType1(x, y);
+		CEvenType* obj = new CEvenType(x, y);
 		this->BoomCarryMng.push_back(obj);
 	}
 	void CheckStackBoomCarryMng()
@@ -232,7 +232,7 @@ public:
 			DeleteBoomCarryMng();
 		}
 	}
-	CEvenType1* GetBoomCarryMng()
+	CEvenType* GetBoomCarryMng()
 	{
 		return BoomCarryMng.at(0);
 	}
@@ -249,10 +249,10 @@ public:
 	/////////////////KaboomMng
 	void AddKaboomMng(float x, float y)
 	{
-		CEvenType1* obj = new CEvenType1(x, y);
+		CEvenType* obj = new CEvenType(x, y);
 		this->KaboomMng.push_back(obj);
 	}
-	CEvenType1* GetKaboomMng()
+	CEvenType* GetKaboomMng()
 	{
 		return KaboomMng.at(0);
 	}
@@ -269,10 +269,10 @@ public:
 	/////////////////InterruptBulletMng
 	void AddInterruptBulletMng(float x, float y)
 	{
-		CEvenType1* obj = new CEvenType1(x, y);
+		CEvenType* obj = new CEvenType(x, y);
 		this->InterruptBulletMng.push_back(obj);
 	}
-	CEvenType1* GetInterruptBulletMng()
+	CEvenType* GetInterruptBulletMng()
 	{
 		return InterruptBulletMng.at(0);
 	}
@@ -289,10 +289,10 @@ public:
 	//////////////////////////WormSpamMng
 	void AddWormSpamMng(float x, float y)
 	{
-		CEvenType1* obj = new CEvenType1(x, y);
+		CEvenType* obj = new CEvenType(x, y);
 		this->WormSpamMng.push_back(obj);
 	}
-	CEvenType1* GetWormSpamMng()
+	CEvenType* GetWormSpamMng()
 	{
 		return WormSpamMng.at(0);
 	}

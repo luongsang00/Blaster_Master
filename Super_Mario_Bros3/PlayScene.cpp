@@ -266,7 +266,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	case OBJECT_TYPE_CBOOM: obj = new CBOOM(); break;
 	case OBJECT_TYPE_CTANKBULLET: obj = new CTANKBULLET(); break;
-	case OBJECT_TYPE_NoCollisionObject: obj = new CNoCollisionObject(); break;
+	case OBJECT_TYPE_NoCollisionObject: obj = new Draw(); break;
 	case OBJECT_TYPE_STATBAR: obj = new CSTATBAR(atoi(tokens[4].c_str())); break;
 	case OBJECT_TYPE_ITEMS:
 	{
