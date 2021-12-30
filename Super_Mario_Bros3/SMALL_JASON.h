@@ -9,6 +9,7 @@ class MINI_JASON : public CGameObject
 	DWORD firing_start;
 	DWORD untouchable_start;
 
+	int weapon = 1;
 	bool isJumping = false;
 
 	int dir = 0;
@@ -30,10 +31,13 @@ public:
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 
 	void SetState(int state);
+	int getWeapon() { return weapon; }
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartFiring() { if (firing_start == 0) firing_start = GetTickCount(); }
 	void SetisIsFiring(int time) { firing_start = time; }
+	
+	int GetPre_ani() { return pre_ani; }
 
 	void Reset();
 

@@ -47,7 +47,9 @@
 #include "CSTATBAR.h"
 #include "SMALL_JASON.h"
 #include "DOOR.h"
+#include "Blue_Brick.h"
 #include "Items.h"
+//#include "small_jason_bullet.h"
 
 #define QUADTREE_SECTION_SETTINGS	1
 #define QUADTREE_SECTION_OBJECTS	2

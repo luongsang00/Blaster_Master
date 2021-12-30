@@ -45,6 +45,33 @@ void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (isUsed == false)
 	{
+		/*MINI_JASON* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer3();
+		if (SOPHIA->GetisFiring() == true)
+		{
+			if (SOPHIA->GetisAlreadyFired() == false)
+			{
+				isUsed = true;
+				x = SOPHIA->x;
+				y = SOPHIA->y;
+				if (SOPHIA->GetisAimingUp())
+				{
+					x = x + SOPHIA_BIG_BBOX_WIDTH / 3;
+					y = y - SOPHIA_BIG_BBOX_HEIGHT;
+				}
+				if (SOPHIA->GetisAimingUp())
+				{
+					SetSpeed(0, CTANKBULLET_SPEED);
+				}
+				else
+				{
+					SetSpeed(SOPHIA->nx * CTANKBULLET_SPEED);
+				}
+				SOPHIA->SetisAlreadyFired(true);
+				SOPHIA->StartFiring();
+				StartReset();
+				DebugOut(L"FIRED \n");
+			}
+		}*/
 		CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 		if (SOPHIA->GetisFiring() == true)
 		{

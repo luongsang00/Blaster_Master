@@ -321,6 +321,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CGX_BULLET();
 	}
 	break;
+	/*case OBJECT_TYPE_SMALL_JASON_BULLET:
+	{
+		obj = new small_jason_bullet();
+	}
+	break;*/
 	case OBJECT_TYPE_PORTAL:
 	{
 		float r = atof(tokens[4].c_str());

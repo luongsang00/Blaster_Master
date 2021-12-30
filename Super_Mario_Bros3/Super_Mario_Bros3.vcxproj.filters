@@ -96,9 +96,6 @@
     <ClInclude Include="CSTATBAR.h">
       <Filter>OtherObj</Filter>
     </ClInclude>
-    <ClInclude Include="CBREAKABLE_BRICK.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Items.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -177,6 +174,12 @@
     <ClInclude Include="CJASON_BULLET.h">
       <Filter>Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Blue_Brick.h">
+      <Filter>OtherObj</Filter>
+    </ClInclude>
+    <ClInclude Include="small_jason_bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDrap.cpp">
@@ -225,9 +228,6 @@
       <Filter>OtherObj</Filter>
     </ClCompile>
     <ClCompile Include="EFFECT.cpp">
-      <Filter>OtherObj</Filter>
-    </ClCompile>
-    <ClCompile Include="CBREAKABLE_BRICK.cpp">
       <Filter>OtherObj</Filter>
     </ClCompile>
     <ClCompile Include="Items.cpp">
@@ -312,6 +312,12 @@
       <Filter>Bullet</Filter>
     </ClCompile>
     <ClCompile Include="CJASON_BULLET.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Blue_Brick.cpp">
+      <Filter>OtherObj</Filter>
+    </ClCompile>
+    <ClCompile Include="small_jason_bullet.cpp">
       <Filter>Bullet</Filter>
     </ClCompile>
   </ItemGroup>

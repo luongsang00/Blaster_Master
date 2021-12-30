@@ -154,7 +154,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBallbot.h" />
     <ClInclude Include="CBOOM_BALL_CARRY.h" />
-    <ClInclude Include="CBREAKABLE_BRICK.h" />
+    <ClInclude Include="Blue_Brick.h" />
     <ClInclude Include="CDrap.h" />
     <ClInclude Include="CGRENADE.h" />
     <ClInclude Include="CGX680.h" />
@@ -182,6 +182,7 @@
     <ClInclude Include="SMALL_JASON.h" />
     <ClInclude Include="DRAW.h" />
     <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="small_jason_bullet.h" />
     <ClInclude Include="WHEELS.h" />
     <ClInclude Include="BODY.h" />
     <ClInclude Include="TURRET.h" />
@@ -202,7 +203,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBallbot.cpp" />
     <ClCompile Include="CBOOM_BALL_CARRY.cpp" />
-    <ClCompile Include="CBREAKABLE_BRICK.cpp" />
+    <ClCompile Include="Blue_Brick.cpp" />
     <ClCompile Include="CDrap.cpp" />
     <ClCompile Include="CGRENADE.cpp" />
     <ClCompile Include="CGX680.cpp" />
@@ -231,6 +232,7 @@
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="small_jason_bullet.cpp" />
     <ClCompile Include="WHEELS.cpp" />
     <ClCompile Include="BODY.cpp" />
     <ClCompile Include="TURRET.cpp" />

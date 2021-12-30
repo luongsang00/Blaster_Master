@@ -1,4 +1,4 @@
-#include "CBREAKABLE_BRICK.h"
+#include "Blue_Brick.h"
 
 void CBREAKABLE_BRICK::Render()
 {

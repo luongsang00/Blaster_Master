@@ -76,7 +76,7 @@ public:
 
 	bool isOriginObj = false;
 
-	int heath = 100;
+	int heath = 200;
 
 	bool spammed = false;
 
