@@ -3,7 +3,7 @@
 
 
 
-CBOOM::CBOOM()
+Boom_Ball_Carry::Boom_Ball_Carry()
 {
 	SetState(CBOOM_STATE_IDLE);
 	SetPosition(STORING_LOCATION_X, STORING_LOCATION_Y);
@@ -12,7 +12,7 @@ CBOOM::CBOOM()
 
 
 
-void CBOOM::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Boom_Ball_Carry::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -23,7 +23,7 @@ void CBOOM::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	else bottom = y + CREDWORM_BBOX_HEIGHT;
 }
 
-void CBOOM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Boom_Ball_Carry::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
@@ -95,7 +95,7 @@ void CBOOM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 }
 
-void CBOOM::Render()
+void Boom_Ball_Carry::Render()
 {
 	if (isUsed)
 	{
@@ -107,7 +107,7 @@ void CBOOM::Render()
 	//RenderBoundingBox();
 }
 
-void CBOOM::SetState(int state)
+void Boom_Ball_Carry::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

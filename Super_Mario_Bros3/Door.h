@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "DefinePlayer.h"
 
-class CTANKDOOR : public CGameObject
+class Door : public CGameObject
 {
 	int part = 0;
 	int pre_ani = 0;
@@ -12,7 +12,7 @@ class CTANKDOOR : public CGameObject
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 
 public:
-	CTANKDOOR();
+	Door();
 	virtual void SetState(int state);
 };
 

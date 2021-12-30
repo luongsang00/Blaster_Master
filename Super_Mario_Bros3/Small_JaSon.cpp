@@ -8,7 +8,7 @@
 #include "PlayScene.h"
 #include "Portal.h"
 
-MINI_JASON::MINI_JASON(float x, float y) : CGameObject()
+Small_JaSon::Small_JaSon(float x, float y) : CGameObject()
 {
 	untouchable = 0;
 	SetState(MINI_JASON_STATE_IDLE);
@@ -19,7 +19,7 @@ MINI_JASON::MINI_JASON(float x, float y) : CGameObject()
 
 }
 
-void MINI_JASON::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Small_JaSon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	int id = CGame::GetInstance()->GetCurrentScene()->GetId();
 	CGame* game = CGame::GetInstance();
@@ -103,7 +103,7 @@ void MINI_JASON::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void MINI_JASON::Render()
+void Small_JaSon::Render()
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	if (!playscene->getpiloting())
@@ -137,7 +137,7 @@ void MINI_JASON::Render()
 	}
 }
 
-void MINI_JASON::SetState(int state)
+void Small_JaSon::SetState(int state)
 {
 	CGameObject::SetState(state);
 
@@ -166,7 +166,7 @@ void MINI_JASON::SetState(int state)
 	}
 }
 
-void MINI_JASON::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Small_JaSon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	if (!playscene->getpiloting())
@@ -183,12 +183,12 @@ void MINI_JASON::GetBoundingBox(float& left, float& top, float& right, float& bo
 /*
 	Reset MINI_JASON status to the beginning state of a scene
 */
-void MINI_JASON::Reset()
+void Small_JaSon::Reset()
 {
 	SetState(MINI_JASON_STATE_IDLE);
 }
 
-void MINI_JASON::CalcPotentialCollisions(
+void Small_JaSon::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -213,7 +213,7 @@ void MINI_JASON::CalcPotentialCollisions(
 		{
 			continue;
 		}
-		if (dynamic_cast<CBOOM*>(e->obj))
+		if (dynamic_cast<Boom_Ball_Carry*>(e->obj))
 		{
 			continue;
 		}

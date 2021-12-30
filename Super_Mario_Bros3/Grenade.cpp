@@ -4,13 +4,13 @@
 #include "JASON.h"
 #include "Brick.h"
 
-CGRENADE::CGRENADE()
+Grenade::Grenade()
 {
 	SetState(CGRENADE_STATE_FLYING);
 	nx = 0;
 }
 
-void CGRENADE::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Grenade::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -21,7 +21,7 @@ void CGRENADE::GetBoundingBox(float& left, float& top, float& right, float& bott
 	else bottom = y + CGRENADE_BBOX_HEIGHT;
 }
 
-void CGRENADE::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Grenade::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	CGameObject::Update(dt, coObjects);
@@ -128,7 +128,7 @@ void CGRENADE::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CGRENADE::CalcPotentialCollisions(
+void Grenade::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -147,7 +147,7 @@ void CGRENADE::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CGRENADE::Render()
+void Grenade::Render()
 {
 	if (state == CGRENADE_STATE_DIE)
 		return;
@@ -157,7 +157,7 @@ void CGRENADE::Render()
 	//RenderBoundingBox();
 }
 
-void CGRENADE::SetState(int state)
+void Grenade::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

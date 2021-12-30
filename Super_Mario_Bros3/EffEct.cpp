@@ -3,12 +3,12 @@
 #include "PlayScene.h"
 #include "Brick.h"
 
-EFFECT::EFFECT(float time)
+EffEct::EffEct(float time)
 {
 	duration = time;
 }
 
-void EFFECT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void EffEct::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -37,7 +37,7 @@ void EFFECT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void EFFECT::Render()
+void EffEct::Render()
 {
 	if (active)
 		animation_set->at(0)->Render(x, y);

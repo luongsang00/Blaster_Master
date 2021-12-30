@@ -4,15 +4,15 @@
 
 
 
-Tank_Body::Tank_Body()
+Body::Body()
 {
 }
 
-void Tank_Body::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Body::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 }
 
-void Tank_Body::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Body::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	CGameObject::Update(dt, coObjects);
@@ -34,7 +34,7 @@ void Tank_Body::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 
-void Tank_Body::Render()
+void Body::Render()
 {
 	CSoPhia* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
@@ -47,7 +47,7 @@ void Tank_Body::Render()
 	//RenderBoundingBox();
 }
 
-void Tank_Body::SetState(int state)
+void Body::SetState(int state)
 {
 	CGameObject::SetState(state);
 	//switch (state)

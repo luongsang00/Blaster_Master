@@ -3,15 +3,15 @@
 #include "PlayScene.h"
 
 
-CTANKDOOR::CTANKDOOR()
+Door::Door()
 {
 }
 
-void CTANKDOOR::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Door::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 }
 
-void CTANKDOOR::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Door::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	CGameObject::Update(dt, coObjects);
@@ -34,7 +34,7 @@ void CTANKDOOR::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 
-void CTANKDOOR::Render()
+void Door::Render()
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CSoPhia* SOPHIA = playscene->GetPlayer();
@@ -68,7 +68,7 @@ void CTANKDOOR::Render()
 
 }
 
-void CTANKDOOR::SetState(int state)
+void Door::SetState(int state)
 {
 	CGameObject::SetState(state);
 	//switch (state)

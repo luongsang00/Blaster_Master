@@ -3,13 +3,13 @@
 #include "PlayScene.h"
 #include "Brick.h"
 
-CGX_BULLET::CGX_BULLET()
+GX_Bullet::GX_Bullet()
 {
 	SetState(CGX_BULLET_STATE_IDLE);
 	nx = 0;
 }
 
-void CGX_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void GX_Bullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state != CGX_BULLET_STATE_DIE)
 	{
@@ -20,7 +20,7 @@ void CGX_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bo
 	}
 }
 
-void CGX_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void GX_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -86,7 +86,7 @@ void CGX_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CGX_BULLET::CalcPotentialCollisions(
+void GX_Bullet::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -105,7 +105,7 @@ void CGX_BULLET::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CGX_BULLET::Render()
+void GX_Bullet::Render()
 {
 	int ani = 0;
 
@@ -123,7 +123,7 @@ void CGX_BULLET::Render()
 	//RenderBoundingBox();
 }
 
-void CGX_BULLET::SetState(int state)
+void GX_Bullet::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

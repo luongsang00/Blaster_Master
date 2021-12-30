@@ -256,64 +256,64 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] MINI_JASON object was created before!\n");
 			return;
 		}
-		obj = new MINI_JASON(x, getMapheight() - y);
+		obj = new Small_JaSon(x, getMapheight() - y);
 
-		player3 = (MINI_JASON*)obj;
+		player3 = (Small_JaSon*)obj;
 
 		DebugOut(L"[INFO] Player object created!\n");
 
 		break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_CBOOM: obj = new CBOOM(); break;
+	case OBJECT_TYPE_CBOOM: obj = new Boom_Ball_Carry(); break;
 	case OBJECT_TYPE_CTANKBULLET: obj = new CTank_Bullet(); break;
 	case OBJECT_TYPE_NoCollisionObject: obj = new Draw(); break;
-	case OBJECT_TYPE_STATBAR: obj = new CSTATBAR(atoi(tokens[4].c_str())); break;
+	case OBJECT_TYPE_STATBAR: obj = new HP(atoi(tokens[4].c_str())); break;
 	case OBJECT_TYPE_TANK_WHEEL:
 	{
 		float part = atof(tokens[4].c_str());
-		obj = new Tank_Wheel(part);
+		obj = new Wheel(part);
 	}
 	break;
 	case OBJECT_TYPE_CLASER_BULLET:
 	{
-		obj = new CLASER_BULLET();
+		obj = new LaserGuard_Bullet();
 	}
 	break;
 	case OBJECT_TYPE_TANK_BODY:
 	{
-		obj = new Tank_Body();
+		obj = new Body();
 	}
 	break;
 	case OBJECT_TYPE_JASON_BULLET_1:
 	{
-		obj = new CWAVE_BULLET();
+		obj = new JaSon_Bullet();
 	}
 	break;
 
 	case OBJECT_TYPE_TANK_TURRET:
 	{
-		obj = new Tank_Turret();
+		obj = new Turret();
 	}
 	break;
 	case OBJECT_TYPE_TANKDOOR:
 	{
-		obj = new CTANKDOOR();
+		obj = new Door();
 	}
 	break;
 	case OBJECT_TYPE_EFFECT:
 	{
 		float time = atof(tokens[4].c_str());
-		obj = new EFFECT(time);
+		obj = new EffEct(time);
 	}
 	break;
 	case OBJECT_TYPE_JASON_GRENADE:
 	{
-		obj = new CGRENADE();
+		obj = new Grenade();
 	}
 	break;
 	case OBJECT_TYPE_CGX_BULLET:
 	{
-		obj = new CGX_BULLET();
+		obj = new GX_Bullet();
 	}
 	break;
 	case OBJECT_TYPE_PORTAL:
@@ -601,7 +601,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		}
 		else
 		{
-			MINI_JASON* player = playscene->GetPlayer3();
+			Small_JaSon* player = playscene->GetPlayer3();
 			switch (KeyCode)
 			{
 			case DIK_SPACE:
@@ -647,7 +647,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	if (KeyCode == DIK_Z && playscene->GetPlayer3())
 	{
 		playscene->setpiloting(!playscene->getpiloting());
-		MINI_JASON* player = playscene->GetPlayer3();
+		Small_JaSon* player = playscene->GetPlayer3();
 		//if (!playscene->getpiloting())
 		{
 			player->SetState(SOPHIA_STATE_JUMP);
@@ -680,7 +680,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 		}
 		else
 		{
-			MINI_JASON* player = playscene->GetPlayer3();
+			Small_JaSon* player = playscene->GetPlayer3();
 			switch (KeyCode)
 			{
 			case DIK_A:
@@ -738,7 +738,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		}
 		else
 		{
-			MINI_JASON* player = playscene->GetPlayer3();
+			Small_JaSon* player = playscene->GetPlayer3();
 			if (player->GetState() == SOPHIA_STATE_DIE) return;
 			if (game->IsKeyDown(DIK_RIGHT))
 				player->SetState(SOPHIA_STATE_WALKING_RIGHT);

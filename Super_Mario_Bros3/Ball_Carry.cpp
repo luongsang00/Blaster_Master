@@ -103,7 +103,7 @@ void CBall_Carry::CalcPotentialCollisions(
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (dynamic_cast<CBOOM*>(e->obj))
+		if (dynamic_cast<Boom_Ball_Carry*>(e->obj))
 		{
 			continue;
 		}

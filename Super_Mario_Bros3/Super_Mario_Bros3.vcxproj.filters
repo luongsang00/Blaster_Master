@@ -28,6 +28,9 @@
     <Filter Include="Bullet">
       <UniqueIdentifier>{231cdbd0-303f-465f-a2d1-736770705bb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player\Tank_Spare_Parts">
+      <UniqueIdentifier>{41a9cfa6-fa06-425a-aa1e-9c5fd4ac1e5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball_Carry.h">
@@ -150,17 +153,17 @@
     <ClInclude Include="Small_JaSon.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Door.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="Body.h">
-      <Filter>Player</Filter>
+      <Filter>Player\Tank_Spare_Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Player\Tank_Spare_Parts</Filter>
     </ClInclude>
     <ClInclude Include="Turret.h">
-      <Filter>Player</Filter>
+      <Filter>Player\Tank_Spare_Parts</Filter>
     </ClInclude>
     <ClInclude Include="Wheel.h">
-      <Filter>Player</Filter>
+      <Filter>Player\Tank_Spare_Parts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -281,17 +284,17 @@
     <ClCompile Include="Small_JaSon.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="Door.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="Body.cpp">
-      <Filter>Player</Filter>
+      <Filter>Player\Tank_Spare_Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Player\Tank_Spare_Parts</Filter>
     </ClCompile>
     <ClCompile Include="Turret.cpp">
-      <Filter>Player</Filter>
+      <Filter>Player\Tank_Spare_Parts</Filter>
     </ClCompile>
     <ClCompile Include="Wheel.cpp">
-      <Filter>Player</Filter>
+      <Filter>Player\Tank_Spare_Parts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

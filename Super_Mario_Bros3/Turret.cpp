@@ -4,15 +4,15 @@
 
 
 
-Tank_Turret::Tank_Turret()
+Turret::Turret()
 {
 }
 
-void Tank_Turret::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Turret::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 }
 
-void Tank_Turret::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Turret::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	CGameObject::Update(dt, coObjects);
@@ -37,7 +37,7 @@ void Tank_Turret::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 
-void Tank_Turret::Render()
+void Turret::Render()
 {
 	CSoPhia* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
@@ -62,7 +62,7 @@ void Tank_Turret::Render()
 	//RenderBoundingBox();
 }
 
-void Tank_Turret::SetState(int state)
+void Turret::SetState(int state)
 {
 	CGameObject::SetState(state);
 	//switch (state)

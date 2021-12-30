@@ -200,7 +200,7 @@ void CSoPhia::CalcPotentialCollisions(
 		{
 			continue;
 		}
-		if (dynamic_cast<CBOOM*>(e->obj))
+		if (dynamic_cast<Boom_Ball_Carry*>(e->obj))
 		{
 			continue;
 		}

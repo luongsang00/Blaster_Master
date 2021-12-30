@@ -20,14 +20,14 @@
 #define CBOOM_VX		0.038f
 #define CBOOM_VY		0.09f
 
-class CBOOM : public CGameObject
+class Boom_Ball_Carry : public CGameObject
 {
 	int type;
 	bool isUsed = false;
 	DWORD timing_start = 0;
 public:
 
-	CBOOM();
+	Boom_Ball_Carry();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();

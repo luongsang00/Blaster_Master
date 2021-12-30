@@ -3,13 +3,13 @@
 #include "PlayScene.h"
 #include "Brick.h"
 
-CLASER_BULLET::CLASER_BULLET()
+LaserGuard_Bullet::LaserGuard_Bullet()
 {
 	SetState(CLASER_BULLET_STATE_IDLE);
 	nx = 0;
 }
 
-void CLASER_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void LaserGuard_Bullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -20,7 +20,7 @@ void CLASER_BULLET::GetBoundingBox(float& left, float& top, float& right, float&
 	else bottom = y + CLASER_BULLET_BBOX_HEIGHT;
 }
 
-void CLASER_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void LaserGuard_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -78,7 +78,7 @@ void CLASER_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CLASER_BULLET::CalcPotentialCollisions(
+void LaserGuard_Bullet::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -97,7 +97,7 @@ void CLASER_BULLET::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CLASER_BULLET::Render()
+void LaserGuard_Bullet::Render()
 {
 	int ani = 0;
 
@@ -115,7 +115,7 @@ void CLASER_BULLET::Render()
 	//RenderBoundingBox();
 }
 
-void CLASER_BULLET::SetState(int state)
+void LaserGuard_Bullet::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

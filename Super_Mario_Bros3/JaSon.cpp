@@ -122,7 +122,7 @@ void JaSon::Render()
 
 	animation_set->at(ani)->Render(x, y, alpha);
 
-	////RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void JaSon::SetState(int state)
@@ -197,7 +197,7 @@ void JaSon::CalcPotentialCollisions(
 		{
 			continue;
 		}
-		if (dynamic_cast<CBOOM*>(e->obj))
+		if (dynamic_cast<Boom_Ball_Carry*>(e->obj))
 		{
 			continue;
 		}

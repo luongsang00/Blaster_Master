@@ -4,13 +4,13 @@
 #include "JASON.h"
 #include "Brick.h"
 
-CWAVE_BULLET::CWAVE_BULLET()
+JaSon_Bullet::JaSon_Bullet()
 {
 	SetState(CWAVE_BULLET_STATE_FLYING);
 	nx = 0;
 }
 
-void CWAVE_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void JaSon_Bullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -21,7 +21,7 @@ void CWAVE_BULLET::GetBoundingBox(float& left, float& top, float& right, float& 
 	else bottom = y + CWAVE_BULLET_BBOX_HEIGHT;
 }
 
-void CWAVE_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void JaSon_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if ((DWORD)GetTickCount64() - reset_start > CWAVE_BULLET_RESET_TIME)
 	{
@@ -141,7 +141,7 @@ void CWAVE_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CWAVE_BULLET::CalcPotentialCollisions(
+void JaSon_Bullet::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -160,7 +160,7 @@ void CWAVE_BULLET::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CWAVE_BULLET::Render()
+void JaSon_Bullet::Render()
 {
 	if (state == CWAVE_BULLET_STATE_DIE)
 		return;
@@ -170,7 +170,7 @@ void CWAVE_BULLET::Render()
 	//RenderBoundingBox();
 }
 
-void CWAVE_BULLET::SetState(int state)
+void JaSon_Bullet::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

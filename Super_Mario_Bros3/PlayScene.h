@@ -96,7 +96,7 @@ class CPlayScene : public CScene
 protected:
 	CSoPhia* player;				// A play scene has to have player, right? 
 	JaSon* player2;
-	MINI_JASON* player3;
+	Small_JaSon* player3;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> secondLayer;
 	int mapHeight;
@@ -138,7 +138,7 @@ public:
 
 	CSoPhia* GetPlayer() { return player; }
 	JaSon* GetPlayer2() { return player2; }
-	MINI_JASON* GetPlayer3() { return player3; }
+	Small_JaSon* GetPlayer3() { return player3; }
 
 	void setpiloting(int value)
 	{
