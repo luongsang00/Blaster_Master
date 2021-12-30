@@ -162,13 +162,13 @@
     <ClInclude Include="CGX_BULLET.h" />
     <ClInclude Include="CINTERRUPT_BULLET.h" />
     <ClInclude Include="CLaserGuard.h" />
-    <ClInclude Include="CLASER_BULLET.h" />
+    <ClInclude Include="CLASERGUARD_BULLET.h" />
     <ClInclude Include="CREDWORM.h" />
     <ClInclude Include="CSTATBAR.h" />
     <ClInclude Include="CStuka.h" />
     <ClInclude Include="CTANKBULLET.h" />
     <ClInclude Include="DOOR.h" />
-    <ClInclude Include="CWAVE_BULLET.h" />
+    <ClInclude Include="CJASON_BULLET.h" />
     <ClInclude Include="EFFECT.h" />
     <ClInclude Include="Eyelet.h" />
     <ClInclude Include="DefinePlayer.h" />
@@ -183,7 +183,6 @@
     <ClInclude Include="DRAW.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="WHEELS.h" />
-    <ClInclude Include="sound.h" />
     <ClInclude Include="BODY.h" />
     <ClInclude Include="TURRET.h" />
     <ClInclude Include="Utils.h" />
@@ -211,13 +210,13 @@
     <ClCompile Include="CGX_BULLET.cpp" />
     <ClCompile Include="CINTERRUPT_BULLET.cpp" />
     <ClCompile Include="CLaserGuard.cpp" />
-    <ClCompile Include="CLASER_BULLET.cpp" />
+    <ClCompile Include="CLASERGUARD_BULLET.cpp" />
     <ClCompile Include="CREDWORM.cpp" />
     <ClCompile Include="CSTATBAR.cpp" />
     <ClCompile Include="CStuka.cpp" />
     <ClCompile Include="CTANKBULLET.cpp" />
     <ClCompile Include="DOOR.cpp" />
-    <ClCompile Include="CWAVE_BULLET.cpp" />
+    <ClCompile Include="CJASON_BULLET.cpp" />
     <ClCompile Include="EFFECT.cpp" />
     <ClCompile Include="Eyelet.cpp" />
     <ClCompile Include="Interrupt.cpp" />
@@ -233,7 +232,6 @@
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="WHEELS.cpp" />
-    <ClCompile Include="sound.cpp" />
     <ClCompile Include="BODY.cpp" />
     <ClCompile Include="TURRET.cpp" />
     <ClCompile Include="Utils.cpp" />

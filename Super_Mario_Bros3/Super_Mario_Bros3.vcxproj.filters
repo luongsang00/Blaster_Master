@@ -90,9 +90,6 @@
     <ClInclude Include="JASON.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="sound.h">
-      <Filter>System</Filter>
-    </ClInclude>
     <ClInclude Include="MapCamera.h">
       <Filter>System</Filter>
     </ClInclude>
@@ -162,13 +159,7 @@
     <ClInclude Include="CINTERRUPT_BULLET.h">
       <Filter>Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="CLASER_BULLET.h">
-      <Filter>Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="CTANKBULLET.h">
-      <Filter>Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="CWAVE_BULLET.h">
       <Filter>Bullet</Filter>
     </ClInclude>
     <ClInclude Include="CBOOM_BALL_CARRY.h">
@@ -179,6 +170,12 @@
     </ClInclude>
     <ClInclude Include="DefinePlayer.h">
       <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CLASERGUARD_BULLET.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="CJASON_BULLET.h">
+      <Filter>Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,16 +260,10 @@
     <ClCompile Include="PlayScene.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
     <ClCompile Include="QuadTree.cpp">
       <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="sound.cpp">
       <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
@@ -305,13 +296,7 @@
     <ClCompile Include="CINTERRUPT_BULLET.cpp">
       <Filter>Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="CLASER_BULLET.cpp">
-      <Filter>Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="CTANKBULLET.cpp">
-      <Filter>Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="CWAVE_BULLET.cpp">
       <Filter>Bullet</Filter>
     </ClCompile>
     <ClCompile Include="CBOOM_BALL_CARRY.cpp">
@@ -319,6 +304,15 @@
     </ClCompile>
     <ClCompile Include="DRAW.cpp">
       <Filter>OtherObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>OtherObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CLASERGUARD_BULLET.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="CJASON_BULLET.cpp">
+      <Filter>Bullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,16 +1,16 @@
-#include "CWAVE_BULLET.h"
+#include "CJASON_BULLET.h"
 #include <algorithm>
 #include "PlayScene.h"
 #include "JASON.h"
 #include "Brick.h"
 
-CWAVE_BULLET::CWAVE_BULLET()
+CJASON_BULLET::CJASON_BULLET()
 {
 	SetState(CWAVE_BULLET_STATE_FLYING);
 	nx = 0;
 }
 
-void CWAVE_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CJASON_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -18,7 +18,7 @@ void CWAVE_BULLET::GetBoundingBox(float& left, float& top, float& right, float& 
 	bottom = y + CWAVE_BULLET_BBOX_HEIGHT;
 }
 
-void CWAVE_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CJASON_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGame* game = CGame::GetInstance();
 	if ((DWORD)GetTickCount64() - reset_start > CWAVE_BULLET_RESET_TIME)
@@ -155,7 +155,7 @@ void CWAVE_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CWAVE_BULLET::CalcPotentialCollisions(
+void CJASON_BULLET::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -178,7 +178,7 @@ void CWAVE_BULLET::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CWAVE_BULLET::Render()
+void CJASON_BULLET::Render()
 {
 	if (state == CWAVE_BULLET_STATE_DIE)
 		return;
@@ -188,7 +188,7 @@ void CWAVE_BULLET::Render()
 	//RenderBoundingBox();
 }
 
-void CWAVE_BULLET::SetState(int state)
+void CJASON_BULLET::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

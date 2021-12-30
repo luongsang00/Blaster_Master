@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#define CGX_BULLET_SPEED 0.075f;
+#define CGX_BULLET_SPEED 0.09f;
 #define CGX_BULLET_STATE_DIE_SPEED 0;
 
 #define CGX_BULLET_BBOX_WIDTH	7

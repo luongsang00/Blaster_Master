@@ -281,7 +281,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	break;
 	case OBJECT_TYPE_CLASER_BULLET:
 	{
-		obj = new CLASER_BULLET();
+		obj = new CLASERGUARD_BULLET();
 	}
 	break;
 	case OBJECT_TYPE_TANK_BODY:
@@ -291,7 +291,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	break;
 	case OBJECT_TYPE_JASON_BULLET_1:
 	{
-		obj = new CWAVE_BULLET();
+		obj = new CJASON_BULLET();
 	}
 	break;
 
