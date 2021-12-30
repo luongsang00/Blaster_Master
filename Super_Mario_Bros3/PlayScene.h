@@ -8,26 +8,26 @@
 #include "Eye.h"
 #include "Koopas.h"
 #include "Map.h"
-#include "SOPHIAWHEELS.h"
+#include "CTANKWHEELS.h"
 #include "MapObj.h"
-#include "LaserGuard.h"
-#include "BallCarry.h"
-#include "Ballbot.h"
-#include "DRAP.h"
-#include "GX680.h"
-#include "GX680S.h"
-#include "STUKA.h"
+#include "CLaserGuard.h"
+#include "CBallCarry.h"
+#include "CBallbot.h"
+#include "CDRAP.h"
+#include "CGX680.h"
+#include "CGX680S.h"
+#include "CSTUKA.h"
 #include "Eyelet.h"
 #include "Interrupt.h"
-#include "SOPHIABULLET.h"
-#include "EvenType.h"
-#include "INTERRUPT_BULLET.h"
-#include "REDWORM.h"
-#include "SOPHIABODY.h"
-#include "SOPHIATURRET.h"
+#include "CTANKBULLET.h"
+#include "CEvenType1.h"
+#include "CINTERRUPT_BULLET.h"
+#include "CREDWORM.h"
+#include "TANKBODY.h"
+#include "TANKTURRET.h"
 #include "EFFECT.h"
 #include "JASON.h"
-#include "BOOM.h"
+#include "CBOOM.h"
 #include "NoCollisionObject.h"
 
 #include "Utils.h"
@@ -40,13 +40,13 @@
 #include "Portal.h"
 #include "DF.h"
 #include "CWAVE_BULLET.h"
-#include "GRENADE.h"
-#include "GX_BULLET.h"
-#include "LASER_BULLET.h"
+#include "CGRENADE.h"
+#include "CGX_BULLET.h"
+#include "CLASER_BULLET.h"
 #include "MapCamera.h"
-#include "HP.h"
+#include "CSTATBAR.h"
 #include "MINI_JASON.h"
-#include "SOPHIADOOR.h"
+#include "CTANKDOOR.h"
 #include "Items.h"
 
 #define QUADTREE_SECTION_SETTINGS	1
@@ -103,12 +103,12 @@ protected:
 	int mapHeight;
 	Map* map;
 	CQuadTree* quadtree;
-	vector<EvenType*> InterruptBulletMng ;
-	vector<EvenType*> WormSpamMng;
-	vector<EvenType*> KaboomMng;
-	vector<EvenType*> BoomCarryMng;
-	vector<EvenType*> CGXMng;
-	vector<EvenType*> ItemsMng;
+	vector<CEvenType1*> InterruptBulletMng ;
+	vector<CEvenType1*> WormSpamMng;
+	vector<CEvenType1*> KaboomMng;
+	vector<CEvenType1*> BoomCarryMng;
+	vector<CEvenType1*> CGXMng;
+	vector<CEvenType1*> ItemsMng;
 	vector<MapCamera*> MapCam;
 	
 	int filming_duration = 1000;
@@ -178,10 +178,10 @@ public:
 	/////////////////ItemsMng
 	void AddItemsMng(float x, float y, int num)
 	{
-		EvenType* obj = new EvenType(x, y, num);
+		CEvenType1* obj = new CEvenType1(x, y, num);
 		this->ItemsMng.push_back(obj);
 	}
-	EvenType* GetItemsMng()
+	CEvenType1* GetItemsMng()
 	{
 		return ItemsMng.at(0);
 	}
@@ -198,10 +198,10 @@ public:
 	/////////////////CGXMng
 	void AddCGXMng(float x, float y, float vx, float vy)
 	{
-		EvenType* obj = new EvenType(x, y, 0, vx, vy);
+		CEvenType1* obj = new CEvenType1(x, y, 0, vx, vy);
 		this->CGXMng.push_back(obj);
 	}
-	EvenType* GetCGXMng()
+	CEvenType1* GetCGXMng()
 	{
 		return CGXMng.at(0);
 	}
@@ -218,7 +218,7 @@ public:
 	/////////////////BoomCarryMng
 	void AddBoomCarryMng(float x, float y)
 	{
-		EvenType* obj = new EvenType(x, y);
+		CEvenType1* obj = new CEvenType1(x, y);
 		this->BoomCarryMng.push_back(obj);
 	}
 	void CheckStackBoomCarryMng()
@@ -232,7 +232,7 @@ public:
 			DeleteBoomCarryMng();
 		}
 	}
-	EvenType* GetBoomCarryMng()
+	CEvenType1* GetBoomCarryMng()
 	{
 		return BoomCarryMng.at(0);
 	}
@@ -249,10 +249,10 @@ public:
 	/////////////////KaboomMng
 	void AddKaboomMng(float x, float y)
 	{
-		EvenType* obj = new EvenType(x, y);
+		CEvenType1* obj = new CEvenType1(x, y);
 		this->KaboomMng.push_back(obj);
 	}
-	EvenType* GetKaboomMng()
+	CEvenType1* GetKaboomMng()
 	{
 		return KaboomMng.at(0);
 	}
@@ -269,10 +269,10 @@ public:
 	/////////////////InterruptBulletMng
 	void AddInterruptBulletMng(float x, float y)
 	{
-		EvenType* obj = new EvenType(x, y);
+		CEvenType1* obj = new CEvenType1(x, y);
 		this->InterruptBulletMng.push_back(obj);
 	}
-	EvenType* GetInterruptBulletMng()
+	CEvenType1* GetInterruptBulletMng()
 	{
 		return InterruptBulletMng.at(0);
 	}
@@ -289,10 +289,10 @@ public:
 	//////////////////////////WormSpamMng
 	void AddWormSpamMng(float x, float y)
 	{
-		EvenType* obj = new EvenType(x, y);
+		CEvenType1* obj = new CEvenType1(x, y);
 		this->WormSpamMng.push_back(obj);
 	}
-	EvenType* GetWormSpamMng()
+	CEvenType1* GetWormSpamMng()
 	{
 		return WormSpamMng.at(0);
 	}

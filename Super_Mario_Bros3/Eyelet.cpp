@@ -1,12 +1,12 @@
 #include "Eyelet.h"
 #include "PlayScene.h"
-EYELET::EYELET(float kill_point)
+CEYELET::CEYELET(float kill_point)
 {
 	this->kill_point = kill_point;
 	SetState(STATE_IDLE);
 }
 
-void EYELET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CEYELET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -18,7 +18,7 @@ void EYELET::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		bottom = y + EYELET_BBOX_HEIGHT;
 }
 
-void EYELET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CEYELET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
@@ -115,7 +115,7 @@ void EYELET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void EYELET::Render()
+void CEYELET::Render()
 {
 	if (state == EYELET_STATE_ATTACK)
 	{
@@ -131,7 +131,7 @@ void EYELET::Render()
 	}
 }
 
-void EYELET::CalcPotentialCollisions(
+void CEYELET::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -147,7 +147,7 @@ void EYELET::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void EYELET::SetState(int state)
+void CEYELET::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

@@ -25,7 +25,7 @@
 #define MOVING_LIMIT_DEFAULT_VALUE -999999
 #define MOVING_LIMIT_RANGE 30
 
-class EYELET : public CGameObject
+class CEYELET : public CGameObject
 {
 	float kill_point;
 	float moving_limit_top = MOVING_LIMIT_DEFAULT_VALUE;
@@ -37,6 +37,6 @@ class EYELET : public CGameObject
 	virtual void Render();
 
 public:
-	EYELET(float kill_point);
+	CEYELET(float kill_point);
 	virtual void SetState(int state);
 };

@@ -1,22 +1,20 @@
-#include "Interrupt.h"
-CINTERRUPT::CINTERRUPT()
+#include "CLaserGuard.h"
+CDRAP::CDRAP()
 {
 	SetState(STATE_IDLE);
 }
 
-void CINTERRUPT::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CDRAP::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
-	top = y;
-	right = x + CINTERRUPT_BBOX_WIDTH;
-
-	if (state == CINTERRUPT_STATE_DIE)
-		bottom = y + CINTERRUPT_BBOX_HEIGHT_DIE;
-	else
-		bottom = y + CINTERRUPT_BBOX_HEIGHT;
+	if (state != CDRAP_STATE_DIE) {
+		left = x;
+		top = y;
+		right = x + CDRAP_BBOX_WIDTH;
+		bottom = y + CDRAP_BBOX_HEIGHT;
+	}
 }
 
-void CINTERRUPT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CDRAP::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
@@ -34,22 +32,29 @@ void CINTERRUPT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		spammed = true;
 	}
 
-	float px, py;
-
-	if (state != STATE_DIE)
+	if (attacking != 0 && (DWORD)GetTickCount64() - attacking >= CDRAP_ATTACKING_TIME)
 	{
-		((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer()->GetPosition(px, py);
-		if (state != CINTERRUPT_STATE_OPEN)
-			if (this->x < px + SOPHIA_BIG_BBOX_WIDTH && this->x + CINTERRUPT_BBOX_WIDTH >= px && this->y < py)
-			{
-				SetState(CINTERRUPT_STATE_OPEN);
-				playscene->AddInterruptBulletMng(this->x, this->y);
-			}
+		attacking = 0;
 	}
 
-	if (state != STATE_DIE)
-		CalcPotentialCollisions(coObjects, coEvents);
+	float px, py;
 
+	((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer2()->GetPosition(px, py);
+
+	if (playscene->IsInside(x - 500, y, x + 500, y + CDRAP_BBOX_HEIGHT, px , py + JASON_BIG_BBOX_HEIGHT/2) && attacking == 0)
+	{
+		StartAttack();
+		if (px > x)
+			vx = CDRAP_WALKING_SPEED
+		else
+		{
+			vx = -CDRAP_WALKING_SPEED;
+		}
+	}
+
+	CalcPotentialCollisions(coObjects, coEvents);
+
+	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
 		x += dx;
@@ -65,22 +70,28 @@ void CINTERRUPT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
 		// block every object first!
-		//x += min_tx * dx + nx * 0.4f;
-		//y += min_ty * dy + ny * 0.4f;
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
 
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		//if (nx != 0) vx = 0;
+		//if (ny != 0) vy = 0;
 
 		//
 		// Collision logic with other objects
 		//
+
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			CGame* game = CGame::GetInstance();
-			if (dynamic_cast<CSOPHIA*>(e->obj) && !playscene->GetPlayer()->getUntouchable())
+			if (dynamic_cast<CBrick*>(e->obj))
 			{
-				playscene->GetPlayer()->StartUntouchable();
+				if (ny == 0 && nx != 0)
+					vx = 0;
+			}
+			CGame* game = CGame::GetInstance();
+			if (dynamic_cast<JASON*>(e->obj) && !playscene->GetPlayer2()->getUntouchable())
+			{
+				playscene->GetPlayer2()->StartUntouchable();
 				game->setheath(game->Getheath() - 100);
 			}
 		}
@@ -88,28 +99,21 @@ void CINTERRUPT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	
 }
 
-void CINTERRUPT::Render()
+void CDRAP::Render()
 {
 	if (state != STATE_DIE)
 	{
-		int ani = CINTERRUPT_ANI_IDLE;
-		switch (state)
-		{
-			case CINTERRUPT_STATE_OPEN:
-				ani = CINTERRUPT_ANI_OPEN;
-				break;
-		}
-		
+		int ani = CDRAP_ANI_IDLE;
+
 		animation_set->at(ani)->Render(x, y);
 
 		//RenderBoundingBox();
 	}
 }
 
-void CINTERRUPT::SetState(int state)
+void CDRAP::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)
