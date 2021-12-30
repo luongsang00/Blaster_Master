@@ -94,7 +94,7 @@ void Map::ExtractTileFromTileSet()
 
 void Map::LoadMap(LPCWSTR path)
 {
-	ifstream f;
+	ifstream f;	
 
 	f.open(path);
 

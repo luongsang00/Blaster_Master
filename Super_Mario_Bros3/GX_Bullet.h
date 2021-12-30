@@ -17,7 +17,7 @@
 #define STORING_LOCATION 5000
 
 
-class GX_Bullet : public CGameObject
+class GX_BULLET : public CGameObject
 {
 	DWORD reset_start;
 	bool isUsed = false;
@@ -27,7 +27,7 @@ class GX_Bullet : public CGameObject
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 	void StartReset() { reset_start = (DWORD)GetTickCount64(); }
 public:
-	GX_Bullet();
+	GX_BULLET();
 	void SetisUsed(bool value) { isUsed = value; }
 	bool GetisUsed() { return isUsed; }
 	virtual void SetState(int state);

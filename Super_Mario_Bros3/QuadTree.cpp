@@ -39,7 +39,7 @@ void CQuadTree::Plit() {
 
 bool CQuadTree::inRange(float ox, float oy, float x, float y, float width, float height)
 {
-	if (x <= ox && ox <= x + width + CAM_X_BONUS / 2 && y <= oy && oy <= y + height)
+	if (x <= ox && ox <= x + width + CAM_X_BONUS/2 && y <= oy && oy <= y + height)
 		return true;
 	return false;
 }
@@ -92,24 +92,24 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	
+	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_LASERGUARD: obj = new CLaserGuard(); break;
-	case OBJECT_TYPE_BALLCARRY: obj = new CBall_Carry(); break;
-	case OBJECT_TYPE_BALLBOT: obj = new CBallbot(); break;
-	case OBJECT_TYPE_DRAP: obj = new CDrap(); break;
-	case OBJECT_TYPE_CGX680: obj = new CGX_680(); break;
-	case OBJECT_TYPE_CGX680S: obj = new CGX_680S(); break;
-	case OBJECT_TYPE_CSTUKA: obj = new CStuka(); break;
-	case OBJECT_TYPE_NoCollisionObject: obj = new Draw(); break;
-	case OBJECT_TYPE_EYELET:
+	case OBJECT_TYPE_LASERGUARD: obj = new LASERGUARD(); break;
+	case OBJECT_TYPE_BALLCARRY: obj = new BALLCARRY(); break;
+	case OBJECT_TYPE_BALLBOT: obj = new BALLBOT(); break;
+	case OBJECT_TYPE_DRAP: obj = new DRAP(); break;
+	case OBJECT_TYPE_CGX680: obj = new GX680(); break;
+	case OBJECT_TYPE_CGX680S: obj = new GX680S(); break;
+	case OBJECT_TYPE_CSTUKA: obj = new STUKA(); break;
+	case OBJECT_TYPE_NoCollisionObject: obj = new CNoCollisionObject(); break;
+	case OBJECT_TYPE_EYELET: 
 	{
 		float kill_point = atoi(tokens[4].c_str());
-		obj = new CEyelet(kill_point);
+		obj = new EYELET(kill_point);
 	}
 	break;
-	case OBJECT_TYPE_CINTERCRUPT: obj = new CInterrupt(); break;
-
+	case OBJECT_TYPE_CINTERCRUPT: obj = new INTERRUPT(); break;
+	
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -204,15 +204,15 @@ void CQuadTree::Pop(vector<LPGAMEOBJECT>& Object, int CamX, int CamY)
 		for (int i = 0; i < listObjects.size(); i++)
 		{
 			if (inRange(x + cellWidth, y + cellHeight, CamX, CamY, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()) && listObjects[i]->GetisAlive())
-				if (!listObjects[i]->GetActive())
-				{
-					float Ox, Oy;
-					listObjects[i]->GetOriginLocation(Ox, Oy);
-					/*if (!inRange(Ox, Oy, CamX, CamY, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()))
-						listObjects[i]->reset();*/
-					Object.push_back(listObjects[i]);
-					listObjects[i]->SetActive(true);
-				}
+			if (!listObjects[i]->GetActive())
+			{
+				float Ox, Oy;
+				listObjects[i]->GetOriginLocation(Ox, Oy);
+				/*if (!inRange(Ox, Oy, CamX, CamY, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()))
+					listObjects[i]->reset();*/
+				Object.push_back(listObjects[i]);
+				listObjects[i]->SetActive(true);
+			}
 		}
 		return;
 	}
@@ -221,7 +221,7 @@ void CQuadTree::Pop(vector<LPGAMEOBJECT>& Object, int CamX, int CamY)
 	BrachTR->Pop(Object, CamX, CamY);
 	BrachBL->Pop(Object, CamX, CamY);
 	BrachBR->Pop(Object, CamX, CamY);
-
+		
 }
 
 void CQuadTree::Unload()

@@ -1,12 +1,12 @@
 #include "Eyelet.h"
 #include "PlayScene.h"
-CEyelet::CEyelet(float kill_point)
+EYELET::EYELET(float kill_point)
 {
 	this->kill_point = kill_point;
 	SetState(STATE_IDLE);
 }
 
-void CEyelet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void EYELET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -18,13 +18,16 @@ void CEyelet::GetBoundingBox(float& left, float& top, float& right, float& botto
 		bottom = y + EYELET_BBOX_HEIGHT;
 }
 
-void CEyelet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void EYELET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt, coObjects);
+	CGameObject::Update(dt);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
-	//
-	// TO-DO: make sure Goomba can interact with the world and to each of them too!
-	// 
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	if (state != STATE_DIE)
+		CalcPotentialCollisions(coObjects, coEvents);
 
 	if (!spammed && state == STATE_DIE)
 	{
@@ -65,11 +68,54 @@ void CEyelet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 
 	}
-	x += dx;
-	y += dy;
+	// No collision occured, proceed normally
+
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
+
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		// block every object first!
+		//x += min_tx * dx + nx * 0.4f;
+		//y += min_ty * dy + ny * 0.4f;
+
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
+
+		//
+		// Collision logic with other objects
+		//
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			CGame* game = CGame::GetInstance();
+			if (dynamic_cast<CSOPHIA*>(e->obj) && !playscene->GetPlayer()->getUntouchable())
+			{
+				playscene->GetPlayer()->StartUntouchable();
+				game->setheath(game->Getheath() - 100);
+			}
+		}
+	}
+	CGame* game = CGame::GetInstance();
+	if (playscene->IsInside(x - SOPHIA_BIG_BBOX_WIDTH, y - SOPHIA_BIG_BBOX_HEIGHT, x + EYELET_BBOX_WIDTH, y + EYELET_BBOX_HEIGHT, playscene->GetPlayer()->GetPositionX(), playscene->GetPlayer()->GetPositionY()) && !playscene->GetPlayer()->getUntouchable())
+	{
+		playscene->GetPlayer()->StartUntouchable();
+		game->setheath(game->Getheath() - 100);
+	}
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CEyelet::Render()
+void EYELET::Render()
 {
 	if (state == EYELET_STATE_ATTACK)
 	{
@@ -85,7 +131,7 @@ void CEyelet::Render()
 	}
 }
 
-void CEyelet::CalcPotentialCollisions(
+void EYELET::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -101,7 +147,7 @@ void CEyelet::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CEyelet::SetState(int state)
+void EYELET::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

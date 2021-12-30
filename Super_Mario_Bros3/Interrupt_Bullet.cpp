@@ -1,15 +1,15 @@
-#include "Interrupt_Bullet.h"
+#include "INTERRUPT_BULLET.h"
 #include <algorithm>
 #include "PlayScene.h"
 #include "Brick.h"
 
-CInterrup_Bullet::CInterrup_Bullet()
+INTERRUPT_BULLET::INTERRUPT_BULLET()
 {
 	SetState(CINTERRUPT_BULLET_STATE_IDLE);
 	nx = 0;
 }
 
-void CInterrup_Bullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void INTERRUPT_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -20,7 +20,7 @@ void CInterrup_Bullet::GetBoundingBox(float& left, float& top, float& right, flo
 	else bottom = y + CINTERRUPT_BULLET_BBOX_HEIGHT;
 }
 
-void CInterrup_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void INTERRUPT_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -68,7 +68,7 @@ void CInterrup_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CBrick*>(e->obj))
+			if (dynamic_cast<CBrick*>(e->obj)) 
 			{
 				SetState(CINTERRUPT_BULLET_STATE_DIE);
 				playscene->AddWormSpamMng(this->x, this->y);
@@ -82,7 +82,7 @@ void CInterrup_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CInterrup_Bullet::CalcPotentialCollisions(
+void INTERRUPT_BULLET::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -101,15 +101,15 @@ void CInterrup_Bullet::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CInterrup_Bullet::Render()
+void INTERRUPT_BULLET::Render()
 {
 	int ani = 0;
 
 	switch (state)
 	{
 	case CINTERRUPT_BULLET_STATE_IDLE:
-		ani = CINTERRUPT_BULLET_ANI_IDLE;
-		break;
+		 ani = CINTERRUPT_BULLET_ANI_IDLE;
+		 break;
 	case CINTERRUPT_BULLET_STATE_DIE:
 		return;
 	}
@@ -119,7 +119,7 @@ void CInterrup_Bullet::Render()
 	//RenderBoundingBox();
 }
 
-void CInterrup_Bullet::SetState(int state)
+void INTERRUPT_BULLET::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

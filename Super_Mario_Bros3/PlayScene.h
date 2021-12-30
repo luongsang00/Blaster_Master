@@ -3,33 +3,32 @@
 #include "Textures.h"
 #include "Scene.h"
 #include "GameObject.h"
-#include "MapObj.h"
 #include "Brick.h"
-#include "Eyelet.h"
-#include "Stuka.h"
+#include "SOPHIA.h"
+#include "Eye.h"
+#include "Koopas.h"
 #include "Map.h"
-#include "Ball_Carry.h"
-#include "Ballbot.h"
-#include "GX_680.h"
-#include "GX_680S.h"
-#include "Drap.h"
+#include "SOPHIAWHEELS.h"
+#include "MapObj.h"
 #include "LaserGuard.h"
+#include "BallCarry.h"
+#include "Ballbot.h"
+#include "DRAP.h"
+#include "GX680.h"
+#include "GX680S.h"
+#include "STUKA.h"
+#include "Eyelet.h"
 #include "Interrupt.h"
-#include "RedWorm.h"
-#include "Turret.h"
-#include "Tank_Bullet.h"
-#include "Body.h"
-#include "SoPhia.h"
-#include "Wheel.h"
-#include "Door.h"
+#include "SOPHIABULLET.h"
 #include "EvenType.h"
-#include "Interrupt_Bullet.h"
-#include "EffEct.h"
-#include "Boom_Ball_Carry.h"
-#include "JaSon.h"
-#include "Draw.h"
-
-
+#include "INTERRUPT_BULLET.h"
+#include "REDWORM.h"
+#include "SOPHIABODY.h"
+#include "SOPHIATURRET.h"
+#include "EFFECT.h"
+#include "JASON.h"
+#include "BOOM.h"
+#include "NoCollisionObject.h"
 
 #include "Utils.h"
 #include "Game.h"
@@ -39,16 +38,16 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
-#include "DefinePlayer.h"
-#include "JaSon_Bullet.h"
-#include "Grenade.h"
-#include "GX_Bullet.h"
-#include "LaserGuard_Bullet.h"
+#include "DF.h"
+#include "CWAVE_BULLET.h"
+#include "GRENADE.h"
+#include "GX_BULLET.h"
+#include "LASER_BULLET.h"
+#include "MapCamera.h"
 #include "HP.h"
-#include "Cam.h"
-#include "Small_JaSon.h"
-#include "Drop.h"
-#include "Blue_Brick.h"
+#include "MINI_JASON.h"
+#include "SOPHIADOOR.h"
+#include "Items.h"
 
 #define QUADTREE_SECTION_SETTINGS	1
 #define QUADTREE_SECTION_OBJECTS	2
@@ -67,7 +66,7 @@ class CQuadTree
 	CQuadTree* BrachBR = NULL;
 	MapObj* obj;
 	vector<LPGAMEOBJECT> listObjects;
-
+	
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_OBJECTS(string line);
@@ -82,7 +81,7 @@ public:
 	{
 		listObjects.push_back(obj);
 	}
-	int getVollunm() {
+	int getVollunm(){
 		return listObjects.size();
 	}
 	void Render();
@@ -96,22 +95,22 @@ public:
 class CPlayScene : public CScene
 {
 protected:
-	CSoPhia* player;				// A play scene has to have player, right? 
-	JaSon* player2;
-	Small_JaSon* player3;
+	CSOPHIA* player;				// A play scene has to have player, right? 
+	JASON* player2;
+	MINI_JASON* player3;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> secondLayer;
 	int mapHeight;
 	Map* map;
 	CQuadTree* quadtree;
-	vector<CEvenType*> InterruptBulletMng;
-	vector<CEvenType*> WormSpamMng;
-	vector<CEvenType*> KaboomMng;
-	vector<CEvenType*> BoomCarryMng;
-	vector<CEvenType*> CGXMng;
-	vector<CEvenType*> ItemsMng;
+	vector<EvenType*> InterruptBulletMng ;
+	vector<EvenType*> WormSpamMng;
+	vector<EvenType*> KaboomMng;
+	vector<EvenType*> BoomCarryMng;
+	vector<EvenType*> CGXMng;
+	vector<EvenType*> ItemsMng;
 	vector<MapCamera*> MapCam;
-
+	
 	int filming_duration = 1000;
 	DWORD filming_start = 0;
 
@@ -139,9 +138,9 @@ public:
 	bool IsInUseArea(float Ox, float Oy);
 	bool IsInside(float Ox, float Oy, float xRange, float yRange, float tx, float ty);
 
-	CSoPhia* GetPlayer() { return player; }
-	JaSon* GetPlayer2() { return player2; }
-	Small_JaSon* GetPlayer3() { return player3; }
+	CSOPHIA* GetPlayer() { return player; }
+	JASON* GetPlayer2() { return player2; }
+	MINI_JASON* GetPlayer3() { return player3; }
 
 	void setpiloting(int value)
 	{
@@ -175,14 +174,14 @@ public:
 	{
 		return mapHeight;
 	}
-
+	
 	/////////////////ItemsMng
 	void AddItemsMng(float x, float y, int num)
 	{
-		CEvenType* obj = new CEvenType(x, y, num);
+		EvenType* obj = new EvenType(x, y, num);
 		this->ItemsMng.push_back(obj);
 	}
-	CEvenType* GetItemsMng()
+	EvenType* GetItemsMng()
 	{
 		return ItemsMng.at(0);
 	}
@@ -199,10 +198,10 @@ public:
 	/////////////////CGXMng
 	void AddCGXMng(float x, float y, float vx, float vy)
 	{
-		CEvenType* obj = new CEvenType(x, y, 0, vx, vy);
+		EvenType* obj = new EvenType(x, y, 0, vx, vy);
 		this->CGXMng.push_back(obj);
 	}
-	CEvenType* GetCGXMng()
+	EvenType* GetCGXMng()
 	{
 		return CGXMng.at(0);
 	}
@@ -219,7 +218,7 @@ public:
 	/////////////////BoomCarryMng
 	void AddBoomCarryMng(float x, float y)
 	{
-		CEvenType* obj = new CEvenType(x, y);
+		EvenType* obj = new EvenType(x, y);
 		this->BoomCarryMng.push_back(obj);
 	}
 	void CheckStackBoomCarryMng()
@@ -228,12 +227,12 @@ public:
 		{
 			BoomCarryMng.at(0)->setCEventStack(BoomCarryMng.at(0)->getCEventStack() + 1);
 		}
-		else
+		else 
 		{
 			DeleteBoomCarryMng();
 		}
 	}
-	CEvenType* GetBoomCarryMng()
+	EvenType* GetBoomCarryMng()
 	{
 		return BoomCarryMng.at(0);
 	}
@@ -250,10 +249,10 @@ public:
 	/////////////////KaboomMng
 	void AddKaboomMng(float x, float y)
 	{
-		CEvenType* obj = new CEvenType(x, y);
+		EvenType* obj = new EvenType(x, y);
 		this->KaboomMng.push_back(obj);
 	}
-	CEvenType* GetKaboomMng()
+	EvenType* GetKaboomMng()
 	{
 		return KaboomMng.at(0);
 	}
@@ -270,10 +269,10 @@ public:
 	/////////////////InterruptBulletMng
 	void AddInterruptBulletMng(float x, float y)
 	{
-		CEvenType* obj = new CEvenType(x, y);
+		EvenType* obj = new EvenType(x, y);
 		this->InterruptBulletMng.push_back(obj);
 	}
-	CEvenType* GetInterruptBulletMng()
+	EvenType* GetInterruptBulletMng()
 	{
 		return InterruptBulletMng.at(0);
 	}
@@ -290,10 +289,10 @@ public:
 	//////////////////////////WormSpamMng
 	void AddWormSpamMng(float x, float y)
 	{
-		CEvenType* obj = new CEvenType(x, y);
+		EvenType* obj = new EvenType(x, y);
 		this->WormSpamMng.push_back(obj);
 	}
-	CEvenType* GetWormSpamMng()
+	EvenType* GetWormSpamMng()
 	{
 		return WormSpamMng.at(0);
 	}

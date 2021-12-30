@@ -22,7 +22,7 @@
 
 #include "SOPHIA.h"
 #include "Brick.h"
-
+#include "Eye.h"
 
 #include "PlayScene.h"
 

@@ -4,7 +4,7 @@
 #define BRICK_BBOX_WIDTH  16
 #define BRICK_BBOX_HEIGHT 16
 
-class EffEct : public CGameObject
+class EFFECT : public CGameObject
 {
 	bool active = false;
 	float duration;
@@ -18,7 +18,7 @@ class EffEct : public CGameObject
 		}
 	}
 public:
-	EffEct(float time);
+	EFFECT(float time);
 	virtual void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 };

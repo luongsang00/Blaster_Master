@@ -1,10 +1,10 @@
 #include "Drap.h"
-CDrap::CDrap()
+DRAP::DRAP()
 {
 	SetState(STATE_IDLE);
 }
 
-void CDrap::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void DRAP::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state != CDRAP_STATE_DIE) {
 		left = x;
@@ -14,7 +14,7 @@ void CDrap::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	}
 }
 
-void CDrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void DRAP::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
@@ -41,7 +41,7 @@ void CDrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer2()->GetPosition(px, py);
 
-	if (playscene->IsInside(x - 500, y, x + 500, y + CDRAP_BBOX_HEIGHT, px, py + JASON_BIG_BBOX_HEIGHT / 2) && attacking == 0)
+	if (playscene->IsInside(x - 500, y, x + 500, y + CDRAP_BBOX_HEIGHT, px , py + JASON_BIG_BBOX_HEIGHT/2) && attacking == 0)
 	{
 		StartAttack();
 		if (px > x)
@@ -88,6 +88,12 @@ void CDrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (ny == 0 && nx != 0)
 					vx = 0;
 			}
+			CGame* game = CGame::GetInstance();
+			if (dynamic_cast<JASON*>(e->obj) && !playscene->GetPlayer2()->getUntouchable())
+			{
+				playscene->GetPlayer2()->StartUntouchable();
+				game->setheath(game->Getheath() - 100);
+			}
 		}
 	}
 
@@ -95,7 +101,7 @@ void CDrap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CDrap::Render()
+void DRAP::Render()
 {
 	if (state != STATE_DIE)
 	{
@@ -107,7 +113,7 @@ void CDrap::Render()
 	}
 }
 
-void CDrap::SetState(int state)
+void DRAP::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

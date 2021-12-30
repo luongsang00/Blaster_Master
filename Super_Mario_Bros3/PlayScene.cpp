@@ -67,7 +67,7 @@ void CPlayScene::Load()
 		{
 		case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
 		case SCENE_SECTION_SETTING: _ParseSection_SETTING(line); break;
-		case SCENE_SECTION_MAPCAM: _ParseSection_MAPCAM(line); break;
+		case SCENE_SECTION_MAPCAM: _ParseSection_MAPCAM(line); break;		
 		case SCENE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
 		case SCENE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
 		case SCENE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
@@ -230,9 +230,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] SOPHIA object was created before!\n");
 			return;
 		}
-		obj = new CSoPhia(x, getMapheight() - y);
+		obj = new CSOPHIA(x, getMapheight() - y);
 
-		player = (CSoPhia*)obj;
+		player = (CSOPHIA*)obj;
 
 		DebugOut(L"[INFO] Player object created!\n");
 
@@ -243,9 +243,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] JASON object was created before!\n");
 			return;
 		}
-		obj = new JaSon(x, getMapheight() - y);
+		obj = new JASON(x, getMapheight() - y);
 
-		player2 = (JaSon*)obj;
+		player2 = (JASON*)obj;
 
 		DebugOut(L"[INFO] Player object created!\n");
 
@@ -256,69 +256,69 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			DebugOut(L"[ERROR] MINI_JASON object was created before!\n");
 			return;
 		}
-		obj = new Small_JaSon(x, getMapheight() - y);
+		obj = new MINI_JASON(x, getMapheight() - y);
 
-		player3 = (Small_JaSon*)obj;
+		player3 = (MINI_JASON*)obj;
 
 		DebugOut(L"[INFO] Player object created!\n");
 
 		break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_CBOOM: obj = new Boom_Ball_Carry(); break;
-	case OBJECT_TYPE_CTANKBULLET: obj = new CTANKBULLET(); break;
-	case OBJECT_TYPE_NoCollisionObject: obj = new Draw(); break;
+	case OBJECT_TYPE_CBOOM: obj = new BOOM(); break;
+	case OBJECT_TYPE_CTANKBULLET: obj = new SOPHIABULLET(); break;
+	case OBJECT_TYPE_NoCollisionObject: obj = new CNoCollisionObject(); break;
 	case OBJECT_TYPE_STATBAR: obj = new HP(atoi(tokens[4].c_str())); break;
 	case OBJECT_TYPE_ITEMS:
 	{
-		obj = new Drop(0);
+		obj = new Items(0);
 	}
 	break;
 	case OBJECT_TYPE_TANK_WHEEL:
 	{
 		float part = atof(tokens[4].c_str());
-		obj = new Wheel(part);
+		obj = new SOPHIAWHEELS(part);
 	}
 	break;
 	case OBJECT_TYPE_CLASER_BULLET:
 	{
-		obj = new CLASER_BULLET();
+		obj = new LASER_BULLET();
 	}
 	break;
 	case OBJECT_TYPE_TANK_BODY:
 	{
-		obj = new Body();
+		obj = new SOPHIABODY();
 	}
 	break;
 	case OBJECT_TYPE_JASON_BULLET_1:
 	{
-		obj = new JaSon_Bullet();
+		obj = new CWAVE_BULLET();
 	}
 	break;
 
 	case OBJECT_TYPE_TANK_TURRET:
 	{
-		obj = new Turret();
+		obj = new SOPHIATURRET();
 	}
 	break;
 	case OBJECT_TYPE_TANKDOOR:
 	{
-		obj = new Door();
+		obj = new SOPHIADOOR();
 	}
 	break;
 	case OBJECT_TYPE_EFFECT:
 	{
 		float time = atof(tokens[4].c_str());
-		obj = new EffEct(time);
+		obj = new EFFECT(time);
 	}
 	break;
 	case OBJECT_TYPE_JASON_GRENADE:
 	{
-		obj = new Grenade();
+		obj = new GRENADE();
 	}
 	break;
 	case OBJECT_TYPE_CGX_BULLET:
 	{
-		obj = new GX_Bullet();
+		obj = new GX_BULLET();
 	}
 	break;
 	case OBJECT_TYPE_PORTAL:
@@ -330,11 +330,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CPortal(x, y, r, b, scene_id, camState);
 	}
 	break;
-	case OBJECT_TYPE_CINTERCRUPT_BULLET: obj = new CInterrup_Bullet(); break;
-	case OBJECT_TYPE_RED_WORM: obj = new CRedWorm(); break;
-
-		break;
-
+	case OBJECT_TYPE_CINTERCRUPT_BULLET: obj = new INTERRUPT_BULLET(); break;
+	case OBJECT_TYPE_RED_WORM: obj = new REDWORM(); break;
+		
+	break;
+	
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -349,17 +349,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		if (object_type == OBJECT_TYPE_NoCollisionObject || object_type == OBJECT_TYPE_STATBAR)
 		{
-
-			if (object_type != OBJECT_TYPE_STATBAR)
+			
+			if(object_type != OBJECT_TYPE_STATBAR)
 				obj->SetPosition(x, getMapheight() - y);
-			else
+			else 
 				obj->SetPosition(x, y);
 			obj->SetAnimationSet(ani_set);
 			secondLayer.push_back(obj);
 			return;
 		}
-		if (object_type != OBJECT_TYPE_SOPHIA)
-			obj->SetPosition(x, getMapheight() - y);
+		if(object_type != OBJECT_TYPE_SOPHIA)
+		obj->SetPosition(x, getMapheight() - y);
 		obj->SetAnimationSet(ani_set);
 		obj->SetOrigin(x, y, obj->GetState());
 		obj->SetisOriginObj(true);
@@ -451,15 +451,15 @@ void CPlayScene::Update(DWORD dt)
 			player3->GetPosition(cx, cy);
 		}
 	}
-	else if (player2)
+	else if(player2)
 		player2->GetPosition(cx, cy);
 
 
 	cy = cy;
 
 	/*DebugOut(L"Y: la %d %f  \n", CGame::GetInstance()->GetCurrentScene()->getMapheight(), cy);*/
-
-
+	
+	
 
 	cx -= game->GetScreenWidth() / 2;
 	cy -= game->GetScreenHeight() / 2;
@@ -536,7 +536,7 @@ void CPlayScene::Render()
 
 	for (int i = 0; i < secondLayer.size(); i++)
 		secondLayer[i]->Render();
-
+	
 }
 
 /*
@@ -584,7 +584,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	{
 		if (playscene->getpiloting())
 		{
-			CSoPhia* player = playscene->GetPlayer();
+			CSOPHIA* player = playscene->GetPlayer();
 			switch (KeyCode)
 			{
 			case DIK_SPACE:
@@ -610,7 +610,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		}
 		else
 		{
-			Small_JaSon* player = playscene->GetPlayer3();
+			MINI_JASON* player = playscene->GetPlayer3();
 			switch (KeyCode)
 			{
 			case DIK_SPACE:
@@ -636,7 +636,7 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 		}
 	}
 	else {
-		JaSon* player = playscene->GetPlayer2();
+		JASON* player = playscene->GetPlayer2();
 		switch (KeyCode)
 		{
 		case DIK_B:
@@ -656,7 +656,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	if (KeyCode == DIK_Z && playscene->GetPlayer3())
 	{
 		playscene->setpiloting(!playscene->getpiloting());
-		Small_JaSon* player = playscene->GetPlayer3();
+		MINI_JASON* player = playscene->GetPlayer3();
 		//if (!playscene->getpiloting())
 		{
 			player->SetState(SOPHIA_STATE_JUMP);
@@ -667,7 +667,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	{
 		if (playscene->getpiloting())
 		{
-			CSoPhia* player = playscene->GetPlayer();
+			CSOPHIA* player = playscene->GetPlayer();
 			switch (KeyCode)
 			{
 			case DIK_A:
@@ -689,7 +689,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 		}
 		else
 		{
-			Small_JaSon* player = playscene->GetPlayer3();
+			MINI_JASON* player = playscene->GetPlayer3();
 			switch (KeyCode)
 			{
 			case DIK_A:
@@ -711,7 +711,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 		}
 	}
 	else {
-		JaSon* player = playscene->GetPlayer2();
+		JASON* player = playscene->GetPlayer2();
 		switch (KeyCode)
 		{
 		case DIK_A:
@@ -725,7 +725,7 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 			break;
 		}
 	}
-
+		
 }
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
@@ -736,7 +736,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	{
 		if (playscene->getpiloting())
 		{
-			CSoPhia* player = playscene->GetPlayer();
+			CSOPHIA* player = playscene->GetPlayer();
 			if (player->GetState() == SOPHIA_STATE_DIE) return;
 			if (game->IsKeyDown(DIK_RIGHT))
 				player->SetState(SOPHIA_STATE_WALKING_RIGHT);
@@ -747,7 +747,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		}
 		else
 		{
-			Small_JaSon* player = playscene->GetPlayer3();
+			MINI_JASON* player = playscene->GetPlayer3();
 			if (player->GetState() == SOPHIA_STATE_DIE) return;
 			if (game->IsKeyDown(DIK_RIGHT))
 				player->SetState(SOPHIA_STATE_WALKING_RIGHT);
@@ -758,7 +758,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		}
 	}
 	else {
-		JaSon* player = playscene->GetPlayer2();
+		JASON* player = playscene->GetPlayer2();
 		if (player->GetState() == SOPHIA_STATE_DIE) return;
 		if (game->IsKeyDown(DIK_RIGHT))
 			player->SetState(SOPHIA_STATE_WALKING_RIGHT);

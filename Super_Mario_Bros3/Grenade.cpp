@@ -1,16 +1,16 @@
-#include "Grenade.h"
+#include "GRENADE.h"
 #include <algorithm>
 #include "PlayScene.h"
 #include "JASON.h"
 #include "Brick.h"
 
-Grenade::Grenade()
+GRENADE::GRENADE()
 {
 	SetState(CGRENADE_STATE_FLYING);
 	nx = 0;
 }
 
-void Grenade::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void GRENADE::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -20,7 +20,7 @@ void Grenade::GetBoundingBox(float& left, float& top, float& right, float& botto
 	else bottom = y + CGRENADE_BBOX_HEIGHT;
 }
 
-void Grenade::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void GRENADE::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	CGameObject::Update(dt, coObjects);
@@ -44,7 +44,7 @@ void Grenade::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (isUsed == false)
 	{
-		JaSon* JASON = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer2();
+		JASON* JASON = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer2();
 		if (JASON->GetisFiring() == true && JASON->getWeapon() == -1)
 		{
 			if (JASON->GetisAlreadyFired() == false)
@@ -107,7 +107,7 @@ void Grenade::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (!dynamic_cast<CBrick*>(e->obj))
+			if (!dynamic_cast<CBrick*>(e->obj)) 
 			{
 				(e->obj)->SetState(STATE_DIE);
 				(e->obj)->SetisAlive(false);
@@ -121,7 +121,7 @@ void Grenade::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					SetState(CGRENADE_STATE_DIE);
 				}
 			}
-			if (!dynamic_cast<CBrick*>(e->obj) && !dynamic_cast<JaSon*>(e->obj))
+			if (!dynamic_cast<CBrick*>(e->obj) && !dynamic_cast<JASON*>(e->obj))
 			{
 				if (playscene->IsInside(x - 50, y - 50, x + 50, y + 50, (e->obj)->GetPositionX(), (e->obj)->GetPositionY()))
 				{
@@ -134,14 +134,14 @@ void Grenade::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void Grenade::CalcPotentialCollisions(
+void GRENADE::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
-		if (dynamic_cast<JaSon*>(e->obj))
+		if (dynamic_cast<JASON*>(e->obj))
 		{
 			continue;
 		}
@@ -153,7 +153,7 @@ void Grenade::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void Grenade::Render()
+void GRENADE::Render()
 {
 	if (state == CGRENADE_STATE_DIE)
 		return;
@@ -163,7 +163,7 @@ void Grenade::Render()
 	//RenderBoundingBox();
 }
 
-void Grenade::SetState(int state)
+void GRENADE::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

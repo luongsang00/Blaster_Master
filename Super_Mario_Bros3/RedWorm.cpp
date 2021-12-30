@@ -1,15 +1,15 @@
-#include "RedWorm.h"
+#include "REDWORM.h"
 #include <algorithm>
 #include "PlayScene.h"
 #include "Brick.h"
 
-CRedWorm::CRedWorm()
+REDWORM::REDWORM()
 {
 	SetState(CREDWORM_STATE_DIE);
 	nx = 0;
 }
 
-void CRedWorm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void REDWORM::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -20,7 +20,7 @@ void CRedWorm::GetBoundingBox(float& left, float& top, float& right, float& bott
 	else bottom = y + CREDWORM_BBOX_HEIGHT;
 }
 
-void CRedWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void REDWORM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -61,7 +61,7 @@ void CRedWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->SetPosition(playscene->GetWormSpamMng()->getCEventPoisitionX(), playscene->GetWormSpamMng()->getCEventPoisitionY());
 			playscene->DeleteWormSpamMng();
 			isUsed = true;
-
+			
 		}
 	}
 
@@ -70,13 +70,13 @@ void CRedWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx = CREDWORM_SPEED;
 		nx = 1;
 	}
-	else
+	else 
 	{
 		vx = -CREDWORM_SPEED;
 		nx = -1;
 	}
 
-
+	
 
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
@@ -111,6 +111,12 @@ void CRedWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			CGame* game = CGame::GetInstance();
+			if (dynamic_cast<CSOPHIA*>(e->obj) && !playscene->GetPlayer()->getUntouchable())
+			{
+				playscene->GetPlayer()->StartUntouchable();
+				game->setheath(game->Getheath() - 100);
+			}
 		}
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -120,7 +126,7 @@ void CRedWorm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CRedWorm::CalcPotentialCollisions(
+void REDWORM::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -139,7 +145,7 @@ void CRedWorm::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CRedWorm::Render()
+void REDWORM::Render()
 {
 	int ani = 0;
 
@@ -158,7 +164,7 @@ void CRedWorm::Render()
 	//RenderBoundingBox();
 }
 
-void CRedWorm::SetState(int state)
+void REDWORM::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

@@ -8,7 +8,7 @@
 #include "PlayScene.h"
 #include "Portal.h"
 
-CSoPhia::CSoPhia(float x, float y) : CGameObject()
+CSOPHIA::CSOPHIA(float x, float y) : CGameObject()
 {
 
 	untouchable = 0;
@@ -18,10 +18,10 @@ CSoPhia::CSoPhia(float x, float y) : CGameObject()
 	start_y = y;
 	this->x = x;
 	this->y = y;
-
+	
 }
 
-void CSoPhia::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CSOPHIA::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	int id = CGame::GetInstance()->GetCurrentScene()->GetId();
 	CGame* game = CGame::GetInstance();
@@ -30,8 +30,8 @@ void CSoPhia::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	if (playscene->getpiloting())
-		vy -= SOPHIA_GRAVITY * dt;
+	if(playscene->getpiloting())
+	vy -= SOPHIA_GRAVITY * dt;
 	else {
 		vx = 0;
 		vy = 0;
@@ -102,7 +102,7 @@ void CSoPhia::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CSoPhia::Render()
+void CSOPHIA::Render()
 {
 	//
 	//int ani = -1;
@@ -128,7 +128,7 @@ void CSoPhia::Render()
 	////RenderBoundingBox();
 }
 
-void CSoPhia::SetState(int state)
+void CSOPHIA::SetState(int state)
 {
 	CGameObject::SetState(state);
 
@@ -157,29 +157,32 @@ void CSoPhia::SetState(int state)
 	}
 }
 
-void CSoPhia::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CSOPHIA::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
-	//if (playscene->getpiloting()) {
-	left = x;
-	top = y;
-	right = x + SOPHIA_BIG_BBOX_WIDTH;
-	bottom = y + SOPHIA_BIG_BBOX_HEIGHT;
+	CGame* game = CGame::GetInstance();
+	if (!game->Getheath() == 0)
+	{
+		CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
+		//if (playscene->getpiloting()) {
+		left = x;
+		top = y;
+		right = x + SOPHIA_BIG_BBOX_WIDTH;
+		bottom = y + SOPHIA_BIG_BBOX_HEIGHT;
 
-	//DebugOut(L"L T R B %f %f %f %f  \n", left, top, right, bottom);
-//}
-
+		//DebugOut(L"L T R B %f %f %f %f  \n", left, top, right, bottom);
+	//}
+	}
 }
 
 /*
 	Reset SOPHIA status to the beginning state of a scene
 */
-void CSoPhia::Reset()
+void CSOPHIA::Reset()
 {
 	SetState(SOPHIA_STATE_IDLE);
 }
 
-void CSoPhia::CalcPotentialCollisions(
+void CSOPHIA::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -192,15 +195,11 @@ void CSoPhia::CalcPotentialCollisions(
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (dynamic_cast<CTANKBULLET*>(e->obj) || dynamic_cast<CRedWorm*>(e->obj))
+		if (dynamic_cast<SOPHIABULLET*>(e->obj) || dynamic_cast<REDWORM*>(e->obj))
 		{
 			continue;
 		}
-		if (dynamic_cast<CEyelet*>(e->obj) && e->obj->GetState() == EYELET_STATE_IDLE)
-		{
-			continue;
-		}
-		if (dynamic_cast<Boom_Ball_Carry*>(e->obj))
+		if (dynamic_cast<BOOM*>(e->obj))
 		{
 			continue;
 		}
@@ -218,9 +217,9 @@ void CSoPhia::CalcPotentialCollisions(
 				continue;
 			}
 			else
-				if (dynamic_cast<Drop*>(e->obj))
+				if (dynamic_cast<Items*>(e->obj))
 				{
-					Drop* item = dynamic_cast<Drop*>(e->obj);
+					Items* item = dynamic_cast<Items*>(e->obj);
 					if (item->getType() == 0)
 					{
 						game->setheath(game->Getheath() + 100);
@@ -232,10 +231,11 @@ void CSoPhia::CalcPotentialCollisions(
 					item->SetState(STATE_DIE);
 					continue;
 				}
-				else
-				{
-					collisionEvents.push_back(e);
-				}
+			else
+			{
+				if(dynamic_cast<CBrick*>(e->obj))
+				collisionEvents.push_back(e);
+			}
 		}
 		else
 			delete e;

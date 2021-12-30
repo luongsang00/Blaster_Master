@@ -7,8 +7,9 @@
 
 #include "PlayScene.h"
 #include "Portal.h"
+#include "Brick.h"
 
-JaSon::JaSon(float x, float y) : CGameObject()
+JASON::JASON(float x, float y) : CGameObject()
 {
 	untouchable = 0;
 	SetState(JASON_STATE_IDLE);
@@ -18,7 +19,7 @@ JaSon::JaSon(float x, float y) : CGameObject()
 
 }
 
-void JaSon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void JASON::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	int id = CGame::GetInstance()->GetCurrentScene()->GetId();
 	// Calculate dx, dy 
@@ -38,7 +39,7 @@ void JaSon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount() - untouchable_start > JASON_UNTOUCHABLE_TIME)
+	if (GetTickCount() - untouchable_start > JASON_UNTOUCHABLE_TIME && untouchable_start != 0)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
@@ -89,43 +90,46 @@ void JaSon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void JaSon::Render()
+void JASON::Render()
 {
-
-	int ani = 0;
-	switch (state)
+	CGame* game = CGame::GetInstance();
+	if (!game->Getheath() == 0)
 	{
-	case JASON_STATE_WALKING_DOWN:
-		ani = JASON_ANI_WALK_DOWN;
-		pre_ani = ani;
-		break;
-	case JASON_STATE_WALKING_UP:
-		ani = JASON_ANI_WALK_UP;
-		pre_ani = ani;
-		break;
-	case JASON_STATE_WALKING_RIGHT:
-		ani = JASON_ANI_WALK_RIGHT;
-		pre_ani = ani;
-		break;
-	case JASON_STATE_WALKING_LEFT:
-		ani = JASON_ANI_WALK_LEFT;
-		pre_ani = ani;
-		break;
-	case JASON_STATE_IDLE:
-		ani = pre_ani + 4;
-		break;
+		int ani = 0;
+		switch (state)
+		{
+		case JASON_STATE_WALKING_DOWN:
+			ani = JASON_ANI_WALK_DOWN;
+			pre_ani = ani;
+			break;
+		case JASON_STATE_WALKING_UP:
+			ani = JASON_ANI_WALK_UP;
+			pre_ani = ani;
+			break;
+		case JASON_STATE_WALKING_RIGHT:
+			ani = JASON_ANI_WALK_RIGHT;
+			pre_ani = ani;
+			break;
+		case JASON_STATE_WALKING_LEFT:
+			ani = JASON_ANI_WALK_LEFT;
+			pre_ani = ani;
+			break;
+		case JASON_STATE_IDLE:
+			ani = pre_ani + 4;
+			break;
+		}
+
+		int alpha = 255;
+
+		if (untouchable) alpha = 128;
+
+		animation_set->at(ani)->Render(x, y, alpha);
+
+		////RenderBoundingBox();
 	}
-
-	int alpha = 255;
-
-	if (untouchable) alpha = 128;
-
-	animation_set->at(ani)->Render(x, y, alpha);
-
-	////RenderBoundingBox();
 }
 
-void JaSon::SetState(int state)
+void JASON::SetState(int state)
 {
 	CGameObject::SetState(state);
 
@@ -157,7 +161,7 @@ void JaSon::SetState(int state)
 	}
 }
 
-void JaSon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void JASON::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -171,12 +175,12 @@ void JaSon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 /*
 	Reset JASON status to the beginning state of a scene
 */
-void JaSon::Reset()
+void JASON::Reset()
 {
 	SetState(JASON_STATE_IDLE);
 }
 
-void JaSon::CalcPotentialCollisions(
+void JASON::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -189,15 +193,15 @@ void JaSon::CalcPotentialCollisions(
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (dynamic_cast<CTANKBULLET*>(e->obj) || dynamic_cast<CRedWorm*>(e->obj))
+		if (dynamic_cast<SOPHIABULLET*>(e->obj) || dynamic_cast<REDWORM*>(e->obj))
 		{
 			continue;
 		}
-		if (dynamic_cast<CEyelet*>(e->obj) && e->obj->GetState() == EYELET_STATE_IDLE)
+		if (dynamic_cast<EYELET*>(e->obj) && e->obj->GetState() == EYELET_STATE_IDLE)
 		{
 			continue;
 		}
-		if (dynamic_cast<Boom_Ball_Carry*>(e->obj))
+		if (dynamic_cast<BOOM*>(e->obj))
 		{
 			continue;
 		}
@@ -214,9 +218,9 @@ void JaSon::CalcPotentialCollisions(
 				continue;
 			}
 			else
-				if (dynamic_cast<Drop*>(e->obj))
+				if (dynamic_cast<Items*>(e->obj))
 				{
-					Drop* item = dynamic_cast<Drop*>(e->obj);
+					Items* item = dynamic_cast<Items*>(e->obj);
 					if (item->getType() == 0)
 					{
 						game->setheath(game->Getheath() + 100);
@@ -228,10 +232,19 @@ void JaSon::CalcPotentialCollisions(
 					item->SetState(STATE_DIE);
 					continue;
 				}
-				else
-				{
+			else
+			{
+				if (dynamic_cast<CBrick*>(e->obj))
 					collisionEvents.push_back(e);
-				}
+				/*else
+				{
+					if (!untouchable)
+					{
+						game->setheath(game->Getheath() - 100);
+						StartUntouchable();
+					}
+				}*/
+			}
 		}
 		else
 			delete e;

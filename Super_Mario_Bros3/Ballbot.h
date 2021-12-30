@@ -23,16 +23,16 @@
 
 #define CBALLBOT_X_RANGE 20
 
-class CBallbot : public CGameObject
+class BALLBOT : public CGameObject
 {
 	bool triggered = false;
 	int pre_ani;
 	DWORD pre_tickcount;
 	DWORD tickcount_diff = 0;
 	DWORD switch_state = 0;
-	void StartSwitch_state()
+	void StartSwitch_state() 
 	{
-		if (switch_state == 0)
+		if (switch_state == 0) 
 		{
 			pre_tickcount = (DWORD)GetTickCount64();
 			switch_state = (DWORD)GetTickCount64();
@@ -44,6 +44,6 @@ class CBallbot : public CGameObject
 	virtual void Render();
 
 public:
-	CBallbot();
+	BALLBOT();
 	virtual void SetState(int state);
 };
