@@ -165,6 +165,12 @@
     <ClInclude Include="Wheel.h">
       <Filter>Player\Tank_Spare_Parts</Filter>
     </ClInclude>
+    <ClInclude Include="Blue_Brick.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Drop.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stuka.cpp">
@@ -295,6 +301,12 @@
     </ClCompile>
     <ClCompile Include="Wheel.cpp">
       <Filter>Player\Tank_Spare_Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="Blue_Brick.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Drop.cpp">
+      <Filter>Obj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

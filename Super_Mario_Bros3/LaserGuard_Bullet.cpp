@@ -3,13 +3,13 @@
 #include "PlayScene.h"
 #include "Brick.h"
 
-LaserGuard_Bullet::LaserGuard_Bullet()
+CLASER_BULLET::CLASER_BULLET()
 {
 	SetState(CLASER_BULLET_STATE_IDLE);
 	nx = 0;
 }
 
-void LaserGuard_Bullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CLASER_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -20,7 +20,7 @@ void LaserGuard_Bullet::GetBoundingBox(float& left, float& top, float& right, fl
 	else bottom = y + CLASER_BULLET_BBOX_HEIGHT;
 }
 
-void LaserGuard_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CLASER_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -68,7 +68,7 @@ void LaserGuard_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Goomba
+			if (dynamic_cast<CBrick*>(e->obj))
 			{
 				SetState(CLASER_BULLET_STATE_DIE);
 			}
@@ -78,7 +78,7 @@ void LaserGuard_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void LaserGuard_Bullet::CalcPotentialCollisions(
+void CLASER_BULLET::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -97,7 +97,7 @@ void LaserGuard_Bullet::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void LaserGuard_Bullet::Render()
+void CLASER_BULLET::Render()
 {
 	int ani = 0;
 
@@ -115,7 +115,7 @@ void LaserGuard_Bullet::Render()
 	//RenderBoundingBox();
 }
 
-void LaserGuard_Bullet::SetState(int state)
+void CLASER_BULLET::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

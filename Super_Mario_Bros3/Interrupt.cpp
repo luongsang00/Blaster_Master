@@ -10,7 +10,7 @@ void CInterrupt::GetBoundingBox(float& left, float& top, float& right, float& bo
 	top = y;
 	right = x + CINTERRUPT_BBOX_WIDTH;
 
-	if (state == STATE_DIE)
+	if (state == CINTERRUPT_STATE_DIE)
 		bottom = y + CINTERRUPT_BBOX_HEIGHT_DIE;
 	else
 		bottom = y + CINTERRUPT_BBOX_HEIGHT;
@@ -25,19 +25,31 @@ void CInterrupt::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
 	// 
 
+	if (!spammed && state == STATE_DIE)
+	{
+		((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(x, y);
+		int chance = rand() % 100;
+		srand(time(NULL));
+		if (chance >= 70)
+			playscene->AddItemsMng(x, y, 0);
+		spammed = true;
+	}
+
 	x += dx;
 	y += dy;
 
 	float px, py;
 
-	((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer()->GetPosition(px, py);
-	if (state != CINTERRUPT_STATE_OPEN)
-		if (this->x < px + SOPHIA_BIG_BBOX_WIDTH && this->x + CINTERRUPT_BBOX_WIDTH >= px && this->y < py)
-		{
-			SetState(CINTERRUPT_STATE_OPEN);
-			playscene->AddInterruptBulletMng(this->x, this->y);
-		}
-
+	if (state != STATE_DIE)
+	{
+		((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer()->GetPosition(px, py);
+		if (state != CINTERRUPT_STATE_OPEN)
+			if (this->x < px + SOPHIA_BIG_BBOX_WIDTH && this->x + CINTERRUPT_BBOX_WIDTH >= px && this->y < py)
+			{
+				SetState(CINTERRUPT_STATE_OPEN);
+				playscene->AddInterruptBulletMng(this->x, this->y);
+			}
+	}
 }
 
 void CInterrupt::Render()

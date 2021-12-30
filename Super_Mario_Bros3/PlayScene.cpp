@@ -265,9 +265,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
 	case OBJECT_TYPE_CBOOM: obj = new Boom_Ball_Carry(); break;
-	case OBJECT_TYPE_CTANKBULLET: obj = new CTank_Bullet(); break;
+	case OBJECT_TYPE_CTANKBULLET: obj = new CTANKBULLET(); break;
 	case OBJECT_TYPE_NoCollisionObject: obj = new Draw(); break;
 	case OBJECT_TYPE_STATBAR: obj = new HP(atoi(tokens[4].c_str())); break;
+	case OBJECT_TYPE_ITEMS:
+	{
+		obj = new Drop(0);
+	}
+	break;
 	case OBJECT_TYPE_TANK_WHEEL:
 	{
 		float part = atof(tokens[4].c_str());
@@ -276,7 +281,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	break;
 	case OBJECT_TYPE_CLASER_BULLET:
 	{
-		obj = new LaserGuard_Bullet();
+		obj = new CLASER_BULLET();
 	}
 	break;
 	case OBJECT_TYPE_TANK_BODY:
@@ -562,6 +567,10 @@ void CPlayScene::Unload()
 	quadtree = nullptr;
 
 	delete quadtree;
+
+	CGame* game = CGame::GetInstance();
+
+	game->setFilming(false);
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }

@@ -26,31 +26,45 @@ void CEyelet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
 	// 
 
-	if (state != EYELET_STATE_ATTACK && playscene->IsInside(x, y, x + kill_point, y + 50, playscene->GetPlayer()->GetPositionX(), playscene->GetPlayer()->GetPositionY()) && kill_point >= 0)
+	if (!spammed && state == STATE_DIE)
 	{
-		moving_limit_bottom = this->y + 10;
-		moving_limit_top = this->y - MOVING_LIMIT_RANGE;
-		SetState(EYELET_STATE_ATTACK);
+		((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(x, y);
+		int chance = rand() % 100;
+		srand(time(NULL));
+		if (chance >= 70)
+			playscene->AddItemsMng(x, y, 0);
+		spammed = true;
 	}
-	else
-		if (state != EYELET_STATE_ATTACK && playscene->IsInside(x + kill_point, y, x, y + 50, playscene->GetPlayer()->GetPositionX(), playscene->GetPlayer()->GetPositionY()) && kill_point < 0)
+
+	if (state != STATE_DIE)
+	{
+
+		if (state != EYELET_STATE_ATTACK && playscene->IsInside(x, y, x + kill_point, y + 50, playscene->GetPlayer()->GetPositionX(), playscene->GetPlayer()->GetPositionY()) && kill_point >= 0)
 		{
 			moving_limit_bottom = this->y + 10;
 			moving_limit_top = this->y - MOVING_LIMIT_RANGE;
 			SetState(EYELET_STATE_ATTACK);
 		}
-	if (state == EYELET_STATE_ATTACK)
-	{
-		if (this->y <= moving_limit_top)
+		else
+			if (state != EYELET_STATE_ATTACK && playscene->IsInside(x + kill_point, y, x, y + 50, playscene->GetPlayer()->GetPositionX(), playscene->GetPlayer()->GetPositionY()) && kill_point < 0)
+			{
+				moving_limit_bottom = this->y + 10;
+				moving_limit_top = this->y - MOVING_LIMIT_RANGE;
+				SetState(EYELET_STATE_ATTACK);
+			}
+		if (state == EYELET_STATE_ATTACK)
 		{
-			this->vy = -EYELET_WALKING_SPEED;
+			if (this->y <= moving_limit_top)
+			{
+				this->vy = -EYELET_WALKING_SPEED;
+			}
+			if (this->y >= moving_limit_bottom)
+			{
+				this->vy = EYELET_WALKING_SPEED;
+			}
 		}
-		if (this->y >= moving_limit_bottom)
-		{
-			this->vy = EYELET_WALKING_SPEED;
-		}
-	}
 
+	}
 	x += dx;
 	y += dy;
 }

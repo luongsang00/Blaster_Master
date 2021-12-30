@@ -17,8 +17,9 @@
 #define CINTERRUPT_ANI_IDLE 0
 #define CINTERRUPT_ANI_OPEN 1
 
-
-
+#define CINTERRUPT_STATE_IDLE 100
+#define CINTERRUPT_STATE_DIE 200
+#define CINTERRUPT_STATE_WALKING 300
 
 
 class CInterrupt : public CGameObject

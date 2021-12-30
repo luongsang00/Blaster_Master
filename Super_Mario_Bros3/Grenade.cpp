@@ -15,7 +15,6 @@ void Grenade::GetBoundingBox(float& left, float& top, float& right, float& botto
 	left = x;
 	top = y;
 	right = x + CGRENADE_BBOX_WIDTH;
-
 	if (state == CGRENADE_STATE_DIE)
 		y = y + CGRENADE_BBOX_HEIGHT;
 	else bottom = y + CGRENADE_BBOX_HEIGHT;
@@ -27,12 +26,15 @@ void Grenade::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt, coObjects);
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
+	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 
 	coEvents.clear();
 
 	// turn off collision when die 
 	if (state != CGRENADE_STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
+
+
 	else
 	{
 		isUsed = false;
@@ -105,7 +107,7 @@ void Grenade::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (!dynamic_cast<CBrick*>(e->obj)) // if e->obj is Goomba
+			if (!dynamic_cast<CBrick*>(e->obj))
 			{
 				(e->obj)->SetState(STATE_DIE);
 				(e->obj)->SetisAlive(false);
@@ -119,12 +121,16 @@ void Grenade::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					SetState(CGRENADE_STATE_DIE);
 				}
 			}
+			if (!dynamic_cast<CBrick*>(e->obj) && !dynamic_cast<JaSon*>(e->obj))
+			{
+				if (playscene->IsInside(x - 50, y - 50, x + 50, y + 50, (e->obj)->GetPositionX(), (e->obj)->GetPositionY()))
+				{
+					(e->obj)->setheath((e->obj)->Getheath() - TANK_BULLET_DMG);
+				}
+			}
 		}
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-		if (x <= 0)
-			if (vx < 0)
-				vx = -vx;
 	}
 }
 

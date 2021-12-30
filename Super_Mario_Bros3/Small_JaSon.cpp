@@ -1,8 +1,8 @@
-#include "Small_JaSon.h"
 #include <algorithm>
 #include <assert.h>
 #include "Utils.h"
 
+#include "Small_JaSon.h"
 #include "Game.h"
 
 #include "PlayScene.h"
@@ -201,7 +201,7 @@ void Small_JaSon::CalcPotentialCollisions(
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (dynamic_cast<CTank_Bullet*>(e->obj) || dynamic_cast<CRedWorm*>(e->obj))
+		if (dynamic_cast<CTANKBULLET*>(e->obj) || dynamic_cast<CRedWorm*>(e->obj))
 		{
 			continue;
 		}
@@ -223,11 +223,12 @@ void Small_JaSon::CalcPotentialCollisions(
 			if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
-				if (portal->GetSceneId() != -1)
-					game->SwitchScene(portal->GetSceneId());
 				playscene->StartFilming();
 				game->setFilming(true);
-				playscene->setCamState(portal->GetCamState());
+				if (portal->GetCamState() != -1)
+					playscene->setCamState(portal->GetCamState());
+				if (portal->GetSceneId() != -1)
+					game->SwitchScene(portal->GetSceneId());
 				continue;
 			}
 			else

@@ -192,7 +192,7 @@ void CSoPhia::CalcPotentialCollisions(
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (dynamic_cast<CTank_Bullet*>(e->obj) || dynamic_cast<CRedWorm*>(e->obj))
+		if (dynamic_cast<CTANKBULLET*>(e->obj) || dynamic_cast<CRedWorm*>(e->obj))
 		{
 			continue;
 		}
@@ -218,9 +218,24 @@ void CSoPhia::CalcPotentialCollisions(
 				continue;
 			}
 			else
-			{
-				collisionEvents.push_back(e);
-			}
+				if (dynamic_cast<Drop*>(e->obj))
+				{
+					Drop* item = dynamic_cast<Drop*>(e->obj);
+					if (item->getType() == 0)
+					{
+						game->setheath(game->Getheath() + 100);
+					}
+					else
+					{
+						game->setattack(game->Getattack() + 100);
+					}
+					item->SetState(STATE_DIE);
+					continue;
+				}
+				else
+				{
+					collisionEvents.push_back(e);
+				}
 		}
 		else
 			delete e;

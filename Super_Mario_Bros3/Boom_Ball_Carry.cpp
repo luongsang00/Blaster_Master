@@ -1,5 +1,5 @@
 #include "Boom_Ball_Carry.h"
-#include "DefinePlayer.h"
+
 
 
 
@@ -17,7 +17,6 @@ void Boom_Ball_Carry::GetBoundingBox(float& left, float& top, float& right, floa
 	left = x;
 	top = y;
 	right = x + CREDWORM_BBOX_WIDTH;
-
 	if (state == CREDWORM_STATE_DIE)
 		y = y + CREDWORM_BBOX_HEIGHT;
 	else bottom = y + CREDWORM_BBOX_HEIGHT;

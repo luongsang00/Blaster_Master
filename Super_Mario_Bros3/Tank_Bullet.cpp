@@ -4,13 +4,13 @@
 #include "SOPHIA.h"
 #include "Brick.h"
 
-CTank_Bullet::CTank_Bullet()
+CTANKBULLET::CTANKBULLET()
 {
 	SetState(CTANKBULLET_STATE_FLYING);
 	nx = 0;
 }
 
-void CTank_Bullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CTANKBULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state != CTANKBULLET_STATE_DIE) {
 		left = x;
@@ -20,7 +20,7 @@ void CTank_Bullet::GetBoundingBox(float& left, float& top, float& right, float& 
 	}
 }
 
-void CTank_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if ((DWORD)GetTickCount64() - reset_start > CTANKBULLET_RESET_TIME)
 	{
@@ -93,8 +93,8 @@ void CTank_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (!dynamic_cast<CBrick*>(e->obj))
 			{
-				(e->obj)->SetState(STATE_DIE);
-				((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(e->obj->x, e->obj->y);
+				(e->obj)->setheath((e->obj)->Getheath() - TANK_BULLET_DMG);
+				//((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(e->obj->x, e->obj->y);
 				SetState(CTANKBULLET_STATE_DIE);
 			}
 			else
@@ -109,7 +109,7 @@ void CTank_Bullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CTank_Bullet::CalcPotentialCollisions(
+void CTANKBULLET::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -117,6 +117,14 @@ void CTank_Bullet::CalcPotentialCollisions(
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 		if (dynamic_cast<CSoPhia*>(e->obj))
+		{
+			continue;
+		}
+		if (dynamic_cast<Boom_Ball_Carry*>(e->obj))
+		{
+			continue;
+		}
+		if (dynamic_cast<Drop*>(e->obj))
 		{
 			continue;
 		}
@@ -128,7 +136,7 @@ void CTank_Bullet::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CTank_Bullet::Render()
+void CTANKBULLET::Render()
 {
 	if (isUsed)
 	{
@@ -158,7 +166,7 @@ void CTank_Bullet::Render()
 	}
 }
 
-void CTank_Bullet::SetState(int state)
+void CTANKBULLET::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

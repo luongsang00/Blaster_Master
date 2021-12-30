@@ -47,6 +47,8 @@
 #include "HP.h"
 #include "Cam.h"
 #include "Small_JaSon.h"
+#include "Drop.h"
+#include "Blue_Brick.h"
 
 #define QUADTREE_SECTION_SETTINGS	1
 #define QUADTREE_SECTION_OBJECTS	2
@@ -107,6 +109,7 @@ protected:
 	vector<CEvenType*> KaboomMng;
 	vector<CEvenType*> BoomCarryMng;
 	vector<CEvenType*> CGXMng;
+	vector<CEvenType*> ItemsMng;
 	vector<MapCamera*> MapCam;
 
 	int filming_duration = 1000;
@@ -171,6 +174,27 @@ public:
 	int getMapheight()
 	{
 		return mapHeight;
+	}
+
+	/////////////////ItemsMng
+	void AddItemsMng(float x, float y, int num)
+	{
+		CEvenType* obj = new CEvenType(x, y, num);
+		this->ItemsMng.push_back(obj);
+	}
+	CEvenType* GetItemsMng()
+	{
+		return ItemsMng.at(0);
+	}
+	bool CheckItemsMng()
+	{
+		if (ItemsMng.size() != 0)
+			return true;
+		return false;
+	}
+	void DeleteItemsMng()
+	{
+		this->ItemsMng.erase(ItemsMng.begin());
 	}
 	/////////////////CGXMng
 	void AddCGXMng(float x, float y, float vx, float vy)
